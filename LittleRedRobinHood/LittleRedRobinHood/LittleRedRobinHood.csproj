@@ -43,7 +43,7 @@
     <Compile Include="Component\Shackle.cs" />
     <Compile Include="Component\Sprite.cs" />
     <Compile Include="Component\Text.cs" />
-    <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="LittleRedRobinHoodGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
