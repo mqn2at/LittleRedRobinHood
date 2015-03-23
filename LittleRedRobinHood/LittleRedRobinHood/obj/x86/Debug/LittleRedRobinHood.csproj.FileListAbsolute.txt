@@ -8,3 +8,5 @@ C:\Users\Minh\Documents\Spring2015\Game Design\FinalProject\LittleRedRobinHood\L
 C:\Users\Minh\Documents\Spring2015\Game Design\FinalProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\LittleRedRobinHood.csprojResolveAssemblyReference.cache
 C:\Users\Minh\Documents\Spring2015\Game Design\FinalProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\LittleRedRobinHood.exe
 C:\Users\Minh\Documents\Spring2015\Game Design\FinalProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\LittleRedRobinHood.pdb
+C:\Users\Peter\GameDesignProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\LittleRedRobinHood.exe
+C:\Users\Peter\GameDesignProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\LittleRedRobinHood.pdb
