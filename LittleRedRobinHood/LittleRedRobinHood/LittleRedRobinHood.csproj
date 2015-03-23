@@ -41,6 +41,11 @@
     <Compile Include="LittleRedRobinHoodGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\AnimatedSpriteSystem.cs" />
+    <Compile Include="System\CameraSystem.cs" />
+    <Compile Include="System\CollisionSystem.cs" />
+    <Compile Include="System\ControlSystem.cs" />
+    <Compile Include="System\PathingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
