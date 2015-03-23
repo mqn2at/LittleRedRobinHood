@@ -36,11 +36,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Component\Collide.cs" />
+    <Compile Include="Component\Homing.cs" />
+    <Compile Include="Component\Patrol.cs" />
     <Compile Include="Component\Player.cs" />
+    <Compile Include="Component\Projectile.cs" />
+    <Compile Include="Component\Shackle.cs" />
+    <Compile Include="Component\Sprite.cs" />
+    <Compile Include="Component\Text.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="LittleRedRobinHoodGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\AnimatedSpriteSystem.cs" />
+    <Compile Include="System\CameraSystem.cs" />
+    <Compile Include="System\CollisionSystem.cs" />
+    <Compile Include="System\ControlSystem.cs" />
+    <Compile Include="System\PathingSystem.cs" />
     <Compile Include="Stage\Stage.cs" />
     <Compile Include="Stage\Tiled.cs" />
   </ItemGroup>
