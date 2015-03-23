@@ -35,6 +35,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Component\Collide.cs" />
+    <Compile Include="Component\Player.cs" />
+    <Compile Include="Entity\Entity.cs" />
     <Compile Include="LittleRedRobinHoodGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
