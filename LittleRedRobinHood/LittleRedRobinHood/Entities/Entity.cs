@@ -8,13 +8,19 @@ namespace LittleRedRobinHood.Entities
     class Entity
     {
         public readonly int entityID;
-        public readonly bool isPlayer;
-        public readonly bool isCollide;
-        public readonly bool isProjectile;
-        public readonly bool isShackle;
-        public readonly bool isPatrol;
-        public readonly bool isHoming;
-        public readonly bool isText;
+        public bool isPlayer;
+        public bool isCollide;
+        public bool isProjectile;
+        public bool isShackle;
+        public bool isPatrol;
+        public bool isHoming;
+        public bool isText;
+
+        public Entity(int id)
+        {
+            this.entityID = id;
+        }
+
         public Entity(int id, bool player, bool collide, bool projectile, bool shackled, bool patrol, bool homing, bool text)
         {
             this.entityID = id;

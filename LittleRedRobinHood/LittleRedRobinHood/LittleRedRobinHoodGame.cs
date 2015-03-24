@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using LittleRedRobinHood.Entities;
+using LittleRedRobinHood.Component;
 //using Microsoft.Xna.Framework.GamerServices;
 #endregion
 
@@ -19,6 +21,7 @@ namespace LittleRedRobinHood
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         List<Stage> stages;
+        ComponentManager manager;
         int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
@@ -37,9 +40,11 @@ namespace LittleRedRobinHood
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
             Stage stage1 = new Stage("mytest.tmx");
-            stages = new List<Stage>();
-            stages.Add(stage1);
+            this.stages = new List<Stage>();
+            this.stages.Add(stage1);
+            this.manager = new ComponentManager();
             base.Initialize();
         }
 

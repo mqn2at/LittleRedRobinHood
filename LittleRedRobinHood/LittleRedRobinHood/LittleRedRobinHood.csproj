@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ComponentManager.cs" />
     <Compile Include="Component\Collide.cs" />
     <Compile Include="Component\Homing.cs" />
     <Compile Include="Component\Patrol.cs" />
