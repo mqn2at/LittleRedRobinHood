@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Squared.Tiled;
 using System.IO;
+using Microsoft.Xna.Framework;
 
 namespace LittleRedRobinHood
 {
@@ -16,12 +17,12 @@ namespace LittleRedRobinHood
         private int height;
         private Texture2D background;
         private String tiled;
-        private SpriteBatch sb;
+        int num_Obj;
+        //private SpriteBatch sb;
         Map map;
-        public Stage(String til, int wid, int hei) {
+        public Stage(String til) {
             tiled = til;
-            width = wid;
-            height = hei;
+            
         }
         public int getWidth()
         {
@@ -31,12 +32,17 @@ namespace LittleRedRobinHood
         {
             return this.height;
         }
-        protected override void LoadContent()
+        public void LoadContent(ContentManager content)
         {
 
-            map = Map.Load(Path.Combine(Content.RootDirectory, "mytest.tmx"), Content);
-           // map = Map.Load(Path.Combine(Content.RootDirectory, tiled), Content);
-
+           // map = Map.Load(Path.Combine(content.RootDirectory, "mytest.tmx"), content);
+            map = Map.Load(Path.Combine(content.RootDirectory, tiled), content);
+            width = map.Width;
+            height = map.Height;
+        }
+        public void Draw(SpriteBatch sb, GraphicsDevice gd)
+        {
+            map.Draw(sb, new Rectangle(0, 0, gd.Viewport.Width, gd.Viewport.Height), new Vector2());
         }
         
     }

@@ -18,12 +18,14 @@ namespace LittleRedRobinHood
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        List<Stage> stages;
+        int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            
         }
 
         /// <summary>
@@ -35,7 +37,9 @@ namespace LittleRedRobinHood
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            Stage stage1 = new Stage("mytest.tmx");
+            stages = new List<Stage>();
+            stages.Add(stage1);
             base.Initialize();
         }
 
@@ -47,8 +51,13 @@ namespace LittleRedRobinHood
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            stages[0].LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
+        }
+        protected void LoadStage(int stageNum)
+        {
+            currentStage = stageNum;
+            stages[currentStage].LoadContent(this.Content);
         }
 
         /// <summary>
@@ -82,9 +91,10 @@ namespace LittleRedRobinHood
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
+            stages[currentStage].Draw(spriteBatch, GraphicsDevice);
             // TODO: Add your drawing code here
-
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
