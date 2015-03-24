@@ -6,6 +6,7 @@ using LittleRedRobinHood.Component;
 using LittleRedRobinHood.Entities;
 using LittleRedRobinHood.System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace LittleRedRobinHood
 {
@@ -56,8 +57,10 @@ namespace LittleRedRobinHood
             players.Add(id, temp);
         }
 
-        public void addCollide(int id)
+        public void addCollide(int id, Rectangle hb, bool enemy, bool shackle)
         {
+            Collide temp = new Collide(id, hb, enemy, shackle);
+            collides.Add(id, temp);
             entities[id].isCollide = true;
         }
 

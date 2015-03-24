@@ -45,6 +45,10 @@ namespace LittleRedRobinHood
             this.stages = new List<Stage>();
             this.stages.Add(stage1);
             this.manager = new ComponentManager();
+            int temp = this.manager.addEntity();
+            this.manager.addPlayer(temp);
+            this.manager.addSprite(temp, 100, 100, null);
+            this.manager.addCollide(temp, new Rectangle(200, 200, 100, 100), false, false);
             base.Initialize();
         }
 
