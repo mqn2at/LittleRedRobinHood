@@ -55,14 +55,28 @@ namespace LittleRedRobinHood.System
                             }
 
                             //X-collision
-                            //left side
-                            if (collideables[playerID].hitbox.X < collideables[objectID].hitbox.X)
+                            //left side of object
+                            if (collideables[playerID].hitbox.X + collideables[playerID].hitbox.Width > collideables[objectID].hitbox.X)
                             {
                                 collideables[playerID].hitbox.X = collideables[objectID].hitbox.X - collideables[playerID].hitbox.Width;
                             }
+                            //right side of object
+                            else if (collideables[playerID].hitbox.X < collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width)
+                            {
+                                collideables[playerID].hitbox.X = collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width;
+                            }
 
                             //Y-collision
-
+                            //bottom side of object
+                            else if (collideables[playerID].hitbox.Y < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
+                            {
+                                collideables[playerID].hitbox.Y = collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height;
+                            }
+                            //top side of object
+                            else if (collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height > collideables[objectID].hitbox.Y)
+                            {
+                                collideables[playerID].hitbox.Y = collideables[objectID].hitbox.Y - collideables[playerID].hitbox.Height;
+                            }
                         }
                     }
                 }
