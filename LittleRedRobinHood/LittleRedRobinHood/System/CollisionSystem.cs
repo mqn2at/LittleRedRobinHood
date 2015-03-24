@@ -9,7 +9,8 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public void collide(List<Entity> entities, Dictionary<int,Collide> collideables, Dictionary<int,Player> player, Dictionary<int,Shackle> shackles)
+        public void collide(List<Entity> entities, Dictionary<int,Collide> collideables, Dictionary<int,Player> player, 
+            Dictionary<int,Projectile> projectiles, Dictionary<int,Shackle> shackles)
         {
             for (int i = 0; i < entities.Count; i++)
             {
@@ -23,7 +24,10 @@ namespace LittleRedRobinHood.System
 
                     Collide collide1 = collideables[entities[i].entityID];
                     Collide collide2 = collideables[entities[j].entityID];
-                    if (collide1.hitbox.Intersects(collide2.hitbox))
+                    
+                    bool COLLIDED = collide1.hitbox.Intersects(collide2.hitbox);
+
+                    if (COLLIDED)
                     {
                         //Check if one entity is player and other is enemy
                         if((entities[i].isPlayer && collide2.isEnemy) || (entities[j].isPlayer && collide1.isEnemy)){
@@ -35,6 +39,26 @@ namespace LittleRedRobinHood.System
                             {
                                 player[entities[j].entityID].health--;
                             }
+                        }
+
+                        //Projectile collisions
+                        else if (entities[i].isProjectile ^ entities[j].isProjectile)
+                        {
+                            int projID = 0;
+                            int otherID = 0;
+
+                            if (entities[i].isProjectile)
+                            {
+                                projID = entities[i].entityID;
+                                otherID = entities[j].entityID;
+                            }
+                            else
+                            {
+                                projID = entities[j].entityID;
+                                otherID = entities[i].entityID;
+                            }
+
+                            //
                         }
 
                         //Check if one entity is player and other player is generic collideable
