@@ -41,7 +41,7 @@ namespace LittleRedRobinHood
         {
             // TODO: Add your initialization logic here
 
-            Stage stage1 = new Stage("mytest.tmx");
+            Stage stage1 = new Stage("stage1.tmx");
             this.stages = new List<Stage>();
             this.stages.Add(stage1);
             this.manager = new ComponentManager();
