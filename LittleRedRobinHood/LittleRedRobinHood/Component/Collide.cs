@@ -16,13 +16,11 @@ namespace LittleRedRobinHood.Component
         public readonly bool isShackleable;
         public readonly bool isEndPoint;
         public bool isShackled;
-        public Vector2 position;
         public Rectangle hitbox;
 
         public Collide(int id, Vector2 pos, Rectangle hb, bool enemy, bool shackleable, bool shackled)
         {
             this.entityID = id;
-            this.position = pos;
             this.hitbox = hb;
             this.isEnemy = enemy;
             this.isShackleable = shackleable;
@@ -33,7 +31,6 @@ namespace LittleRedRobinHood.Component
         public Collide(int id, Vector2 pos, Rectangle hb, bool enemy, bool shackleable, bool shackled, bool endPoint)
         {
             this.entityID = id;
-            this.position = pos;
             this.hitbox = hb;
             this.isEnemy = enemy;
             this.isShackleable = shackleable;
