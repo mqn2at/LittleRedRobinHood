@@ -20,3 +20,10 @@ C:\Users\Peter\GameDesignProject\LittleRedRobinHood\LittleRedRobinHood\LittleRed
 C:\Users\Peter\GameDesignProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\MonoGame.Framework.dll
 C:\Users\Peter\GameDesignProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\Peter\GameDesignProject\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\SDL.dll
+C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\LittleRedRobinHood.exe
+C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\LittleRedRobinHood.pdb
+C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\Tao.Sdl.dll

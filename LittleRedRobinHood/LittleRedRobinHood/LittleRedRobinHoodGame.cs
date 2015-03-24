@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using LittleRedRobinHood.Entities;
+using LittleRedRobinHood.Component;
 //using Microsoft.Xna.Framework.GamerServices;
 #endregion
 
@@ -19,6 +21,7 @@ namespace LittleRedRobinHood
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         List<Stage> stages;
+        ComponentManager manager;
         int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
@@ -37,9 +40,17 @@ namespace LittleRedRobinHood
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Stage stage1 = new Stage("mytest.tmx");
-            stages = new List<Stage>();
-            stages.Add(stage1);
+
+            Stage stage1 = new Stage("stage1.tmx");
+            this.stages = new List<Stage>();
+            this.stages.Add(stage1);
+            this.manager = new ComponentManager();
+            //create player MOVE TO LOADSTAGE LATER
+            int tempID = this.manager.addEntity();
+            this.manager.addPlayer(tempID);
+            this.manager.addSprite(tempID, 50, 50, this.Content.Load<Texture2D>("Sprite-Soda.png"));
+            this.manager.addCollide(tempID, new Rectangle(200, 200, 50, 50), false, false);
+            
             base.Initialize();
         }
 
@@ -93,6 +104,7 @@ namespace LittleRedRobinHood
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             stages[currentStage].Draw(spriteBatch, GraphicsDevice);
+            spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
             // TODO: Add your drawing code here
             spriteBatch.End();
             base.Draw(gameTime);

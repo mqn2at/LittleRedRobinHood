@@ -11,9 +11,11 @@ namespace LittleRedRobinHood.Component
         public readonly int width;
         public readonly int height;
         public readonly Texture2D sprite;
+        public readonly int entityID;
 
-        public Sprite(int width, int height, Texture2D sprite)
+        public Sprite(int id, int width, int height, Texture2D sprite)
         {
+            this.entityID = id;
             this.width = width;
             this.height = height;
             this.sprite = sprite;
