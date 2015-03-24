@@ -45,10 +45,12 @@ namespace LittleRedRobinHood
             this.stages = new List<Stage>();
             this.stages.Add(stage1);
             this.manager = new ComponentManager();
-            int temp = this.manager.addEntity();
-            this.manager.addPlayer(temp);
-            this.manager.addSprite(temp, 100, 100, null);
-            this.manager.addCollide(temp, new Rectangle(200, 200, 100, 100), false, false);
+            //create player MOVE TO LOADSTAGE LATER
+            int tempID = this.manager.addEntity();
+            this.manager.addPlayer(tempID);
+            this.manager.addSprite(tempID, 50, 50, this.Content.Load<Texture2D>("Sprite-Soda.png"));
+            this.manager.addCollide(tempID, new Rectangle(200, 200, 50, 50), false, false);
+            
             base.Initialize();
         }
 
@@ -102,6 +104,7 @@ namespace LittleRedRobinHood
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             stages[currentStage].Draw(spriteBatch, GraphicsDevice);
+            spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
             // TODO: Add your drawing code here
             spriteBatch.End();
             base.Draw(gameTime);

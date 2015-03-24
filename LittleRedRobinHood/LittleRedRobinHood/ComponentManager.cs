@@ -17,7 +17,7 @@ namespace LittleRedRobinHood
         private Dictionary<int, Collide> collides;
         private Dictionary<int, Player> players;
         private int maxID;
-        int playerID { get; set; }
+        public int playerID; // GET RID OF LATER
         public ComponentManager()
         {
             this.entities = new Dictionary<int, Entity>();
@@ -42,6 +42,11 @@ namespace LittleRedRobinHood
             return this.collides;
         }
 
+        public Dictionary<int, Player> getPlayers()
+        {
+            return this.players;
+        }
+
         public int addEntity()
         {
             Entity temp = new Entity(maxID);
@@ -55,6 +60,7 @@ namespace LittleRedRobinHood
             entities[id].isPlayer = true;
             Player temp = new Player(id);
             players.Add(id, temp);
+            this.playerID = id;
         }
 
         public void addCollide(int id, Rectangle hb, bool enemy, bool shackle)
