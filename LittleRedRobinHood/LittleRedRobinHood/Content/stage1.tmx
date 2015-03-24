@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="6">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="7">
  <properties>
   <property name="mapmeta" value="mapvalue"/>
  </properties>
  <tileset firstgid="1" name="Untitled" tilewidth="32" tileheight="32">
   <image source="tiles.png" width="256" height="32"/>
  </tileset>
- <layer name="background" width="25" height="15" >
+ <layer name="background" width="25" height="15">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC2NkYGBgHMWjeBSP4iGOWaF4KNjBRAcMAKZXMWzcBQAA
   </data>
  </layer>
- <objectgroup name="objects">
+ <objectgroup name="obstacles">
   <properties>
    <property name="objectmeta" value="objectvalue"/>
   </properties>
   <object id="3" name="box1" x="220" y="387" width="68" height="63">
    <properties>
     <property name="name" value="box1"/>
+   </properties>
+  </object>
+  <object id="6" name="ground" x="-5" y="446" width="811" height="52">
+   <properties>
+    <property name="name" value="ground"/>
    </properties>
   </object>
  </objectgroup>

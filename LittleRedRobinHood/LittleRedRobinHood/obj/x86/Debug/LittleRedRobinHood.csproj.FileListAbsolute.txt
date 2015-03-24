@@ -27,3 +27,14 @@ C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobin
 C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\MonoGame.Framework.dll
 C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\Boris\Source\Repos\LittleRedRobinHood\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\LittleRedRobinHood.exe
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\LittleRedRobinHood.pdb
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\Content\Sprite-Soda.png
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\SDL.dll
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\LittleRedRobinHood.exe
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\LittleRedRobinHood.pdb
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\KJ\Desktop\GIT\LittleRedRobinHood\LittleRedRobinHood\obj\x86\Debug\ResolveAssemblyReference.cache
