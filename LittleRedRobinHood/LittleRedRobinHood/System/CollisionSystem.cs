@@ -9,11 +9,11 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public void collide(List<Entity> entities, List<Collide> collideables)
+        public void collide(List<Entity> entities, Dictionary<int,Collide> collideables)
         {
-            for (int i = 0; i < collideables.Count - 1; i++)
+            for (int i = 0; i < entities.Count - 1; i++)
             {
-
+                //Collide collide1
             }
                 
         }
