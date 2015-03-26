@@ -9,98 +9,93 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public void collide(List<Entity> entities, Dictionary<int,Collide> collideables, Dictionary<int,Player> player, 
-            Dictionary<int,Projectile> projectiles, Dictionary<int,Shackle> shackles)
+        public void collide(ComponentManager componentManager)
         {
-            for (int i = 0; i < entities.Count; i++)
+            for (int i = 0; i < componentManager.getEntities().Count; i++)
             {
-                for (int j = i + 1; j < entities.Count; j++)
+                for (int j = i + 1; j < componentManager.getEntities().Count; j++)
                 {
                     //Check to see if two entities are collidable
-                    if (!entities[i].isCollide || !entities[j].isCollide)
+                    if (!componentManager.getEntities()[i].isCollide || !componentManager.getEntities()[j].isCollide)
                     {
                         break;
                     }
 
-                    Collide collide1 = collideables[entities[i].entityID];
-                    Collide collide2 = collideables[entities[j].entityID];
+                    Collide collide1 = componentManager.getCollides()[componentManager.getEntities()[i].entityID];
+                    Collide collide2 = componentManager.getCollides()[componentManager.getEntities()[j].entityID];
                     
                     bool COLLIDED = collide1.hitbox.Intersects(collide2.hitbox);
 
                     if (COLLIDED)
                     {
-                        //Check if one entity is player and other is enemy
-                        if((entities[i].isPlayer && collide2.isEnemy) || (entities[j].isPlayer && collide1.isEnemy)){
-                            //Player loses health
-                            if(entities[i].isPlayer){
-                                player[entities[i].entityID].health--;
-                            }
-                            if (entities[j].isPlayer)
-                            {
-                                player[entities[j].entityID].health--;
-                            }
-                        }
-
-                        //Projectile collisions
-                        else if (entities[i].isProjectile ^ entities[j].isProjectile)
-                        {
-                            int projID = 0;
-                            int otherID = 0;
-
-                            if (entities[i].isProjectile)
-                            {
-                                projID = entities[i].entityID;
-                                otherID = entities[j].entityID;
-                            }
-                            else
-                            {
-                                projID = entities[j].entityID;
-                                otherID = entities[i].entityID;
-                            }
-
-                            //DONE FOR COMMIT PURPOSES
-                        }
-
-                        //Check if one entity is player and other player is generic collideable
-                        else if ((entities[i].isPlayer && !entities[j].isShackle) || (entities[j].isPlayer && !entities[i].isShackle))
+                        //Player Collision
+                        if (componentManager.getEntities()[i].isPlayer || componentManager.getEntities()[j].isPlayer )
                         {
                             int playerID = 0;
                             int objectID = 0;
+                            int objectIndex = 0;
 
-                            if (entities[i].isPlayer)
+                            if (componentManager.getEntities()[i].isPlayer)
                             {
-                                playerID = entities[i].entityID;
-                                objectID = entities[j].entityID;
+                                playerID = componentManager.getEntities()[i].entityID;
+                                objectID = componentManager.getEntities()[j].entityID;
+                                objectIndex = j;
                             }
                             else
                             {
-                                playerID = entities[j].entityID;
-                                objectID = entities[i].entityID;
+                                playerID = componentManager.getEntities()[j].entityID;
+                                objectID = componentManager.getEntities()[i].entityID;
+                                objectIndex = i;
                             }
 
-                            //X-collision
-                            //left side of object
-                            if (collideables[playerID].hitbox.X + collideables[playerID].hitbox.Width > collideables[objectID].hitbox.X)
+                            //Player - Enemy Collision
+                            if (componentManager.getCollides()[objectID].isEnemy)
                             {
-                                collideables[playerID].hitbox.X = collideables[objectID].hitbox.X - collideables[playerID].hitbox.Width;
-                            }
-                            //right side of object
-                            else if (collideables[playerID].hitbox.X < collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width)
-                            {
-                                collideables[playerID].hitbox.X = collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width;
+                                componentManager.getPlayers()[playerID].health--;
                             }
 
-                            //Y-collision
-                            //bottom side of object
-                            else if (collideables[playerID].hitbox.Y < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
+                            //Player - Shackle Collision
+
+                            //Player - Object Collision
+                            else if (!componentManager.getEntities()[objectIndex].isShackle)
                             {
-                                collideables[playerID].hitbox.Y = collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height;
+                                Dictionary<int, Collide> collideables = componentManager.getCollides();
+                                //X-collision
+                                //left side of object
+                                if (collideables[playerID].hitbox.X + collideables[playerID].hitbox.Width > collideables[objectID].hitbox.X)
+                                {
+                                    componentManager.getCollides()[playerID].hitbox.X = collideables[objectID].hitbox.X - collideables[playerID].hitbox.Width;
+                                }
+                                //right side of object
+                                else if (collideables[playerID].hitbox.X < collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width)
+                                {
+                                    componentManager.getCollides()[playerID].hitbox.X = collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width;
+                                }
+
+                                //Y-collision
+                                //bottom side of object
+                                else if (collideables[playerID].hitbox.Y < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
+                                {
+                                    componentManager.getCollides()[playerID].hitbox.Y = collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height;
+                                }
+                                //top side of object
+                                else if (collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height > collideables[objectID].hitbox.Y)
+                                {
+                                    componentManager.getCollides()[playerID].hitbox.Y = collideables[objectID].hitbox.Y - collideables[playerID].hitbox.Height;
+                                }
                             }
-                            //top side of object
-                            else if (collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height > collideables[objectID].hitbox.Y)
-                            {
-                                collideables[playerID].hitbox.Y = collideables[objectID].hitbox.Y - collideables[playerID].hitbox.Height;
-                            }
+                        }
+
+                        //Projectile Collision
+                        else if (componentManager.getEntities()[i].isProjectile || componentManager.getEntities()[j].isProjectile)
+                        {
+                            //Arrow - Enemy Collision
+
+
+                            //Arrow - Shackle Platform Collision
+                            
+                            //Shackle - Shackleable Collision
+
                         }
                     }
                 }
