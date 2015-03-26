@@ -13,6 +13,7 @@ namespace LittleRedRobinHood.Component
     {
         public readonly int entityID;
         public readonly bool isEnemy;
+        public readonly bool isDamageable;
         public readonly bool isShackleable;
         public readonly bool isEndPoint;
         public bool isShackled;
@@ -23,6 +24,7 @@ namespace LittleRedRobinHood.Component
             this.entityID = id;
             this.hitbox = hb;
             this.isEnemy = enemy;
+            this.isDamageable = false;
             this.isShackleable = shackleable;
             this.isShackled = false; ;
             this.isEndPoint = false;
@@ -33,16 +35,29 @@ namespace LittleRedRobinHood.Component
             this.entityID = id;
             this.hitbox = hb;
             this.isEnemy = enemy;
+            this.isDamageable = false;
             this.isShackleable = shackleable;
             this.isShackled = shackled;
             this.isEndPoint = false;
         }
 
-        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, bool shackled, bool endPoint)
+        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, bool shackled, bool damageable)
         {
             this.entityID = id;
             this.hitbox = hb;
             this.isEnemy = enemy;
+            this.isDamageable = damageable;
+            this.isShackleable = shackleable;
+            this.isShackled = shackled;
+            this.isEndPoint = false;
+        }
+
+        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, bool shackled, bool damageable, bool endPoint)
+        {
+            this.entityID = id;
+            this.hitbox = hb;
+            this.isEnemy = enemy;
+            this.isDamageable = damageable;
             this.isShackleable = shackleable;
             this.isShackled = shackled;
             this.isEndPoint = endPoint;

@@ -93,7 +93,7 @@ namespace LittleRedRobinHood.System
 
                                 //Y-collision
                                 //bottom side of object
-                                if (collideables[playerID].hitbox.Y < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
+                                else if (collideables[playerID].hitbox.Y < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
                                 {
                                     Console.WriteLine("collide BOTTOM");
                                     componentManager.getCollides()[playerID].hitbox.Y = collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height;
