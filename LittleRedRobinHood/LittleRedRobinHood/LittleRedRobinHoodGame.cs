@@ -22,7 +22,7 @@ namespace LittleRedRobinHood
         SpriteBatch spriteBatch;
         List<Stage> stages;
         ComponentManager manager;
-        int currentStage = 0;
+        int currentStage = 1;
         public LittleRedRobinHoodGame()
             : base()
         {
@@ -42,15 +42,14 @@ namespace LittleRedRobinHood
             // TODO: Add your initialization logic here
 
             this.manager = new ComponentManager();
-            Stage stage1 = new Stage("stage1.tmx", this.manager);
+
+            //Create stages
             this.stages = new List<Stage>();
+            Stage stage1 = new Stage("stage1.tmx", this.manager);
             this.stages.Add(stage1);
-            //create player MOVE TO LOADSTAGE LATER
-            //int tempID = this.manager.addEntity();
-            //this.manager.addPlayer(tempID);
-            //this.manager.addSprite(tempID, 50, 50, this.Content.Load<Texture2D>("Sprite-Soda.png"));
-            //this.manager.addCollide(tempID, new Rectangle(200, 200, 50, 50), false, false);
-            
+            Stage stage2 = new Stage("stage2.tmx", this.manager);
+            this.stages.Add(stage2);
+
             base.Initialize();
         }
 
