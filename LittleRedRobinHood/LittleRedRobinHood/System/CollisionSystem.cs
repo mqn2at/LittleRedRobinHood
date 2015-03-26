@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using LittleRedRobinHood.Component;
 using LittleRedRobinHood.Entities;
+using Microsoft.Xna.Framework;
 
 namespace LittleRedRobinHood.System
 {
@@ -58,6 +59,17 @@ namespace LittleRedRobinHood.System
                             //Player - Shackle Collision
                             else if (componentManager.getEntities()[objectIndex].isShackle)
                             {
+                                int firstPointID = componentManager.getShackles()[objectID].firstPointID;
+                                int secondPointID = componentManager.getShackles()[objectID].secondPointID;
+
+                                Vector2 bottomPoint;
+                                Vector2 topPoint;
+
+
+                                //Vertical
+
+
+                                //Horizontal
 
                             }
 
