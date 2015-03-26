@@ -74,6 +74,7 @@ namespace LittleRedRobinHood
                 //What is this list?? Change it later
                 List<Vector2> what = new List<Vector2>();
                 cm.addPatrol(tempID, what, 0);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("wolf.png"));
             }
 
             //Add player at start
