@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
+using LittleRedRobinHood.Component;
+using LittleRedRobinHood.Entities;
 
 namespace LittleRedRobinHood.System
 {
@@ -21,10 +23,38 @@ namespace LittleRedRobinHood.System
             this.kbo = Keyboard.GetState();
         }
 
-        public void Update()
+        public void Update(ComponentManager cm)
         {
+            Player player = cm.getPlayers()[cm.playerID];
+            Collide pMove = cm.getCollides()[cm.playerID];
             kbo = kb;
             kb = Keyboard.GetState();
+            if (isPressed(Keys.D))
+            {
+                pMove.hitbox.X += 5;
+            }
+            else if (isPressed(Keys.A))
+            {
+                pMove.hitbox.X -= 5;
+            }
+            if (player.grounded)
+            {
+                player.dy = 0;
+                if (isPressed(Keys.Space) || isPressed(Keys.W))
+                {
+                    player.dy = -20;
+                    player.grounded = false;
+                }
+            }
+            else
+            {
+                if (player.dy < player.maxFall)
+                {
+                    player.dy += 1;
+                }
+                pMove.hitbox.Y += player.dy;
+            }
+
         }
 
         public bool isPressed(Keys key)
@@ -49,5 +79,6 @@ namespace LittleRedRobinHood.System
             //Console.WriteLine (button);
             return kb.IsKeyDown(key) && kbo.IsKeyDown(key);
         }
+
     }
 }

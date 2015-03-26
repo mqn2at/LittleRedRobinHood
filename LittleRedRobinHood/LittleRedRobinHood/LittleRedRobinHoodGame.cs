@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using LittleRedRobinHood.Entities;
 using LittleRedRobinHood.Component;
+using LittleRedRobinHood.System;
 //using Microsoft.Xna.Framework.GamerServices;
 #endregion
 
@@ -22,7 +23,9 @@ namespace LittleRedRobinHood
         SpriteBatch spriteBatch;
         List<Stage> stages;
         ComponentManager manager;
-        int currentStage = 1;
+        CollisionSystem colsys;
+        ControlSystem consys;
+        int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
         {
@@ -42,6 +45,8 @@ namespace LittleRedRobinHood
             // TODO: Add your initialization logic here
 
             this.manager = new ComponentManager();
+            colsys = new CollisionSystem();
+            consys = new ControlSystem();
 
             //Create stages
             this.stages = new List<Stage>();
@@ -88,8 +93,9 @@ namespace LittleRedRobinHood
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             // TODO: Add your update logic here
+            consys.Update(manager);
+            colsys.Update(manager);
 
             base.Update(gameTime);
         }
@@ -103,6 +109,10 @@ namespace LittleRedRobinHood
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             stages[currentStage].Draw(spriteBatch, GraphicsDevice);
+            Dictionary<int, Collide> collides = manager.getCollides();
+            foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
+                spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
+            }
             //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
             // TODO: Add your drawing code here
             spriteBatch.End();

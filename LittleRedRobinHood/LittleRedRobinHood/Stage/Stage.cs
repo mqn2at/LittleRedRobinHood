@@ -60,7 +60,9 @@ namespace LittleRedRobinHood
             //Change this to add the player and player sprite at this object's coordinates!
             tempID = cm.addEntity();
             cm.addPlayer(tempID);
-            start.Texture = content.Load<Texture2D>("Sprite-Soda.png");
+            cm.addCollide(tempID, new Rectangle(start.X, start.Y, start.Width, start.Height), false, false);
+            cm.addSprite(tempID, start.Width, start.Height, content.Load<Texture2D>("Sprite-Soda.png"));
+            //start.Texture = content.Load<Texture2D>("Sprite-Soda.png");
         }
 
         public void Draw(SpriteBatch sb, GraphicsDevice gd)

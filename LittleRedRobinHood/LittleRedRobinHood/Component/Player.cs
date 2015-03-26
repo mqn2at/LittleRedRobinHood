@@ -16,11 +16,14 @@ namespace LittleRedRobinHood.Component
         public bool grounded;
         public bool running;
         public bool jumping;
+        public int maxFall = 20;
+        public int dy;
         public Player(int id)
         {
             this.entityID = id;
             this.arrows = MAX_ARROWS;
             this.shackles = MAX_SHACKLES;
+            this.dy = 0;
             this.grounded = true;
             this.running = false;
             this.jumping = false;
