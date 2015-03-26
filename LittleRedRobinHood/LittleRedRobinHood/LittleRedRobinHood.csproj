@@ -55,6 +55,7 @@
     <Compile Include="System\PathingSystem.cs" />
     <Compile Include="Stage\Stage.cs" />
     <Compile Include="Stage\Tiled.cs" />
+    <Compile Include="System\ProjectileSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
