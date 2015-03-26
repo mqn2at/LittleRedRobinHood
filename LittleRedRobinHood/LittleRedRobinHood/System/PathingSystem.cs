@@ -49,13 +49,27 @@ namespace LittleRedRobinHood.System
                         {
                             componentManager.getCollides()[entityID].hitbox.X = x;
                             componentManager.getCollides()[entityID].hitbox.Y = y;
-                            componentManager.getPatrols()[entityID].currentDest++;
+                            if (path.Count == componentManager.getPatrols()[entityID].currentDest)
+                            {
+                                componentManager.getPatrols()[entityID].currentDest = 0;
+                            }
+                            else
+                            {
+                                componentManager.getPatrols()[entityID].currentDest++;
+                            }
                         }
                         else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                         {
                             componentManager.getCollides()[entityID].hitbox.X = x;
                             componentManager.getCollides()[entityID].hitbox.Y = y;
-                            componentManager.getPatrols()[entityID].currentDest++;
+                            if (path.Count == componentManager.getPatrols()[entityID].currentDest)
+                            {
+                                componentManager.getPatrols()[entityID].currentDest = 0;
+                            }
+                            else
+                            {
+                                componentManager.getPatrols()[entityID].currentDest++;
+                            }
                         }
                     }
                 }

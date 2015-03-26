@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +9,7 @@ namespace LittleRedRobinHood.System
 {
     class ProjectileSystem
     {
-        public void Update(ComponentManager componentManager)
+        public void Update(ComponentManager componentManager, GraphicsDevice gd)
         {
             for (int i = 0; i < componentManager.getEntities().Count; i++)
             {
@@ -20,11 +22,16 @@ namespace LittleRedRobinHood.System
                 int entityID = componentManager.getEntities()[i].entityID;
 
                 //Remove if out of bounds
-                if (false)
+                Rectangle rectangle = componentManager.getCollides()[entityID].hitbox;
+                if (rectangle.X > gd.Viewport.Width || rectangle.Y > gd.Viewport.Height ||
+                    rectangle.X + rectangle.Width < 0 || rectangle.Y + rectangle.Height < 0)
                 {
-
+                    componentManager.getProjectiles().Remove(entityID);
+                    componentManager.getSprites().Remove(entityID);
+                    componentManager.getCollides().Remove(entityID);
+                    componentManager.getEntities().Remove(entityID);
+                    //did not remove from shacklesPlatforms, players, and patrols
                 }
-
                 //Move Projectile
                 else
                 {
