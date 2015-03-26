@@ -27,8 +27,7 @@ namespace LittleRedRobinHood
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            
+            Content.RootDirectory = "../../../Content"; //this gets out of the Debug Content
         }
 
         /// <summary>
@@ -41,15 +40,15 @@ namespace LittleRedRobinHood
         {
             // TODO: Add your initialization logic here
 
-            Stage stage1 = new Stage("stage1.tmx");
+            this.manager = new ComponentManager();
+            Stage stage1 = new Stage("stage1.tmx", this.manager);
             this.stages = new List<Stage>();
             this.stages.Add(stage1);
-            this.manager = new ComponentManager();
             //create player MOVE TO LOADSTAGE LATER
-            int tempID = this.manager.addEntity();
-            this.manager.addPlayer(tempID);
-            this.manager.addSprite(tempID, 50, 50, this.Content.Load<Texture2D>("Sprite-Soda.png"));
-            this.manager.addCollide(tempID, new Rectangle(200, 200, 50, 50), false, false);
+            //int tempID = this.manager.addEntity();
+            //this.manager.addPlayer(tempID);
+            //this.manager.addSprite(tempID, 50, 50, this.Content.Load<Texture2D>("Sprite-Soda.png"));
+            //this.manager.addCollide(tempID, new Rectangle(200, 200, 50, 50), false, false);
             
             base.Initialize();
         }
@@ -104,7 +103,7 @@ namespace LittleRedRobinHood
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             stages[currentStage].Draw(spriteBatch, GraphicsDevice);
-            spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
+            //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
             // TODO: Add your drawing code here
             spriteBatch.End();
             base.Draw(gameTime);
