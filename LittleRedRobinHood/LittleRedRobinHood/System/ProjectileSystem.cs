@@ -23,8 +23,10 @@ namespace LittleRedRobinHood.System
 
 
                 //Move Projectile
-                componentManager.getCollides()[entityID].hitbox.X += componentManager.getProjectiles()[entityID].vx;
-                componentManager.getCollides()[entityID].hitbox.Y += componentManager.getProjectiles()[entityID].vy;
+                double dx = Math.Cos(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
+                double dy = Math.Sin(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
+                componentManager.getCollides()[entityID].hitbox.X += (int)dx;
+                componentManager.getCollides()[entityID].hitbox.Y += (int)dy;
             }
         }
     }
