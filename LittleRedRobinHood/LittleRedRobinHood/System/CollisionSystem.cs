@@ -56,6 +56,7 @@ namespace LittleRedRobinHood.System
 
                             //Player - Shackle Collision
 
+
                             //Player - Object Collision
                             else if (!componentManager.getEntities()[objectIndex].isShackle)
                             {
@@ -89,11 +90,30 @@ namespace LittleRedRobinHood.System
                         //Projectile Collision
                         else if (componentManager.getEntities()[i].isProjectile || componentManager.getEntities()[j].isProjectile)
                         {
+                            int projectileID = 0;
+                            int objectID = 0;
+                            int objectIndex = 0;
+
+                            if (componentManager.getEntities()[i].isProjectile)
+                            {
+                                projectileID = componentManager.getEntities()[i].entityID;
+                                objectID = componentManager.getEntities()[j].entityID;
+                                objectIndex = j;
+                            }
+                            else
+                            {
+                                projectileID = componentManager.getEntities()[j].entityID;
+                                objectID = componentManager.getEntities()[i].entityID;
+                                objectIndex = i;
+                            }
+                            
+                            
                             //Arrow - Enemy Collision
 
 
                             //Arrow - Shackle Platform Collision
                             
+
                             //Shackle - Shackleable Collision
 
                         }

@@ -16,6 +16,8 @@ namespace LittleRedRobinHood
         private Dictionary<int, Sprite> sprites;
         private Dictionary<int, Collide> collides;
         private Dictionary<int, Player> players;
+        private Dictionary<int, Projectile> projectiles;
+        private Dictionary<int, Shackle> shacklePlatforms;
         private int maxID;
         public int playerID; // GET RID OF LATER
         public ComponentManager()
@@ -45,6 +47,14 @@ namespace LittleRedRobinHood
         public Dictionary<int, Player> getPlayers()
         {
             return this.players;
+        }
+        public Dictionary<int, Projectile> getProjectiles()
+        {
+            return this.projectiles;
+        }
+        public Dictionary<int, Shackle> getShackles()
+        {
+            return this.shacklePlatforms;
         }
 
         public int addEntity()
@@ -76,5 +86,17 @@ namespace LittleRedRobinHood
             sprites.Add(id, temp);
         }
 
+        public void addProjectile(int id, bool isArrow, int vx, int vy)
+        {
+            Projectile temp = new Projectile(isArrow, vx, vy);
+            projectiles.Add(id, temp);
+            entities[id].isProjectile = true;
+        }
+
+        public void addShackle(int id, int fpID, int spID){
+            Shackle temp = new Shackle(id, fpID, spID);
+            shacklePlatforms.Add(id, temp);
+            entities[id].isShackle = true;
+        }
     }
 }
