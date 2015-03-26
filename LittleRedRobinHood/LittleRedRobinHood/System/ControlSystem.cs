@@ -29,14 +29,7 @@ namespace LittleRedRobinHood.System
             kb = Keyboard.GetState();
             Player player = cm.getPlayers()[cm.playerID];
             Collide pMove = cm.getCollides()[cm.playerID];
-            if (isPressed(Keys.D))
-            {
-                pMove.hitbox.X += 5;
-            }
-            else if (isPressed(Keys.A))
-            {
-                pMove.hitbox.X -= 5;
-            }
+            
             if (player.grounded)
             {
                 player.dy = 0;
@@ -53,6 +46,17 @@ namespace LittleRedRobinHood.System
                     player.dy += 1;
                 }
                 pMove.hitbox.Y += player.dy;
+            }
+
+            if (isPressed(Keys.D))
+            {
+                pMove.hitbox.X += 5;
+                player.grounded = false;
+            }
+            else if (isPressed(Keys.A))
+            {
+                pMove.hitbox.X -= 5;
+                player.grounded = false;
             }
 
         }
