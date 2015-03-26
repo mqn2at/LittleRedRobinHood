@@ -50,9 +50,9 @@ namespace LittleRedRobinHood
 
             //Create stages
             this.stages = new List<Stage>();
-            Stage stage1 = new Stage("stage1.tmx", this.manager);
+            Stage stage1 = new Stage("stage0.tmx", this.manager);
             this.stages.Add(stage1);
-            Stage stage2 = new Stage("stage2.tmx", this.manager);
+            Stage stage2 = new Stage("stage1.tmx", this.manager);
             this.stages.Add(stage2);
 
             base.Initialize();
@@ -66,7 +66,7 @@ namespace LittleRedRobinHood
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            stages[0].LoadContent(this.Content);
+            stages[currentStage].LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
         }
         protected void LoadStage(int stageNum)
