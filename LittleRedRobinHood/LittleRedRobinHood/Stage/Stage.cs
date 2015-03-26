@@ -16,6 +16,8 @@ namespace LittleRedRobinHood
         //private List<Entity> entityList;
         private ComponentManager cm;
         private SortedList<string, Squared.Tiled.Object> obstacles;
+        private SortedList<string, Squared.Tiled.Object> shackleables;
+        private SortedList<string, Squared.Tiled.Object> enemies;
         private Squared.Tiled.Object start;
         private Squared.Tiled.Object finish;
         private int width;
@@ -55,14 +57,36 @@ namespace LittleRedRobinHood
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
             }
 
-            //Add start and finish points
+            //Add shackleable objects
+            shackleables = map.ObjectGroups["shackleables"].Objects;
+            foreach (Squared.Tiled.Object o in shackleables.Values)
+            {
+                tempID = cm.addEntity();
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true);
+            }
+
+            //Add all enemies
+            enemies = map.ObjectGroups["enemies"].Objects;
+            foreach (Squared.Tiled.Object o in enemies.Values)
+            {
+                tempID = cm.addEntity();
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
+                //What is this list?? Change it later
+                List<Vector2> what = new List<Vector2>();
+                cm.addPatrol(tempID, what, 0);
+            }
+
+            //Add player at start
             start = map.ObjectGroups["startFinish"].Objects["start"];
-            //Change this to add the player and player sprite at this object's coordinates!
             tempID = cm.addEntity();
             cm.addPlayer(tempID);
             cm.addCollide(tempID, new Rectangle(start.X, start.Y, start.Width, start.Height), false, false);
             cm.addSprite(tempID, start.Width, start.Height, content.Load<Texture2D>("Sprite-Soda.png"));
-            //start.Texture = content.Load<Texture2D>("Sprite-Soda.png");
+            
+            //Add finish collidable
+            finish = map.ObjectGroups["startFinish"].Objects["finish"];
+            tempID = cm.addEntity();
+            cm.addCollide(tempID, new Rectangle(finish.X, finish.Y, finish.Width, finish.Height), false, false);
         }
 
         public void Draw(SpriteBatch sb, GraphicsDevice gd)

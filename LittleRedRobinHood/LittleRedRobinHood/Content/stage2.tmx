@@ -38,7 +38,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="shackleable"/>
+ <objectgroup name="shackleables"/>
  <objectgroup name="enemies">
   <object id="17" name="enemy1" x="273" y="345" width="34" height="31">
    <properties>

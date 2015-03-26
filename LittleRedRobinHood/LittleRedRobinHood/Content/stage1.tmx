@@ -43,7 +43,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="shackleable">
+ <objectgroup name="shackleables">
   <object id="15" name="shackleable1" x="318" y="349" width="33" height="32">
    <properties>
     <property name="name" value="shackleable1"/>
@@ -55,4 +55,5 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="enemies"/>
 </map>

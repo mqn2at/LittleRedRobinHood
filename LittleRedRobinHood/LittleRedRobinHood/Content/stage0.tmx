@@ -43,4 +43,6 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="enemies"/>
+ <objectgroup name="shackleables"/>
 </map>
