@@ -25,10 +25,10 @@ namespace LittleRedRobinHood.System
 
         public void Update(ComponentManager cm)
         {
-            Player player = cm.getPlayers()[cm.playerID];
-            Collide pMove = cm.getCollides()[cm.playerID];
             kbo = kb;
             kb = Keyboard.GetState();
+            Player player = cm.getPlayers()[cm.playerID];
+            Collide pMove = cm.getCollides()[cm.playerID];
             if (isPressed(Keys.D))
             {
                 pMove.hitbox.X += 5;
