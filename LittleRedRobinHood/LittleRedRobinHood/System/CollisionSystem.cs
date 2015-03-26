@@ -9,7 +9,7 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public void collide(ComponentManager componentManager)
+        public void Update(ComponentManager componentManager)
         {
             for (int i = 0; i < componentManager.getEntities().Count; i++)
             {
@@ -18,7 +18,7 @@ namespace LittleRedRobinHood.System
                     //Check to see if two entities are collidable
                     if (!componentManager.getEntities()[i].isCollide || !componentManager.getEntities()[j].isCollide)
                     {
-                        break;
+                        continue;
                     }
 
                     Collide collide1 = componentManager.getCollides()[componentManager.getEntities()[i].entityID];
@@ -52,10 +52,14 @@ namespace LittleRedRobinHood.System
                             if (componentManager.getCollides()[objectID].isEnemy)
                             {
                                 componentManager.getPlayers()[playerID].health--;
+                                //ADD SOME SORT OF PUSHING
                             }
 
                             //Player - Shackle Collision
+                            else if (componentManager.getEntities()[objectIndex].isShackle)
+                            {
 
+                            }
 
                             //Player - Object Collision
                             else if (!componentManager.getEntities()[objectIndex].isShackle)
@@ -106,16 +110,28 @@ namespace LittleRedRobinHood.System
                                 objectID = componentManager.getEntities()[i].entityID;
                                 objectIndex = i;
                             }
-                            
-                            
-                            //Arrow - Enemy Collision
+
+                            //Arrow Collision
+                            if (componentManager.getProjectiles()[projectileID].isArrow)
+                            {
+                                //Arrow - Damageable Enemy Collision NEED TO ADD DAMAGE
+                                ///if (componentManager.getCollides()[objectID].)
+
+                                //Arrow - Shackle Platform Collision
+                                if (componentManager.getEntities()[objectIndex].isShackle)
+                                {
+                                    //Detect Collision
 
 
-                            //Arrow - Shackle Platform Collision
-                            
+                                    //Remove shackle
+                                }
+                            }
 
                             //Shackle - Shackleable Collision
-
+                            else if (!componentManager.getProjectiles()[projectileID].isArrow && componentManager.getCollides()[objectID].isShackleable)
+                            {
+                                //Check to see if 
+                            }
                         }
                     }
                 }
