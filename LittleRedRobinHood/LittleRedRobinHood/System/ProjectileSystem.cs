@@ -20,13 +20,19 @@ namespace LittleRedRobinHood.System
                 int entityID = componentManager.getEntities()[i].entityID;
 
                 //Remove if out of bounds
+                if (false)
+                {
 
+                }
 
                 //Move Projectile
-                double dx = Math.Cos(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
-                double dy = Math.Sin(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
-                componentManager.getCollides()[entityID].hitbox.X += (int)dx;
-                componentManager.getCollides()[entityID].hitbox.Y += (int)dy;
+                else
+                {
+                    double dx = Math.Cos(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
+                    double dy = Math.Sin(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
+                    componentManager.getCollides()[entityID].hitbox.X += (int)dx;
+                    componentManager.getCollides()[entityID].hitbox.Y += (int)dy;
+                }
             }
         }
     }
