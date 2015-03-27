@@ -25,6 +25,7 @@ namespace LittleRedRobinHood
         ComponentManager manager;
         CollisionSystem colsys;
         ControlSystem consys;
+        ProjectileSystem projsys;
         int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
@@ -44,9 +45,10 @@ namespace LittleRedRobinHood
         {
             // TODO: Add your initialization logic here
 
-            this.manager = new ComponentManager();
+            this.manager = new ComponentManager(this.Content);
             colsys = new CollisionSystem();
             consys = new ControlSystem();
+            projsys = new ProjectileSystem();
 
             //Create stages
             this.stages = new List<Stage>();
@@ -95,6 +97,7 @@ namespace LittleRedRobinHood
                 Exit();
             // TODO: Add your update logic here
             consys.Update(manager);
+            projsys.Update(manager);
             colsys.Update(manager);
 
             base.Update(gameTime);

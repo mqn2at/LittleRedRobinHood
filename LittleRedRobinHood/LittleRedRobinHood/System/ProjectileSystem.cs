@@ -9,6 +9,7 @@ namespace LittleRedRobinHood.System
     {
         public void Update(ComponentManager componentManager)
         {
+            /*
             for (int i = 0; i < componentManager.getEntities().Count; i++)
             {
                 //Ignore if not projectile
@@ -34,6 +35,7 @@ namespace LittleRedRobinHood.System
                     componentManager.getCollides()[entityID].hitbox.Y += (int)dy;
                 }
             }
+            */
         }
     }
 }

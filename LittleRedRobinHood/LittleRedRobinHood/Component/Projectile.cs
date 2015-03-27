@@ -11,7 +11,7 @@ namespace LittleRedRobinHood.Component
         public readonly double angle;
         public readonly int speed;
 
-        public Projectile(bool arrow, int ang, int spd)
+        public Projectile(bool arrow, double ang, int spd)
         {
             this.isArrow = arrow;
             this.angle = ang;

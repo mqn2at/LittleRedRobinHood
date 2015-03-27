@@ -7,6 +7,7 @@ using LittleRedRobinHood.Entities;
 using LittleRedRobinHood.System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace LittleRedRobinHood
 {
@@ -21,7 +22,8 @@ namespace LittleRedRobinHood
         private Dictionary<int, Patrol> patrols;
         private int maxID;
         public int playerID; // GET RID OF LATER
-        public ComponentManager()
+        public ContentManager conman;
+        public ComponentManager(ContentManager cm)
         {
             this.entities = new Dictionary<int, Entity>();
             this.sprites = new Dictionary<int, Sprite>();
@@ -31,6 +33,7 @@ namespace LittleRedRobinHood
             this.shacklePlatforms = new Dictionary<int, Shackle>();
             this.patrols = new Dictionary<int, Patrol>();
             this.maxID = 0;
+            this.conman = cm;
         }
 
         public Dictionary<int, Entity> getEntities()
@@ -94,9 +97,9 @@ namespace LittleRedRobinHood
             sprites.Add(id, temp);
         }
 
-        public void addProjectile(int id, bool isArrow, int vx, int vy)
+        public void addProjectile(int id, bool isArrow, double angle, int speed)
         {
-            Projectile temp = new Projectile(isArrow, vx, vy);
+            Projectile temp = new Projectile(isArrow, angle, speed);
             projectiles.Add(id, temp);
             entities[id].isProjectile = true;
         }
