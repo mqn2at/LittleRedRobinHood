@@ -143,7 +143,7 @@ namespace LittleRedRobinHood.System
                                 //top side of object
                                 else if (playerHitbox.Y + playerHitbox.Height > objectHitbox.Y
                                     && playerHitbox.Y + playerHitbox.Height < objectHitbox.Y + objectHitbox.Height
-                                    && playerHitbox.Y + (int)(0.7 * playerHitbox.Height) < objectHitbox.Y)
+                                    && playerHitbox.Y + (int)(0.73 * playerHitbox.Height) < objectHitbox.Y)
                                 {
                                     componentManager.getPlayers()[playerID].grounded = true;
                                     componentManager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
