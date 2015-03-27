@@ -83,7 +83,7 @@ namespace LittleRedRobinHood.System
                             }
 
                             //Player - Object Collision
-                            else if (!componentManager.getEntities()[objectIndex].isShackle)
+                            else if (!componentManager.getEntities()[objectIndex].isShackle && !componentManager.getEntities()[objectIndex].isProjectile)
                             {
                                 Dictionary<int, Collide> collideables = componentManager.getCollides();
                                 Rectangle playerHitbox = collideables[playerID].hitbox;
