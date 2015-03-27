@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LittleRedRobinHood.Entities;
 
 namespace LittleRedRobinHood.System
 {
@@ -11,15 +12,17 @@ namespace LittleRedRobinHood.System
     {
         public void Update(ComponentManager componentManager, GraphicsDevice gd)
         {
-            for (int i = 0; i < componentManager.getEntities().Count; i++)
+            
+            foreach (KeyValuePair<int, Entity> ent in componentManager.getEntities())
             {
+                
                 //Ignore if not projectile
-                if (!componentManager.getEntities()[i].isProjectile)
+                if (!ent.Value.isProjectile) 
                 {
                     continue;
                 }
 
-                int entityID = componentManager.getEntities()[i].entityID;
+                int entityID = ent.Value.entityID;
 
                 //Remove if out of bounds
                 Rectangle rectangle = componentManager.getCollides()[entityID].hitbox;
@@ -41,6 +44,7 @@ namespace LittleRedRobinHood.System
                     componentManager.getCollides()[entityID].hitbox.Y += (int)dy;
                 }
             }
+            
         }
     }
 }
