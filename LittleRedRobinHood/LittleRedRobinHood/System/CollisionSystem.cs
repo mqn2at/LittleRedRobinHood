@@ -86,40 +86,39 @@ namespace LittleRedRobinHood.System
                             else if (!componentManager.getEntities()[objectIndex].isShackle)
                             {
                                 Dictionary<int, Collide> collideables = componentManager.getCollides();
-                                
+                                Rectangle playerHitbox = collideables[playerID].hitbox;
+                                Rectangle objectHitbox = collideables[objectID].hitbox;
                                 //Y-collision
                                 //bottom side of object
-                                if (collideables[playerID].hitbox.Y < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height
-                                    && collideables[playerID].hitbox.Y > collideables[objectID].hitbox.Y
-                                    && collideables[playerID].hitbox.Y + (int)(0.5 * collideables[playerID].hitbox.Height) > collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
+                                if (playerHitbox.Y < objectHitbox.Y + objectHitbox.Height 
+                                    && playerHitbox.Y > objectHitbox.Y
+                                    && playerHitbox.Y + (int)(0.5 * playerHitbox.Height) > objectHitbox.Y + objectHitbox.Height)
                                 {
-                                    Console.WriteLine("collide BOTTOM " + collideables[playerID].hitbox.Y + " | " + collideables[objectID].hitbox.Y + " | " + collideables[objectID].hitbox.Height);
-                                    componentManager.getCollides()[playerID].hitbox.Y = collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height;
+                                    componentManager.getCollides()[playerID].hitbox.Y = objectHitbox.Y + objectHitbox.Height;
                                 }
                                 //top side of object
-                                else if (collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height > collideables[objectID].hitbox.Y
-                                    && collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height
-                                    && collideables[playerID].hitbox.Y + (int)(0.5 * collideables[playerID].hitbox.Height) < collideables[objectID].hitbox.Y)
+                                else if (playerHitbox.Y + playerHitbox.Height > objectHitbox.Y
+                                    && playerHitbox.Y + playerHitbox.Height < objectHitbox.Y + objectHitbox.Height
+                                    && playerHitbox.Y + (int)(0.5 * playerHitbox.Height) < objectHitbox.Y)
                                 {
                                     componentManager.getPlayers()[playerID].grounded = true;
-                                    Console.WriteLine("collide TOP");
-                                    componentManager.getCollides()[playerID].hitbox.Y = collideables[objectID].hitbox.Y - collideables[playerID].hitbox.Height;
+                                    componentManager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
                                 }
                                 
                                 //X-collision
                                 //left side of object
-                                else if (collideables[playerID].hitbox.X + collideables[playerID].hitbox.Width > collideables[objectID].hitbox.X
-                                    && collideables[playerID].hitbox.X + collideables[playerID].hitbox.Width < collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width)
+                                else if (playerHitbox.X + playerHitbox.Width > objectHitbox.X
+                                    && playerHitbox.X + playerHitbox.Width < objectHitbox.X + collideables[objectID].hitbox.Width)
                                 {
                                     Console.WriteLine("collide LEFT");
-                                    componentManager.getCollides()[playerID].hitbox.X = collideables[objectID].hitbox.X - collideables[playerID].hitbox.Width;
+                                    componentManager.getCollides()[playerID].hitbox.X = objectHitbox.X - playerHitbox.Width;
                                 }
                                 //right side of object
-                                else if (collideables[playerID].hitbox.X < collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width
-                                    && collideables[playerID].hitbox.X > collideables[objectID].hitbox.X)
+                                else if (playerHitbox.X < objectHitbox.X + objectHitbox.Width
+                                    && playerHitbox.X > objectHitbox.X)
                                 {
                                     Console.WriteLine("collide RIGHT");
-                                    componentManager.getCollides()[playerID].hitbox.X = collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width;
+                                    componentManager.getCollides()[playerID].hitbox.X = objectHitbox.X + objectHitbox.Width;
                                 }
                             }
                         }
