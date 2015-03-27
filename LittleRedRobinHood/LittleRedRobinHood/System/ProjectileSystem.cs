@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LittleRedRobinHood.Entities;
+using LittleRedRobinHood.Component;
 
 namespace LittleRedRobinHood.System
 {
@@ -43,6 +44,23 @@ namespace LittleRedRobinHood.System
             }
             foreach (int id in toBeRemoved)
             {
+                Player player = componentManager.getPlayers()[componentManager.playerID];
+                if (componentManager.getProjectiles()[id].isArrow)
+                {
+                    if (player.MAX_ARROWS > player.arrows)
+                    {
+                        Console.WriteLine("+1 arrow");
+                        player.arrows += 1;
+                    }
+                }
+                else
+                {
+                    if (player.MAX_SHACKLES > player.shackles)
+                    {
+                        Console.WriteLine("+1 shackle");
+                        player.shackles += 1;
+                    }
+                }
                 componentManager.getProjectiles().Remove(id);
                 componentManager.getSprites().Remove(id);
                 componentManager.getCollides().Remove(id);
