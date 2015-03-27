@@ -5,12 +5,13 @@ using System.Text;
 using LittleRedRobinHood.Component;
 using LittleRedRobinHood.Entities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public bool Update(ComponentManager componentManager)
+        public bool Update(ComponentManager componentManager, GraphicsDevice gd)
         {
             
             int[] entityList = componentManager.getEntities().Keys.ToArray();
@@ -66,21 +67,63 @@ namespace LittleRedRobinHood.System
                                 //ADD SOME SORT OF PUSHING
                             }
 
-                            //Player - Shackle Collision
+                            //Player - Shackle Collision WILL NEED TO BE IMPROVED
+                            //Currently not accounting for shackles as walls
                             else if (componentManager.getEntities()[objectIndex].isShackle)
                             {
                                 int firstPointID = componentManager.getShackles()[objectID].firstPointID;
                                 int secondPointID = componentManager.getShackles()[objectID].secondPointID;
 
-                                Vector2 bottomPoint;
                                 Vector2 topPoint;
+                                Vector2 bottomPoint;
+
+                                if(componentManager.getCollides()[firstPointID].hitbox.Y > componentManager.getCollides()[secondPointID].hitbox.Y){
+                                    Rectangle topRect = componentManager.getCollides()[secondPointID].hitbox;
+                                    Rectangle bottomRect = componentManager.getCollides()[firstPointID].hitbox;
+                                    topPoint = new Vector2(topRect.X + (int)(topRect.Width / 2.0), topRect.Y + (int)(topRect.Height / 2.0));
+                                    bottomPoint = new Vector2(bottomRect.X + (int)(bottomRect.Width / 2.0), bottomRect.Y + (int)(bottomRect.Height / 2.0));
+                                }
+                                else
+                                {
+                                    Rectangle topRect = componentManager.getCollides()[firstPointID].hitbox;
+                                    Rectangle bottomRect = componentManager.getCollides()[secondPointID].hitbox;
+                                    topPoint = new Vector2(topRect.X + (int)(topRect.Width / 2.0), topRect.Y + (int)(topRect.Height / 2.0));
+                                    bottomPoint = new Vector2(bottomRect.X + (int)(bottomRect.Width / 2.0), bottomRect.Y + (int)(bottomRect.Height / 2.0));
+                                }
+                                //To translate from image coordinates to normal coordinates
+                                topPoint.Y = gd.Viewport.Height - topPoint.Y;
+                                bottomPoint.Y = gd.Viewport.Height - bottomPoint.Y;
+
+                                double slope = (double)(topPoint.Y - bottomPoint.Y) / (double)(topPoint.X - bottomPoint.X);
+                                Rectangle playerCollide = componentManager.getCollides()[playerID].hitbox;
+                                int playerMidX = playerCollide.X + (int)(playerCollide.Width / 2.0);
+                                Vector2 playerTop = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y);
+                                Vector2 playerBottom = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y + playerCollide.Height);
+
+                                //Vertical shackle platform
 
 
-                                //Vertical
-
-
-                                //Horizontal
-
+                                //Horizontal shackle platform
+                                if (Math.Min(topPoint.X, bottomPoint.X) < playerMidX && playerMidX < Math.Max(topPoint.X, bottomPoint.X)
+                                    && componentManager.getPlayers()[componentManager.playerID].dy >= 0)
+                                {
+                                    //Find point on shackle platform that is at the middle of the player's width
+                                    double shackleY = slope * (double)(playerMidX - bottomPoint.X) + bottomPoint.Y;
+                                    double playerMidY = (double)(playerTop.Y + playerBottom.Y) / 2.0;
+                                    
+                                    //Player on top of shackle
+                                    if (shackleY < playerMidY)
+                                    {
+                                        componentManager.getCollides()[playerID].hitbox.Y = (gd.Viewport.Height - (int)shackleY) - playerCollide.Height;
+                                        componentManager.getPlayers()[playerID].grounded = true;
+                                    }
+                                    //Player on bottom of shackle
+                                    else
+                                    {
+                                        Console.WriteLine("PLAYER BELOW SHACKLE: " + ((gd.Viewport.Height - (int)shackleY) - playerCollide.Height));
+                                        componentManager.getCollides()[playerID].hitbox.Y = gd.Viewport.Height - (int)shackleY;
+                                    }
+                                }
                             }
 
                             //Player - Object Collision
@@ -162,6 +205,12 @@ namespace LittleRedRobinHood.System
 
                                     //Remove shackle
                                     toBeRemoved.Add(objectEntity.entityID);
+
+                                    //Unshackle objects
+                                    int firstUnshackled = componentManager.getShackles()[objectEntity.entityID].firstPointID;
+                                    int secondUnshackled = componentManager.getShackles()[objectEntity.entityID].secondPointID;
+                                    componentManager.getCollides()[firstUnshackled].isShackled = false;
+                                    componentManager.getCollides()[secondUnshackled].isShackled = false;
                                 }
                                 toBeRemoved.Add(projectileID);
                                 componentManager.getPlayers()[componentManager.playerID].arrows += 1;

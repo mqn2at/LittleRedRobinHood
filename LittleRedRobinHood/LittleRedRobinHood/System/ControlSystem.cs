@@ -52,6 +52,7 @@ namespace LittleRedRobinHood.System
                 if (isPressed(Keys.Space) || isPressed(Keys.W) || isPressed(Keys.Up))
                 {
                     player.dy -= JUMP;
+                    player.jumping = true;
                     player.grounded = false;
                 }
             }

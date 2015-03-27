@@ -111,12 +111,12 @@ namespace LittleRedRobinHood
             projsys.Update(manager, GraphicsDevice);
             pathsys.Update(manager);
 
-            if (colsys.Update(manager))
+            if (colsys.Update(manager, GraphicsDevice))
             {
                 currentStage = (currentStage + 1) % 3;
                 LoadStage(currentStage);
             }
-
+            Console.WriteLine(manager.getPlayers()[manager.playerID].grounded); ///
             base.Update(gameTime);
         }
 
@@ -140,9 +140,10 @@ namespace LittleRedRobinHood
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        //FIX THE DRAWING THE SHACKLES
         protected void DrawShackle()
         {
-            Console.WriteLine("Drawing this many shackles: " + manager.getShackles().Count);
             foreach (KeyValuePair<int, Shackle> shackle in manager.getShackles())
             {
                 Rectangle rectangle1 = manager.getCollides()[shackle.Value.firstPointID].hitbox;
