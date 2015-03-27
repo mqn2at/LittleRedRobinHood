@@ -12,41 +12,43 @@ namespace LittleRedRobinHood.System
     {
         public bool Update(ComponentManager componentManager)
         {
-            for (int i = 0; i < componentManager.getEntities().Count; i++)
+            
+            int[] entityList = componentManager.getEntities().Keys.ToArray();
+            for (int i = 0; i < entityList.Count(); i++)
             {
-                for (int j = i + 1; j < componentManager.getEntities().Count; j++)
+                for (int j = i + 1; j < entityList.Count(); j++)
                 {
                     //Check to see if two entities are collidable
-                    if (!componentManager.getEntities()[i].isCollide || !componentManager.getEntities()[j].isCollide)
+                    if (!componentManager.getEntities()[entityList[i]].isCollide || !componentManager.getEntities()[entityList[j]].isCollide)
                     {
                         continue;
                     }
 
-                    Collide collide1 = componentManager.getCollides()[componentManager.getEntities()[i].entityID];
-                    Collide collide2 = componentManager.getCollides()[componentManager.getEntities()[j].entityID];
+                    Collide collide1 = componentManager.getCollides()[componentManager.getEntities()[entityList[i]].entityID];
+                    Collide collide2 = componentManager.getCollides()[componentManager.getEntities()[entityList[j]].entityID];
                     
                     bool COLLIDED = collide1.hitbox.Intersects(collide2.hitbox);
 
                     if (COLLIDED)
                     {
                         //Player Collision
-                        if (componentManager.getEntities()[i].isPlayer || componentManager.getEntities()[j].isPlayer )
+                        if (componentManager.getEntities()[entityList[i]].isPlayer || componentManager.getEntities()[entityList[j]].isPlayer)
                         {
                             int playerID = 0;
                             int objectID = 0;
                             int objectIndex = 0;
 
-                            if (componentManager.getEntities()[i].isPlayer)
+                            if (componentManager.getEntities()[entityList[i]].isPlayer)
                             {
-                                playerID = componentManager.getEntities()[i].entityID;
-                                objectID = componentManager.getEntities()[j].entityID;
-                                objectIndex = j;
+                                playerID = componentManager.getEntities()[entityList[i]].entityID;
+                                objectID = componentManager.getEntities()[entityList[j]].entityID;
+                                objectIndex = entityList[j];
                             }
                             else
                             {
-                                playerID = componentManager.getEntities()[j].entityID;
-                                objectID = componentManager.getEntities()[i].entityID;
-                                objectIndex = i;
+                                playerID = componentManager.getEntities()[entityList[j]].entityID;
+                                objectID = componentManager.getEntities()[entityList[i]].entityID;
+                                objectIndex = entityList[i];
                             }
 
                             //Player - Endpoint Collision
@@ -123,23 +125,23 @@ namespace LittleRedRobinHood.System
                         }
 
                         //Projectile Collision
-                        else if (componentManager.getEntities()[i].isProjectile || componentManager.getEntities()[j].isProjectile)
+                        else if (componentManager.getEntities()[entityList[i]].isProjectile || componentManager.getEntities()[entityList[j]].isProjectile)
                         {
                             int projectileID = 0;
                             int objectID = 0;
                             int objectIndex = 0;
 
-                            if (componentManager.getEntities()[i].isProjectile)
+                            if (componentManager.getEntities()[entityList[i]].isProjectile)
                             {
-                                projectileID = componentManager.getEntities()[i].entityID;
-                                objectID = componentManager.getEntities()[j].entityID;
-                                objectIndex = j;
+                                projectileID = componentManager.getEntities()[entityList[i]].entityID;
+                                objectID = componentManager.getEntities()[entityList[j]].entityID;
+                                objectIndex = entityList[j];
                             }
                             else
                             {
-                                projectileID = componentManager.getEntities()[j].entityID;
-                                objectID = componentManager.getEntities()[i].entityID;
-                                objectIndex = i;
+                                projectileID = componentManager.getEntities()[entityList[j]].entityID;
+                                objectID = componentManager.getEntities()[entityList[i]].entityID;
+                                objectIndex = entityList[i];
                             }
 
                             //Arrow Collision

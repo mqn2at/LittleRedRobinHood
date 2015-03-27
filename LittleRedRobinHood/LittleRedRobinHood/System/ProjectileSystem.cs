@@ -12,7 +12,7 @@ namespace LittleRedRobinHood.System
     {
         public void Update(ComponentManager componentManager, GraphicsDevice gd)
         {
-            
+            List<int> toBeRemoved = new List<int>();
             foreach (KeyValuePair<int, Entity> ent in componentManager.getEntities())
             {
                 
@@ -29,10 +29,7 @@ namespace LittleRedRobinHood.System
                 if (rectangle.X > gd.Viewport.Width || rectangle.Y > gd.Viewport.Height ||
                     rectangle.X + rectangle.Width < 0 || rectangle.Y + rectangle.Height < 0)
                 {
-                    componentManager.getProjectiles().Remove(entityID);
-                    componentManager.getSprites().Remove(entityID);
-                    componentManager.getCollides().Remove(entityID);
-                    componentManager.getEntities().Remove(entityID);
+                    toBeRemoved.Add(entityID);
                     //did not remove from shacklesPlatforms, players, and patrols
                 }
                 //Move Projectile
@@ -44,7 +41,13 @@ namespace LittleRedRobinHood.System
                     componentManager.getCollides()[entityID].hitbox.Y += (int)dy;
                 }
             }
-            
+            foreach (int id in toBeRemoved)
+            {
+                componentManager.getProjectiles().Remove(id);
+                componentManager.getSprites().Remove(id);
+                componentManager.getCollides().Remove(id);
+                componentManager.getEntities().Remove(id);
+            }
         }
     }
 }
