@@ -90,6 +90,18 @@ namespace LittleRedRobinHood
             collides.Add(id, temp);
             entities[id].isCollide = true;
         }
+        public void addCollide(int id, Rectangle hb, bool enemy, bool shackle, bool damageable)
+        {
+            Collide temp = new Collide(id, hb, enemy, shackle,false,damageable);
+            collides.Add(id, temp);
+            entities[id].isCollide = true;
+        }
+        public void addCollide(int id, Rectangle hb, bool enemy, bool shackle, bool damageable, bool endpoint)
+        {
+            Collide temp = new Collide(id, hb, enemy, shackle,false,damageable,endpoint);
+            collides.Add(id, temp);
+            entities[id].isCollide = true;
+        }
 
         public void addSprite(int id, int width, int height, Texture2D sprite)
         {

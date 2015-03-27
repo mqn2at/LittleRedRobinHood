@@ -52,6 +52,7 @@ namespace LittleRedRobinHood.System
                             //Player - Endpoint Collision
                             if (componentManager.getCollides()[objectID].isEndPoint)
                             {
+                                Console.WriteLine("FINISHED STAGE!!!");
                                 return true;
                             }
 

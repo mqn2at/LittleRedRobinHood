@@ -100,7 +100,12 @@ namespace LittleRedRobinHood
 
             consys.Update(manager);
             projsys.Update(manager, GraphicsDevice);
-            colsys.Update(manager);
+
+            if (colsys.Update(manager))
+            {
+                currentStage++;
+                LoadStage(currentStage);
+            }
 
             base.Update(gameTime);
         }

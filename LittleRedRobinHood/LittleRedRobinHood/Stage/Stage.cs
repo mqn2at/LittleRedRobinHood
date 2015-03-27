@@ -87,7 +87,7 @@ namespace LittleRedRobinHood
             //Add finish collidable
             finish = map.ObjectGroups["startFinish"].Objects["finish"];
             tempID = cm.addEntity();
-            cm.addCollide(tempID, new Rectangle(finish.X, finish.Y, finish.Width, finish.Height), false, false);
+            cm.addCollide(tempID, new Rectangle(finish.X, finish.Y, finish.Width, finish.Height), false, false, false, true);
         }
 
         public void Draw(SpriteBatch sb, GraphicsDevice gd)
