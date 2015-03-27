@@ -95,7 +95,7 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));*/
 
                 cm.addPatrol(tempID, waypoints, 3);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("charizard.png"));
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("wolf.png"));
                 enemycount++;
             }
 
@@ -104,7 +104,7 @@ namespace LittleRedRobinHood
             tempID = cm.addEntity();
             cm.addPlayer(tempID);
             cm.addCollide(tempID, new Rectangle(start.X, start.Y, start.Width, start.Height), false, false);
-            cm.addSprite(tempID, start.Width, start.Height, content.Load<Texture2D>("fire_red_animated.gif"));
+            cm.addSprite(tempID, start.Width, start.Height, content.Load<Texture2D>("hood.png"));
             
             //Add finish collidable
             finish = map.ObjectGroups["startFinish"].Objects["finish"];

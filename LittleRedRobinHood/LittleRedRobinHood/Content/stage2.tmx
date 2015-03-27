@@ -27,7 +27,7 @@
   </object>
  </objectgroup>
  <objectgroup name="startFinish">
-  <object id="10" name="start" x="35" y="383" width="52" height="59">
+  <object id="10" name="start" x="35" y="385" width="48" height="64">
    <properties>
     <property name="name" value="start"/>
    </properties>
@@ -40,12 +40,12 @@
  </objectgroup>
  <objectgroup name="shackleables"/>
  <objectgroup name="enemies">
-  <object id="17" name="enemy1" x="273" y="345" width="34" height="31">
+  <object id="17" name="enemy1" x="274" y="400" width="34" height="31">
    <properties>
     <property name="name" value="enemy1"/>
    </properties>
   </object>
-  <object id="18" name="enemy2" x="434" y="236" width="34" height="31">
+  <object id="18" name="enemy2" x="434" y="181" width="34" height="31">
    <properties>
     <property name="name" value="enemy2"/>
    </properties>
