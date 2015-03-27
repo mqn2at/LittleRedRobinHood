@@ -116,7 +116,6 @@ namespace LittleRedRobinHood
                 currentStage = (currentStage + 1) % 3;
                 LoadStage(currentStage);
             }
-            Console.WriteLine(manager.getPlayers()[manager.playerID].grounded); ///
             base.Update(gameTime);
         }
 
