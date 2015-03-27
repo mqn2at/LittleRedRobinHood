@@ -108,6 +108,11 @@ namespace LittleRedRobinHood
             Sprite temp = new Sprite(id, width, height, sprite);
             sprites.Add(id, temp);
         }
+        public void addSprite(int id, int width, int height, Texture2D sprite, bool animated)
+        {
+            Sprite temp = new Sprite(id, width, height, sprite, animated);
+            sprites.Add(id, temp);
+        }
 
         public void addProjectile(int id, bool isArrow, double angle, int speed)
         {

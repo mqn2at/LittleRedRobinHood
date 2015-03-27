@@ -77,11 +77,17 @@ namespace LittleRedRobinHood.System
             {
                 pMove.hitbox.X += X_SPEED;
                 player.grounded = false;
+                player.running = true;
             }
             else if (isPressed(Keys.A) || isPressed(Keys.Left))
             {
                 pMove.hitbox.X -= X_SPEED;
                 player.grounded = false;
+                player.running = true;
+            }
+            else
+            {
+                player.running = false;
             }
 
             //Check if we have clicked recently, with a timer before the next click is accepted
@@ -90,11 +96,13 @@ namespace LittleRedRobinHood.System
                 if (timer > 0)
                 {
                     timer -= 1;
+                    player.shooting = true;
                 }
                 else
                 {
                     Console.WriteLine("timer done!");
                     clicked = false;
+                    player.shooting = false;
                 }
             }
             /*
@@ -122,6 +130,7 @@ namespace LittleRedRobinHood.System
                 cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 16, 16), false, false);
                 cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("rope.png"));
                 player.shackles -= 1;
+                //player.shooting = true;
                 //Force timer before next click
                 clicked = true;
                 timer = TIMER_MAX;
@@ -133,12 +142,17 @@ namespace LittleRedRobinHood.System
                 double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, true, angle, ARROW_SPEED);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 16, 16), false, false);
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width / 2, pMove.hitbox.Y + pMove.hitbox.Height / 2, 16, 16), false, false);
                 cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("arrow.gif"));
                 player.arrows -= 1;
+                //player.shooting = true;
                 //Force timer before next click
                 clicked = true;
                 timer = TIMER_MAX;
+            }
+            else
+            {
+                //player.shooting = false;
             }
             //DON'T RESET
             return false;

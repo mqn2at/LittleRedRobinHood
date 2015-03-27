@@ -21,5 +21,14 @@ namespace LittleRedRobinHood.Component
             this.height = height;
             this.sprite = sprite;
         }
+        //Animated
+        public Sprite(int id, int width, int height, Texture2D sprite, bool animated)
+        {
+            this.entityID = id;
+            this.width = width;
+            this.height = height;
+            this.sprite = sprite;
+            this.animated = animated;
+        }
     }
 }

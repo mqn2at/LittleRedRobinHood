@@ -27,6 +27,7 @@ namespace LittleRedRobinHood
         ControlSystem consys;
         ProjectileSystem projsys;
         PathingSystem pathsys;
+        AnimatedSpriteSystem anisys;
         int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
@@ -52,6 +53,7 @@ namespace LittleRedRobinHood
             consys = new ControlSystem();
             projsys = new ProjectileSystem();
             pathsys = new PathingSystem();
+            anisys = new AnimatedSpriteSystem();
 
             //Create stages
             this.stages = new List<Stage>();
@@ -132,10 +134,12 @@ namespace LittleRedRobinHood
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             stages[currentStage].Draw(spriteBatch, GraphicsDevice);
-            Dictionary<int, Collide> collides = manager.getCollides();
+            /*Dictionary<int, Collide> collides = manager.getCollides();
             foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
                 spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
-            }
+            }*/
+            //Moved above foreach to AnimatedSpriteSystem
+            anisys.Draw(spriteBatch, manager);
             //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
             DrawShackle();
             //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
