@@ -75,6 +75,13 @@ namespace LittleRedRobinHood
         }
         protected void LoadStage(int stageNum)
         {
+            manager.getEntities().Clear();
+            manager.getSprites().Clear();
+            manager.getCollides().Clear();
+            manager.getPlayers().Clear();
+            manager.getProjectiles().Clear();
+            manager.getShackles().Clear();
+            manager.getPatrols().Clear();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
         }
@@ -103,7 +110,7 @@ namespace LittleRedRobinHood
 
             if (colsys.Update(manager))
             {
-                currentStage++;
+                currentStage = (currentStage + 1) % 3;
                 LoadStage(currentStage);
             }
 
