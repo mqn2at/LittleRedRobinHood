@@ -97,8 +97,8 @@ namespace LittleRedRobinHood.System
                                 double slope = (double)(topPoint.Y - bottomPoint.Y) / (double)(topPoint.X - bottomPoint.X);
                                 Rectangle playerCollide = componentManager.getCollides()[playerID].hitbox;
                                 int playerMidX = playerCollide.X + (int)(playerCollide.Width / 2.0);
-                                Vector2 playerTop = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y);
-                                Vector2 playerBottom = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y + playerCollide.Height);
+                                Vector2 playerBottom = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y);
+                                Vector2 playerTop = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y + playerCollide.Height);
 
                                 //Vertical shackle platform
 
@@ -110,7 +110,8 @@ namespace LittleRedRobinHood.System
                                     //Find point on shackle platform that is at the middle of the player's width
                                     double shackleY = slope * (double)(playerMidX - bottomPoint.X) + bottomPoint.Y;
                                     double playerMidY = (double)(playerTop.Y + playerBottom.Y) / 2.0;
-                                    
+
+                                    Console.WriteLine(shackleY + " | " + playerMidY + " | " + playerBottom.Y);
                                     //Player on top of shackle
                                     if (shackleY < playerMidY)
                                     {
@@ -118,9 +119,8 @@ namespace LittleRedRobinHood.System
                                         componentManager.getPlayers()[playerID].grounded = true;
                                     }
                                     //Player on bottom of shackle
-                                    else
+                                    else if (shackleY > playerMidY)
                                     {
-                                        Console.WriteLine("PLAYER BELOW SHACKLE: " + ((gd.Viewport.Height - (int)shackleY) - playerCollide.Height));
                                         componentManager.getCollides()[playerID].hitbox.Y = gd.Viewport.Height - (int)shackleY;
                                     }
                                 }
@@ -186,7 +186,7 @@ namespace LittleRedRobinHood.System
                                 objectEntity = componentManager.getEntities()[entityList[i]];
                                 objectIndex = entityList[i];
                             }
-                            Console.WriteLine("Other Object is Shackleable?: " + componentManager.getCollides()[objectEntity.entityID].isShackleable);////
+                            //Console.WriteLine("Other Object is Shackleable?: " + componentManager.getCollides()[objectEntity.entityID].isShackleable);////
 
                             //Arrow Collision
                             if (componentManager.getProjectiles()[projectileID].isArrow)
@@ -198,6 +198,7 @@ namespace LittleRedRobinHood.System
                                 }
 
                                 //Arrow - Shackle Platform Collision
+                                //COLLISION DETECTION TRACKS HITBOX, NOT ACTUAL SHACKLE
                                 else if (objectEntity.isShackle)
                                 {
                                     //Detect Collision
