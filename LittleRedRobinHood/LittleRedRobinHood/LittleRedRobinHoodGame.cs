@@ -27,7 +27,7 @@ namespace LittleRedRobinHood
         ControlSystem consys;
         ProjectileSystem projsys;
         PathingSystem pathsys;
-        int currentStage = 2;
+        int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
         {
@@ -142,12 +142,13 @@ namespace LittleRedRobinHood
         }
         protected void DrawShackle()
         {
+            Console.WriteLine("Drawing this many shackles: " + manager.getShackles().Count);
             foreach (KeyValuePair<int, Shackle> shackle in manager.getShackles())
             {
                 Rectangle rectangle1 = manager.getCollides()[shackle.Value.firstPointID].hitbox;
-                Rectangle rectangle2 = manager.getCollides()[shackle.Value.firstPointID].hitbox;
-                Vector2 start = new Vector2(rectangle1.X + (1/2) * rectangle1.Width, rectangle1.Y + (1/2) * rectangle1.Height);
-                Vector2 end = new Vector2(rectangle2.X + (1/2) * rectangle1.Width, rectangle2.Y + (1/2) * rectangle2.Height);
+                Rectangle rectangle2 = manager.getCollides()[shackle.Value.secondPointID].hitbox;
+                Vector2 start = new Vector2(rectangle1.X + (int)(rectangle1.Width / 2.0), rectangle1.Y + (int)(rectangle1.Height / 2.0));
+                Vector2 end = new Vector2(rectangle2.X + (int)(rectangle1.Width / 2.0), rectangle2.Y + (int)(rectangle2.Height / 2.0));
                 DrawLine(spriteBatch, start, end);
             }
         }

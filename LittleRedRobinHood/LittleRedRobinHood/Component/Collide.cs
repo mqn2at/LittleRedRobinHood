@@ -14,7 +14,7 @@ namespace LittleRedRobinHood.Component
         public readonly int entityID;
         public readonly bool isEnemy;
         public readonly bool isDamageable;
-        public readonly bool isShackleable;
+        public bool isShackleable;
         public readonly bool isEndPoint;
         public bool isShackled;
         public Rectangle hitbox;
