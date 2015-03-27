@@ -109,11 +109,11 @@ namespace LittleRedRobinHood.System
             if (!clicked && player.shackles > 0 && ms.LeftButton == ButtonState.Pressed)
             {
                 Console.WriteLine("-1 shackle");
-                double angle = Math.Atan2(ms.Y - pMove.hitbox.Y, ms.X - pMove.hitbox.X);
+                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, false, angle, SHACKLE_SPEED);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 15, 15), false, false);
-                cm.addSprite(temp, 15, 15, cm.conman.Load<Texture2D>("Sprite-Soda.png"));
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 16, 16), false, false);
+                cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("Sprite-Soda.png"));
                 player.shackles -= 1;
                 //Force timer before next click
                 clicked = true;
@@ -123,11 +123,11 @@ namespace LittleRedRobinHood.System
             else if (!clicked && player.arrows > 0 && ms.RightButton == ButtonState.Pressed)
             {
                 Console.WriteLine("-1 arrow");
-                double angle = Math.Atan2(ms.Y - pMove.hitbox.Y, ms.X - pMove.hitbox.X);
+                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, true, angle, ARROW_SPEED);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 15, 15), false, false);
-                cm.addSprite(temp, 15, 15, cm.conman.Load<Texture2D>("Sprite-Soda.png"));
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 16, 16), false, false);
+                cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("Sprite-Soda.png"));
                 player.arrows -= 1;
                 //Force timer before next click
                 clicked = true;
