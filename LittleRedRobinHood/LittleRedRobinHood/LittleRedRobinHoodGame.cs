@@ -26,7 +26,8 @@ namespace LittleRedRobinHood
         CollisionSystem colsys;
         ControlSystem consys;
         ProjectileSystem projsys;
-        int currentStage = 0;
+        PathingSystem pathsys;
+        int currentStage = 2;
         public LittleRedRobinHoodGame()
             : base()
         {
@@ -49,6 +50,7 @@ namespace LittleRedRobinHood
             colsys = new CollisionSystem();
             consys = new ControlSystem();
             projsys = new ProjectileSystem();
+            pathsys = new PathingSystem();
 
             //Create stages
             this.stages = new List<Stage>();
@@ -107,6 +109,7 @@ namespace LittleRedRobinHood
 
             consys.Update(manager);
             projsys.Update(manager, GraphicsDevice);
+            pathsys.Update(manager);
 
             if (colsys.Update(manager))
             {

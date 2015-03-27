@@ -71,9 +71,12 @@ namespace LittleRedRobinHood
             {
                 tempID = cm.addEntity();
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                //What is this list?? Change it later
-                List<Vector2> what = new List<Vector2>();
-                cm.addPatrol(tempID, what, 0);
+                //Give it semi-random waypoints
+                List<Vector2> waypoints = new List<Vector2>();
+                waypoints.Add(new Vector2(o.X+100, o.Y));
+                waypoints.Add(new Vector2(o.X, o.Y));
+
+                cm.addPatrol(tempID, waypoints, 2);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("wolf.png"));
             }
 
