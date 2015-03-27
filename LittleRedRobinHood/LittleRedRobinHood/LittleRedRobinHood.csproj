@@ -84,12 +84,17 @@
     <Content Include="Content\tiles.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\wolf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="Content\mytest.tmx" />
+    <None Include="Content\stage0.tmx" />
     <None Include="Content\stage1.tmx" />
+    <None Include="Content\stage2.tmx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
