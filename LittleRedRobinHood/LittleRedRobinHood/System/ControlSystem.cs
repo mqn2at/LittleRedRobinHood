@@ -36,7 +36,7 @@ namespace LittleRedRobinHood.System
             this.timer = TIMER_MAX;
         }
 
-        public void Update(ComponentManager cm)
+        public bool Update(ComponentManager cm)
         {
             kbo = kb;
             kb = Keyboard.GetState();
@@ -45,6 +45,13 @@ namespace LittleRedRobinHood.System
             Player player = cm.getPlayers()[cm.playerID];
             Collide pMove = cm.getCollides()[cm.playerID];
             
+            //Check reset first; we don't have to do anything if we are reseting
+            if (isPressed(Keys.R))
+            {
+                Console.WriteLine("RESET!");
+                return true;
+            }
+
             if (player.grounded)
             {
                 player.dy = 0;
@@ -133,6 +140,8 @@ namespace LittleRedRobinHood.System
                 clicked = true;
                 timer = TIMER_MAX;
             }
+            //DON'T RESET
+            return false;
 
         }
 
