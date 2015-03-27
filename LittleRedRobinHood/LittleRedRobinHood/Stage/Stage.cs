@@ -73,7 +73,8 @@ namespace LittleRedRobinHood
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
                 //Give it semi-random waypoints
                 List<Vector2> waypoints = new List<Vector2>();
-                waypoints.Add(new Vector2(o.X+100, o.Y));
+                waypoints.Add(new Vector2(o.X+200, o.Y));
+                waypoints.Add(new Vector2(o.X, o.Y+200));
                 waypoints.Add(new Vector2(o.X, o.Y));
 
                 cm.addPatrol(tempID, waypoints, 2);

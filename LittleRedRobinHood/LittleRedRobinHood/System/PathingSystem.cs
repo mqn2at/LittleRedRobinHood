@@ -22,9 +22,9 @@ namespace LittleRedRobinHood.System
                     {
                         List<Vector2> path = componentManager.getPatrols()[entityID].waypoint;
                         Rectangle rectangle = componentManager.getCollides()[entityID].hitbox;
-                        Vector2 currentPos = new Vector2(rectangle.X + (1 / 2) * rectangle.Width,
-                            rectangle.Y + (1 / 2) * rectangle.Height);
-
+                        Vector2 currentPos = new Vector2((float)(rectangle.X + (0.5) * rectangle.Width),
+                            (float)(rectangle.Y + (0.5) * rectangle.Height));
+                        Console.WriteLine(componentManager.getPatrols()[entityID].currentDest);
                         Vector2 destPos = path[componentManager.getPatrols()[entityID].currentDest];
 
                         //Calculate angle
@@ -35,54 +35,53 @@ namespace LittleRedRobinHood.System
                         //Move patrolling unit
                         int speed = componentManager.getPatrols()[entityID].speed;
 
-                        int dX = (int)(speed * Math.Cos(angle));
-                        int dY = (int)(speed * Math.Sin(angle));
-                        if (destPos.X > currentPos.X)
-                        {
-                            dX *= -1;
-                        }
-                        if (destPos.Y > currentPos.Y)
-                        {
-                            dY *= -1;
-                        }
+                        int dX = (int)(speed * Math.Cos(angle))*-1;
+                        int dY = (int)(speed * Math.Sin(angle))*-1;
+                        Console.WriteLine("dx:" + dX + " dy:" + dY);
+                        
                         int x = componentManager.getCollides()[entityID].hitbox.X + dX;
                         int y = componentManager.getCollides()[entityID].hitbox.Y + dY;
 
 
-                        
+                        int dest = componentManager.getPatrols()[entityID].currentDest;
                         //check if overshot
-                        if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x))
+                        if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) || destPos.X==x)
                         {
-                            componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
-                            componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;
+
+                            //componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
+                            //componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;
+
                             if (path.Count-1 == componentManager.getPatrols()[entityID].currentDest)
                             {
-                                componentManager.getPatrols()[entityID].currentDest = 0;
+                                componentManager.getPatrols()[entityID].setCurrentDest(0);
                             }
                             else
                             {
-                                componentManager.getPatrols()[entityID].currentDest++;
+                                componentManager.getPatrols()[entityID].setCurrentDest(dest+1);
                                 //destPos = path[componentManager.getPatrols()[entityID].currentDest];
+
                             }
                         }
-                        else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
+                        else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y)|| destPos.Y==y)
                         {
-                            componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
-                            componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;
+
+                            //componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
+                            //componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;
                             if (path.Count - 1 == componentManager.getPatrols()[entityID].currentDest)
                             {
-                                componentManager.getPatrols()[entityID].currentDest = 0;
+                                componentManager.getPatrols()[entityID].setCurrentDest(0);
                             }
                             else
                             {
-                                componentManager.getPatrols()[entityID].currentDest++;
+                                componentManager.getPatrols()[entityID].setCurrentDest(dest + 1);
                             }
                         }
-                        else
-                        {
+                        //else
+                        //{
+
                             componentManager.getCollides()[entityID].hitbox.X = x;
                             componentManager.getCollides()[entityID].hitbox.Y = y;
-                        }
+                        //}
                         
                     }
                 }

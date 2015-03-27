@@ -20,5 +20,9 @@ namespace LittleRedRobinHood.Component
             this.speed = spd;
             this.currentDest = 0;
         }
+        public void setCurrentDest(int dest)
+        {
+            this.currentDest = dest;
+        }
     }
 }
