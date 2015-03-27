@@ -42,7 +42,7 @@ namespace LittleRedRobinHood.System
             {
                 player.dy = 0;
                 //Jumping
-                if (isPressed(Keys.Space) || isPressed(Keys.W))
+                if (isPressed(Keys.Space) || isPressed(Keys.W) || isPressed(Keys.Up))
                 {
                     player.dy -= player.jump;
                     player.grounded = false;
@@ -58,12 +58,12 @@ namespace LittleRedRobinHood.System
                 pMove.hitbox.Y += player.dy;
             }
 
-            if (isPressed(Keys.D))
+            if (isPressed(Keys.D) || isPressed(Keys.Right))
             {
                 pMove.hitbox.X += 5;
                 player.grounded = false;
             }
-            else if (isPressed(Keys.A))
+            else if (isPressed(Keys.A) || isPressed(Keys.Left))
             {
                 pMove.hitbox.X -= 5;
                 player.grounded = false;
