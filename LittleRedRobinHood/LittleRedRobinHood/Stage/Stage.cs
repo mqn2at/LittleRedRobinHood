@@ -67,18 +67,36 @@ namespace LittleRedRobinHood
 
             //Add all enemies
             enemies = map.ObjectGroups["enemies"].Objects;
+            int enemycount = 0;
             foreach (Squared.Tiled.Object o in enemies.Values)
             {
                 tempID = cm.addEntity();
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                //Give it semi-random waypoints
+                //HARD CODED ENEMY MOVEMENTS IN, need to change later based on stage
                 List<Vector2> waypoints = new List<Vector2>();
+                if (enemycount == 0)
+                {
+                    waypoints.Add(new Vector2(o.X, o.Y - 200));
+                    waypoints.Add(new Vector2(o.X, o.Y));
+                }
+                if (enemycount == 1)
+                {
+                    waypoints.Add(new Vector2(o.X, o.Y + 250));
+                    waypoints.Add(new Vector2(o.X, o.Y));
+                }
+                if (enemycount == 2)
+                {
+                    waypoints.Add(new Vector2(o.X+200, o.Y));
+                    waypoints.Add(new Vector2(o.X, o.Y));
+                }
+                /*List<Vector2> waypoints = new List<Vector2>();
                 waypoints.Add(new Vector2(o.X+200, o.Y));
                 waypoints.Add(new Vector2(o.X, o.Y+200));
-                waypoints.Add(new Vector2(o.X, o.Y));
+                waypoints.Add(new Vector2(o.X, o.Y));*/
 
-                cm.addPatrol(tempID, waypoints, 2);
+                cm.addPatrol(tempID, waypoints, 3);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("wolf.png"));
+                enemycount++;
             }
 
             //Add player at start
