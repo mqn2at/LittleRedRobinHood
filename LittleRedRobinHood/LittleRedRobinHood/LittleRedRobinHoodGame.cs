@@ -99,7 +99,7 @@ namespace LittleRedRobinHood
                 Exit();
             // TODO: Add your update logic here
             consys.Update(manager);
-            projsys.Update(manager);
+            projsys.Update(manager, GraphicsDevice);
             colsys.Update(manager);
 
             base.Update(gameTime);
