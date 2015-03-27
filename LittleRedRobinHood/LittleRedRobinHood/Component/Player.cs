@@ -16,8 +16,6 @@ namespace LittleRedRobinHood.Component
         public bool grounded;
         public bool running;
         public bool jumping;
-        public int maxFall = 20;
-        public int jump = 15;
         public int dy;
         public Player(int id)
         {

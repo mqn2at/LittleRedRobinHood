@@ -23,6 +23,8 @@ namespace LittleRedRobinHood.System
         private int SHACKLE_SPEED = 9;
         private int ARROW_SPEED = 12;
         private int X_SPEED = 4;
+        private int JUMP = 15;
+        private int MAX_FALL = 20;
         private int timer;
 
         public ControlSystem()
@@ -49,14 +51,14 @@ namespace LittleRedRobinHood.System
                 //Jumping
                 if (isPressed(Keys.Space) || isPressed(Keys.W) || isPressed(Keys.Up))
                 {
-                    player.dy -= player.jump;
+                    player.dy -= JUMP;
                     player.grounded = false;
                 }
             }
             //Player is falling; apply gravity then update position
             else
             {
-                if (player.dy < player.maxFall)
+                if (player.dy < MAX_FALL)
                 {
                     player.dy += 1;
                 }
