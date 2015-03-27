@@ -130,10 +130,47 @@ namespace LittleRedRobinHood
             foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
                 spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
             }
+            //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
+            DrawShackle();
             //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
             // TODO: Add your drawing code here
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+        protected void DrawShackle()
+        {
+            foreach (KeyValuePair<int, Shackle> shackle in manager.getShackles())
+            {
+                Rectangle rectangle1 = manager.getCollides()[shackle.Value.firstPointID].hitbox;
+                Rectangle rectangle2 = manager.getCollides()[shackle.Value.firstPointID].hitbox;
+                Vector2 start = new Vector2(rectangle1.X + (1/2) * rectangle1.Width, rectangle1.Y + (1/2) * rectangle1.Height);
+                Vector2 end = new Vector2(rectangle2.X + (1/2) * rectangle1.Width, rectangle2.Y + (1/2) * rectangle2.Height);
+                DrawLine(spriteBatch, start, end);
+            }
+        }
+        void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
+        {
+            Vector2 edge = end - start;
+            // calculate angle to rotate line
+            float angle =
+                (float)Math.Atan2(edge.Y, edge.X);
+            Texture2D t = new Texture2D(GraphicsDevice, 1, 1);
+            t.SetData<Color>(
+                new Color[] { Color.Black });
+
+            sb.Draw(t,
+                new Rectangle(// rectangle defines shape of line and position of start of line
+                    (int)start.X,
+                    (int)start.Y,
+                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
+                    1), //width of line, change this to make thicker line
+                null,
+                Color.Black, //colour of line
+                angle,     //angle of line (calulated above)
+                new Vector2(0, 0), // point in line about which to rotate
+                SpriteEffects.None,
+                0);
+
         }
     }
 }
