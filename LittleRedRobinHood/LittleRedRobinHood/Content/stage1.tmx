@@ -44,12 +44,12 @@
   </object>
  </objectgroup>
  <objectgroup name="shackleables">
-  <object id="15" name="shackleable1" x="316" y="349" width="36" height="32">
+  <object id="15" name="shackleable1" x="315" y="349" width="38" height="32">
    <properties>
     <property name="name" value="shackleable1"/>
    </properties>
   </object>
-  <object id="18" name="shackleable2" x="544" y="289" width="32" height="32">
+  <object id="18" name="shackleable2" x="543" y="289" width="34" height="33">
    <properties>
     <property name="name" value="shackleable2"/>
    </properties>

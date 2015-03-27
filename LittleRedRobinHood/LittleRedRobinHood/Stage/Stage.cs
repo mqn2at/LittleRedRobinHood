@@ -71,21 +71,23 @@ namespace LittleRedRobinHood
             foreach (Squared.Tiled.Object o in enemies.Values)
             {
                 tempID = cm.addEntity();
-                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
                 //HARD CODED ENEMY MOVEMENTS IN, need to change later based on stage
                 List<Vector2> waypoints = new List<Vector2>();
                 if (enemycount == 0)
                 {
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
                     waypoints.Add(new Vector2(o.X, o.Y - 200));
                     waypoints.Add(new Vector2(o.X, o.Y));
                 }
                 if (enemycount == 1)
                 {
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
                     waypoints.Add(new Vector2(o.X, o.Y + 250));
                     waypoints.Add(new Vector2(o.X, o.Y));
                 }
                 if (enemycount == 2)
                 {
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, true);
                     waypoints.Add(new Vector2(o.X+200, o.Y));
                     waypoints.Add(new Vector2(o.X, o.Y));
                 }
@@ -95,7 +97,7 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));*/
 
                 cm.addPatrol(tempID, waypoints, 3);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("wolf.png"));
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("hawk.png"));
                 enemycount++;
             }
 
