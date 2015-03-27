@@ -44,7 +44,7 @@ namespace LittleRedRobinHood.System
                 //Jumping
                 if (isPressed(Keys.Space) || isPressed(Keys.W))
                 {
-                    player.dy = -20;
+                    player.dy -= player.jump;
                     player.grounded = false;
                 }
             }
@@ -94,7 +94,7 @@ namespace LittleRedRobinHood.System
                 double angle = Math.Atan2(ms.Y - pMove.hitbox.Y, ms.X - pMove.hitbox.X);
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, false, angle, 15);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X, pMove.hitbox.Y - 100, 15, 15), false, false);
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 15, 15), false, false);
                 cm.addSprite(temp, 15, 15, cm.conman.Load<Texture2D>("Sprite-Soda.png"));
                 //Force timer before next click
                 clicked = true;
@@ -107,7 +107,7 @@ namespace LittleRedRobinHood.System
                 double angle = Math.Atan2(ms.Y - pMove.hitbox.Y, ms.X - pMove.hitbox.X);
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, false, angle, 15);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X, pMove.hitbox.Y - 100, 15, 15), false, false);
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 15, 15), false, false);
                 cm.addSprite(temp, 15, 15, cm.conman.Load<Texture2D>("Sprite-Soda.png"));
                 //Force timer before next click
                 clicked = true;
