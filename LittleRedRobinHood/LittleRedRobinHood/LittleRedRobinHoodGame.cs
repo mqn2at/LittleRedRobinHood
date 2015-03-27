@@ -95,9 +95,13 @@ namespace LittleRedRobinHood
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            // TODO: Add your update logic here
+
             consys.Update(manager);
-            colsys.Update(manager);
+            if (colsys.Update(manager))
+            {
+                currentStage++;
+                LoadStage(currentStage);
+            }
 
             base.Update(gameTime);
         }

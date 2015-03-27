@@ -10,7 +10,7 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public void Update(ComponentManager componentManager)
+        public bool Update(ComponentManager componentManager)
         {
             for (int i = 0; i < componentManager.getEntities().Count; i++)
             {
@@ -49,8 +49,14 @@ namespace LittleRedRobinHood.System
                                 objectIndex = i;
                             }
 
+                            //Player - Endpoint Collision
+                            if (componentManager.getCollides()[objectID].isEndPoint)
+                            {
+                                return true;
+                            }
+
                             //Player - Enemy Collision
-                            if (componentManager.getCollides()[objectID].isEnemy)
+                            else if (componentManager.getCollides()[objectID].isEnemy)
                             {
                                 componentManager.getPlayers()[playerID].health--;
                                 //ADD SOME SORT OF PUSHING
@@ -82,15 +88,15 @@ namespace LittleRedRobinHood.System
                                 //bottom side of object
                                 if (collideables[playerID].hitbox.Y < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height
                                     && collideables[playerID].hitbox.Y > collideables[objectID].hitbox.Y
-                                    && collideables[playerID].hitbox.X + (int)(0.25 * collideables[playerID].hitbox.Width) < collideables[objectID].hitbox.X + collideables[objectID].hitbox.Width
-                                    && collideables[playerID].hitbox.X + (int)(0.75 * collideables[playerID].hitbox.Width) > collideables[objectID].hitbox.X)
+                                    && collideables[playerID].hitbox.Y + (int)(0.5 * collideables[playerID].hitbox.Height) > collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
                                 {
                                     Console.WriteLine("collide BOTTOM " + collideables[playerID].hitbox.Y + " | " + collideables[objectID].hitbox.Y + " | " + collideables[objectID].hitbox.Height);
                                     componentManager.getCollides()[playerID].hitbox.Y = collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height;
                                 }
                                 //top side of object
                                 else if (collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height > collideables[objectID].hitbox.Y
-                                    && collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height)
+                                    && collideables[playerID].hitbox.Y + collideables[playerID].hitbox.Height < collideables[objectID].hitbox.Y + collideables[objectID].hitbox.Height
+                                    && collideables[playerID].hitbox.Y + (int)(0.5 * collideables[playerID].hitbox.Height) < collideables[objectID].hitbox.Y)
                                 {
                                     componentManager.getPlayers()[playerID].grounded = true;
                                     Console.WriteLine("collide TOP");
@@ -159,7 +165,8 @@ namespace LittleRedRobinHood.System
                         }
                     }
                 }
-            }                
+            }
+            return false;
         }
     }
 }
