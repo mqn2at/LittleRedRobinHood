@@ -20,14 +20,14 @@
     <property name="name" value="box1"/>
    </properties>
   </object>
-  <object id="6" name="ground" x="575" y="445" width="232" height="41">
+  <object id="6" name="ground2" x="575" y="445" width="232" height="41">
    <properties>
-    <property name="name" value="ground"/>
+    <property name="name" value="ground2"/>
    </properties>
   </object>
-  <object id="13" name="ground" x="-3" y="445" width="451" height="43">
+  <object id="13" name="ground1" x="-3" y="445" width="451" height="43">
    <properties>
-    <property name="name" value="ground"/>
+    <property name="name" value="ground2"/>
    </properties>
   </object>
  </objectgroup>
@@ -43,4 +43,6 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="enemies"/>
+ <objectgroup name="shackleables"/>
 </map>

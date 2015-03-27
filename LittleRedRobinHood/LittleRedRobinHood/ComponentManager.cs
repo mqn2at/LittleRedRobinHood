@@ -112,7 +112,7 @@ namespace LittleRedRobinHood
 
         public void addPatrol(int id, List<Vector2> path, int spd)
         {
-            Patrol temp = new Patrol(path, spd);
+            Patrol temp = new Patrol(id, path, spd);
             patrols.Add(id, temp);
             entities[id].isPatrol = true;
         }

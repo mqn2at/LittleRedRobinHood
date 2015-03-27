@@ -52,9 +52,11 @@ namespace LittleRedRobinHood
 
             //Create stages
             this.stages = new List<Stage>();
-            Stage stage1 = new Stage("stage0.tmx", this.manager);
+            Stage stage0 = new Stage("stage0.tmx", this.manager);
+            this.stages.Add(stage0);
+            Stage stage1 = new Stage("stage1.tmx", this.manager);
             this.stages.Add(stage1);
-            Stage stage2 = new Stage("stage1.tmx", this.manager);
+            Stage stage2 = new Stage("stage2.tmx", this.manager);
             this.stages.Add(stage2);
 
             base.Initialize();

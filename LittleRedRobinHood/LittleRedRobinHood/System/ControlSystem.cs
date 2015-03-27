@@ -37,17 +37,7 @@ namespace LittleRedRobinHood.System
             mso = ms;
             Player player = cm.getPlayers()[cm.playerID];
             Collide pMove = cm.getCollides()[cm.playerID];
-            //Running Right
-            if (isPressed(Keys.D))
-            {
-                pMove.hitbox.X += 5;
-            }
-            //Running left
-            else if (isPressed(Keys.A))
-            {
-                pMove.hitbox.X -= 5;
-            }
-            //Are they on ground? If so, verify they have 0 y momentum. Allow jumps
+            
             if (player.grounded)
             {
                 player.dy = 0;
@@ -66,6 +56,17 @@ namespace LittleRedRobinHood.System
                     player.dy += 1;
                 }
                 pMove.hitbox.Y += player.dy;
+            }
+
+            if (isPressed(Keys.D))
+            {
+                pMove.hitbox.X += 5;
+                player.grounded = false;
+            }
+            else if (isPressed(Keys.A))
+            {
+                pMove.hitbox.X -= 5;
+                player.grounded = false;
             }
 
             //Check if we have clicked recently, with a timer before the next click is accepted

@@ -8,12 +8,14 @@ namespace LittleRedRobinHood.Component
 {
     class Patrol
     {
+        public readonly int entityID;
         public readonly List<Vector2> waypoint;
         public readonly int speed;
         public int currentDest;
 
-        public Patrol(List<Vector2> path, int spd)
+        public Patrol(int id, List<Vector2> path, int spd)
         {
+            this.entityID = id;
             this.waypoint = path;
             this.speed = spd;
             this.currentDest = 0;
