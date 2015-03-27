@@ -22,6 +22,7 @@ namespace LittleRedRobinHood.System
         private int TIMER_MAX = 10;
         private int SHACKLE_SPEED = 9;
         private int ARROW_SPEED = 12;
+        private int X_SPEED = 4;
         private int timer;
 
         public ControlSystem()
@@ -37,8 +38,8 @@ namespace LittleRedRobinHood.System
         {
             kbo = kb;
             kb = Keyboard.GetState();
-            ms = Mouse.GetState();
             mso = ms;
+            ms = Mouse.GetState();
             Player player = cm.getPlayers()[cm.playerID];
             Collide pMove = cm.getCollides()[cm.playerID];
             
@@ -64,12 +65,12 @@ namespace LittleRedRobinHood.System
 
             if (isPressed(Keys.D) || isPressed(Keys.Right))
             {
-                pMove.hitbox.X += 5;
+                pMove.hitbox.X += X_SPEED;
                 player.grounded = false;
             }
             else if (isPressed(Keys.A) || isPressed(Keys.Left))
             {
-                pMove.hitbox.X -= 5;
+                pMove.hitbox.X -= X_SPEED;
                 player.grounded = false;
             }
 
@@ -82,14 +83,24 @@ namespace LittleRedRobinHood.System
                 }
                 else
                 {
+                    Console.WriteLine("timer done!");
                     clicked = false;
                 }
             }
+            /*
             else
             {
                 mso = ms;
                 ms = Mouse.GetState();
+                /*
+                Console.WriteLine("check mouse");
+                if (ms.LeftButton != mso.LeftButton || ms.RightButton != mso.RightButton)
+                {
+                    Console.WriteLine("new mouse state");
+                }
+                 /
             }
+            */
             
             //Shackle
             if (!clicked && player.shackles > 0 && ms.LeftButton == ButtonState.Pressed)
