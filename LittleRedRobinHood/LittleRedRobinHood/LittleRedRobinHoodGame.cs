@@ -33,6 +33,7 @@ namespace LittleRedRobinHood
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "../../../Content"; //this gets out of the Debug Content
+            //Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
 
