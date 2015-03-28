@@ -106,7 +106,7 @@ namespace LittleRedRobinHood
             tempID = cm.addEntity();
             cm.addPlayer(tempID);
             cm.addCollide(tempID, new Rectangle(start.X, start.Y, start.Width, start.Height), false, false);
-            cm.addSprite(tempID, start.Width, start.Height, content.Load<Texture2D>("hood.png"));
+            cm.addSprite(tempID, 64, 64, content.Load<Texture2D>("Player_Sprites.png"), true);
             
             //Add finish collidable
             finish = map.ObjectGroups["startFinish"].Objects["finish"];
