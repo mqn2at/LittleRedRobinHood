@@ -17,6 +17,7 @@ namespace LittleRedRobinHood.Component
         public bool running;
         public bool jumping;
         public bool shooting;
+        public bool is_right;
         public int dy;
         public Player(int id)
         {
@@ -28,6 +29,7 @@ namespace LittleRedRobinHood.Component
             this.running = false;
             this.jumping = false;
             this.shooting = false;
+            this.is_right = true;
         }
     }
 }
