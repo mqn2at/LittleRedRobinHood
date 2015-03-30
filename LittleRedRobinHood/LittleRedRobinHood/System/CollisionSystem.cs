@@ -11,82 +11,82 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public bool Update(ComponentManager componentManager, GraphicsDevice gd)
+        public bool Update(ComponentManager manager, GraphicsDevice gd)
         {
             
-            int[] entityList = componentManager.getEntities().Keys.ToArray();
+            int[] entityList = manager.getEntities().Keys.ToArray();
             List<int> toBeRemoved = new List<int>();
             for (int i = 0; i < entityList.Count(); i++)
             {
                 for (int j = i + 1; j < entityList.Count(); j++)
                 {
                     //Check to see if two entities are collidable
-                    if (!componentManager.getEntities()[entityList[i]].isCollide || !componentManager.getEntities()[entityList[j]].isCollide)
+                    if (!manager.getEntities()[entityList[i]].isCollide || !manager.getEntities()[entityList[j]].isCollide)
                     {
                         continue;
                     }
 
-                    Collide collide1 = componentManager.getCollides()[componentManager.getEntities()[entityList[i]].entityID];
-                    Collide collide2 = componentManager.getCollides()[componentManager.getEntities()[entityList[j]].entityID];
+                    Collide collide1 = manager.getCollides()[manager.getEntities()[entityList[i]].entityID];
+                    Collide collide2 = manager.getCollides()[manager.getEntities()[entityList[j]].entityID];
                     
                     bool COLLIDED = collide1.hitbox.Intersects(collide2.hitbox);
 
                     if (COLLIDED)
                     {
                         //Player Collision
-                        if (componentManager.getEntities()[entityList[i]].isPlayer || componentManager.getEntities()[entityList[j]].isPlayer)
+                        if (manager.getEntities()[entityList[i]].isPlayer || manager.getEntities()[entityList[j]].isPlayer)
                         {
                             int playerID = 0;
                             int objectID = 0;
                             int objectIndex = 0;
 
-                            if (componentManager.getEntities()[entityList[i]].isPlayer)
+                            if (manager.getEntities()[entityList[i]].isPlayer)
                             {
-                                playerID = componentManager.getEntities()[entityList[i]].entityID;
-                                objectID = componentManager.getEntities()[entityList[j]].entityID;
+                                playerID = manager.getEntities()[entityList[i]].entityID;
+                                objectID = manager.getEntities()[entityList[j]].entityID;
                                 objectIndex = entityList[j];
                             }
                             else
                             {
-                                playerID = componentManager.getEntities()[entityList[j]].entityID;
-                                objectID = componentManager.getEntities()[entityList[i]].entityID;
+                                playerID = manager.getEntities()[entityList[j]].entityID;
+                                objectID = manager.getEntities()[entityList[i]].entityID;
                                 objectIndex = entityList[i];
                             }
 
                             //Player - Endpoint Collision
-                            if (componentManager.getCollides()[objectID].isEndPoint)
+                            if (manager.getCollides()[objectID].isEndPoint)
                             {
                                 Console.WriteLine("FINISHED STAGE!!!");
                                 return true;
                             }
 
                             //Player - Enemy Collision
-                            else if (componentManager.getCollides()[objectID].isEnemy)
+                            else if (manager.getCollides()[objectID].isEnemy)
                             {
-                                componentManager.getPlayers()[playerID].health--;
+                                manager.getPlayers()[playerID].health--;
                                 //ADD SOME SORT OF PUSHING
                             }
 
                             //Player - Shackle Collision WILL NEED TO BE IMPROVED
                             //Currently not accounting for shackles as walls
-                            else if (componentManager.getEntities()[objectIndex].isShackle)
+                            else if (manager.getEntities()[objectIndex].isShackle)
                             {
-                                int firstPointID = componentManager.getShackles()[objectID].firstPointID;
-                                int secondPointID = componentManager.getShackles()[objectID].secondPointID;
+                                int firstPointID = manager.getShackles()[objectID].firstPointID;
+                                int secondPointID = manager.getShackles()[objectID].secondPointID;
 
                                 Vector2 topPoint;
                                 Vector2 bottomPoint;
 
-                                if(componentManager.getCollides()[firstPointID].hitbox.Y > componentManager.getCollides()[secondPointID].hitbox.Y){
-                                    Rectangle topRect = componentManager.getCollides()[secondPointID].hitbox;
-                                    Rectangle bottomRect = componentManager.getCollides()[firstPointID].hitbox;
+                                if(manager.getCollides()[firstPointID].hitbox.Y > manager.getCollides()[secondPointID].hitbox.Y){
+                                    Rectangle topRect = manager.getCollides()[secondPointID].hitbox;
+                                    Rectangle bottomRect = manager.getCollides()[firstPointID].hitbox;
                                     topPoint = new Vector2(topRect.X + (int)(topRect.Width / 2.0), topRect.Y + (int)(topRect.Height / 2.0));
                                     bottomPoint = new Vector2(bottomRect.X + (int)(bottomRect.Width / 2.0), bottomRect.Y + (int)(bottomRect.Height / 2.0));
                                 }
                                 else
                                 {
-                                    Rectangle topRect = componentManager.getCollides()[firstPointID].hitbox;
-                                    Rectangle bottomRect = componentManager.getCollides()[secondPointID].hitbox;
+                                    Rectangle topRect = manager.getCollides()[firstPointID].hitbox;
+                                    Rectangle bottomRect = manager.getCollides()[secondPointID].hitbox;
                                     topPoint = new Vector2(topRect.X + (int)(topRect.Width / 2.0), topRect.Y + (int)(topRect.Height / 2.0));
                                     bottomPoint = new Vector2(bottomRect.X + (int)(bottomRect.Width / 2.0), bottomRect.Y + (int)(bottomRect.Height / 2.0));
                                 }
@@ -95,7 +95,7 @@ namespace LittleRedRobinHood.System
                                 bottomPoint.Y = gd.Viewport.Height - bottomPoint.Y;
 
                                 double slope = (double)(topPoint.Y - bottomPoint.Y) / (double)(topPoint.X - bottomPoint.X);
-                                Rectangle playerCollide = componentManager.getCollides()[playerID].hitbox;
+                                Rectangle playerCollide = manager.getCollides()[playerID].hitbox;
                                 int playerMidX = playerCollide.X + (int)(playerCollide.Width / 2.0);
                                 Vector2 playerBottom = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y);
                                 Vector2 playerTop = new Vector2(playerMidX, gd.Viewport.Height - playerCollide.Y + playerCollide.Height);
@@ -105,7 +105,7 @@ namespace LittleRedRobinHood.System
 
                                 //Horizontal shackle platform
                                 if (Math.Min(topPoint.X, bottomPoint.X) < playerMidX && playerMidX < Math.Max(topPoint.X, bottomPoint.X)
-                                    && componentManager.getPlayers()[componentManager.playerID].dy >= 0)
+                                    && manager.getPlayers()[manager.playerID].dy >= 0)
                                 {
                                     //Find point on shackle platform that is at the middle of the player's width
                                     double shackleY = slope * (double)(playerMidX - bottomPoint.X) + bottomPoint.Y;
@@ -115,21 +115,21 @@ namespace LittleRedRobinHood.System
                                     //Player on top of shackle
                                     if (shackleY < playerMidY)
                                     {
-                                        componentManager.getCollides()[playerID].hitbox.Y = (gd.Viewport.Height - (int)shackleY) - playerCollide.Height;
-                                        componentManager.getPlayers()[playerID].grounded = true;
+                                        manager.getCollides()[playerID].hitbox.Y = (gd.Viewport.Height - (int)shackleY) - playerCollide.Height;
+                                        manager.getPlayers()[playerID].grounded = true;
                                     }
                                     //Player on bottom of shackle
                                     else if (shackleY > playerMidY)
                                     {
-                                        componentManager.getCollides()[playerID].hitbox.Y = gd.Viewport.Height - (int)shackleY;
+                                        manager.getCollides()[playerID].hitbox.Y = gd.Viewport.Height - (int)shackleY;
                                     }
                                 }
                             }
 
                             //Player - Object Collision
-                            else if (!componentManager.getEntities()[objectIndex].isShackle && !componentManager.getEntities()[objectIndex].isProjectile)
+                            else if (!manager.getEntities()[objectIndex].isShackle && !manager.getEntities()[objectIndex].isProjectile)
                             {
-                                Dictionary<int, Collide> collideables = componentManager.getCollides();
+                                Dictionary<int, Collide> collideables = manager.getCollides();
                                 Rectangle playerHitbox = collideables[playerID].hitbox;
                                 Rectangle objectHitbox = collideables[objectID].hitbox;
                                 //Y-collision
@@ -138,15 +138,15 @@ namespace LittleRedRobinHood.System
                                     && playerHitbox.Y > objectHitbox.Y
                                     && playerHitbox.Y + (int)(0.3 * playerHitbox.Height) > objectHitbox.Y + objectHitbox.Height)
                                 {
-                                    componentManager.getCollides()[playerID].hitbox.Y = objectHitbox.Y + objectHitbox.Height;
+                                    manager.getCollides()[playerID].hitbox.Y = objectHitbox.Y + objectHitbox.Height;
                                 }
                                 //top side of object
                                 else if (playerHitbox.Y + playerHitbox.Height > objectHitbox.Y
                                     && playerHitbox.Y + playerHitbox.Height < objectHitbox.Y + objectHitbox.Height
                                     && playerHitbox.Y + (int)(0.73 * playerHitbox.Height) < objectHitbox.Y)
                                 {
-                                    componentManager.getPlayers()[playerID].grounded = true;
-                                    componentManager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
+                                    manager.getPlayers()[playerID].grounded = true;
+                                    manager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
                                 }
 
                                 //X-collision
@@ -155,44 +155,44 @@ namespace LittleRedRobinHood.System
                                     && playerHitbox.X + playerHitbox.Width < objectHitbox.X + collideables[objectID].hitbox.Width)
                                 {
                                     Console.WriteLine("collide LEFT");
-                                    componentManager.getCollides()[playerID].hitbox.X = objectHitbox.X - playerHitbox.Width;
+                                    manager.getCollides()[playerID].hitbox.X = objectHitbox.X - playerHitbox.Width;
                                 }
                                 //right side of object
                                 else if (playerHitbox.X < objectHitbox.X + objectHitbox.Width
                                     && playerHitbox.X > objectHitbox.X)
                                 {
                                     Console.WriteLine("collide RIGHT");
-                                    componentManager.getCollides()[playerID].hitbox.X = objectHitbox.X + objectHitbox.Width;
+                                    manager.getCollides()[playerID].hitbox.X = objectHitbox.X + objectHitbox.Width;
                                 }
                             }
                         }
 
                         //Projectile Collision
-                        else if (componentManager.getEntities()[entityList[i]].isProjectile || componentManager.getEntities()[entityList[j]].isProjectile)
+                        else if (manager.getEntities()[entityList[i]].isProjectile || manager.getEntities()[entityList[j]].isProjectile)
                         {
                             int projectileID;
                             Entity objectEntity;
                             int objectIndex = 0;
 
-                            if (componentManager.getEntities()[entityList[i]].isProjectile)
+                            if (manager.getEntities()[entityList[i]].isProjectile)
                             {
-                                projectileID = componentManager.getEntities()[entityList[i]].entityID;
-                                objectEntity = componentManager.getEntities()[entityList[j]];
+                                projectileID = manager.getEntities()[entityList[i]].entityID;
+                                objectEntity = manager.getEntities()[entityList[j]];
                                 objectIndex = entityList[j];
                             }
                             else
                             {
-                                projectileID = componentManager.getEntities()[entityList[j]].entityID;
-                                objectEntity = componentManager.getEntities()[entityList[i]];
+                                projectileID = manager.getEntities()[entityList[j]].entityID;
+                                objectEntity = manager.getEntities()[entityList[i]];
                                 objectIndex = entityList[i];
                             }
                             //Console.WriteLine("Other Object is Shackleable?: " + componentManager.getCollides()[objectEntity.entityID].isShackleable);////
 
                             //Arrow Collision
-                            if (componentManager.getProjectiles()[projectileID].isArrow)
+                            if (manager.getProjectiles()[projectileID].isArrow)
                             {
                                 //Arrow - Damageable Enemy Collision NEED TO ADD DAMAGE
-                                if (componentManager.getCollides()[objectEntity.entityID].isDamageable)
+                                if (manager.getCollides()[objectEntity.entityID].isDamageable)
                                 {
                                     toBeRemoved.Add(objectEntity.entityID);
                                 }
@@ -207,47 +207,61 @@ namespace LittleRedRobinHood.System
                                     //Remove shackle
                                     toBeRemoved.Add(objectEntity.entityID);
 
+                                    //Make player fall if player on shackle
+                                    if (manager.getCollides()[objectEntity.entityID].hitbox.Intersects(manager.getCollides()[manager.playerID].hitbox))
+                                    {
+                                        manager.getPlayers()[manager.playerID].grounded = false;
+                                    }
+
                                     //Unshackle objects
-                                    int firstUnshackled = componentManager.getShackles()[objectEntity.entityID].firstPointID;
-                                    int secondUnshackled = componentManager.getShackles()[objectEntity.entityID].secondPointID;
-                                    componentManager.getCollides()[firstUnshackled].isShackled = false;
-                                    componentManager.getCollides()[secondUnshackled].isShackled = false;
+                                    int firstUnshackled = manager.getShackles()[objectEntity.entityID].firstPointID;
+                                    int secondUnshackled = manager.getShackles()[objectEntity.entityID].secondPointID;
+                                    manager.getCollides()[firstUnshackled].numShackled--;
+                                    manager.getCollides()[secondUnshackled].numShackled--;
+                                    //manager.getPlayers()[manager.playerID].shackles += 1;
                                 }
                                 toBeRemoved.Add(projectileID);
-                                componentManager.getPlayers()[componentManager.playerID].arrows += 1;
+                                manager.getPlayers()[manager.playerID].arrows += 1;
                             }
 
-                            //Shackle Projectile - Shackleable Collision
-                            else if (componentManager.getCollides()[objectEntity.entityID].isShackleable)
+                            //Shackle Projectile
+                            else 
                             {
-                                Console.WriteLine("HIT SHACKLEABLE OBJECT!");
-                                //Check for shackle
-                                int otherID = checkShackle(projectileID, objectEntity, componentManager);
-                                if (otherID != -1)
+                                //Shackle Projectile - Shackleable Collision
+                                if (manager.getCollides()[objectEntity.entityID].isShackleable)
                                 {
-                                    //Set two entities as shackled
-                                    componentManager.getCollides()[objectEntity.entityID].isShackled = true;
-                                    //componentManager.getCollides()[objectEntity.entityID].isShackleable = false;
-                                    componentManager.getCollides()[otherID].isShackled = true;
-                                    //componentManager.getCollides()[otherID].isShackleable = false;
+                                    //Check for shackle
+                                    int otherID = checkShackle(projectileID, objectEntity, manager);
+                                    if (otherID != -1)
+                                    {
+                                        //Set two entities as shackled
+                                        manager.getCollides()[objectEntity.entityID].numShackled++;
+                                        manager.getCollides()[otherID].numShackled++;
 
-                                    //Add Shackle
-                                    int newShackleID = componentManager.addEntity();
-                                    Rectangle tempRect1 = componentManager.getCollides()[objectEntity.entityID].hitbox;
-                                    Rectangle tempRect2 = componentManager.getCollides()[otherID].hitbox;
-                                    int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
-                                    int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
-                                    int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
-                                    int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
+                                        //Add Shackle
+                                        int newShackleID = manager.addEntity();
+                                        Rectangle tempRect1 = manager.getCollides()[objectEntity.entityID].hitbox;
+                                        Rectangle tempRect2 = manager.getCollides()[otherID].hitbox;
+                                        int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
+                                        int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
+                                        int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
+                                        int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
+
+                                        manager.addShackle(newShackleID, objectEntity.entityID, otherID);
+                                        manager.addCollide(newShackleID, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, false);
+
+                                        ///Console.WriteLine("MADE SHACKLE!!! Number of Shackles: " + manager.getShackles().Count);
+                                    }
+                                }
+
+                                //Shacke Projectile - random collideable
+                                else
+                                {
                                     
-                                    componentManager.addShackle(newShackleID, objectEntity.entityID, otherID);
-                                    componentManager.addCollide(newShackleID, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, false);
-
-                                    Console.WriteLine("MADE SHACKLE!!! Number of Shackles: " + componentManager.getShackles().Count);
                                 }
                             }
                             toBeRemoved.Add(projectileID);
-                            componentManager.getPlayers()[componentManager.playerID].shackles += 1;
+                            manager.getPlayers()[manager.playerID].shackles += 1;
                         }
                     }    
                 }
@@ -255,12 +269,12 @@ namespace LittleRedRobinHood.System
             //Remove entities
             foreach (int id in toBeRemoved)
             {
-                componentManager.getProjectiles().Remove(id);
-                componentManager.getSprites().Remove(id);
-                componentManager.getCollides().Remove(id);
-                componentManager.getPatrols().Remove(id);
-                componentManager.getShackles().Remove(id);
-                componentManager.getEntities().Remove(id);
+                manager.getProjectiles().Remove(id);
+                manager.getSprites().Remove(id);
+                manager.getCollides().Remove(id);
+                manager.getPatrols().Remove(id);
+                manager.getShackles().Remove(id);
+                manager.getEntities().Remove(id);
             }
 
             return false;

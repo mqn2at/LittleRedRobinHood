@@ -16,7 +16,7 @@ namespace LittleRedRobinHood.Component
         public readonly bool isDamageable;
         public bool isShackleable;
         public readonly bool isEndPoint;
-        public bool isShackled;
+        public int numShackled;
         public Rectangle hitbox;
 
         public Collide(int id, Rectangle hb, bool enemy, bool shackleable)
@@ -26,40 +26,40 @@ namespace LittleRedRobinHood.Component
             this.isEnemy = enemy;
             this.isDamageable = false;
             this.isShackleable = shackleable;
-            this.isShackled = false; ;
+            this.numShackled = 0;
             this.isEndPoint = false;
         }
 
-        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, bool shackled)
+        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, int shackled)
         {
             this.entityID = id;
             this.hitbox = hb;
             this.isEnemy = enemy;
             this.isDamageable = false;
             this.isShackleable = shackleable;
-            this.isShackled = shackled;
+            this.numShackled = shackled;
             this.isEndPoint = false;
         }
 
-        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, bool shackled, bool damageable)
+        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, int shackled, bool damageable)
         {
             this.entityID = id;
             this.hitbox = hb;
             this.isEnemy = enemy;
             this.isDamageable = damageable;
             this.isShackleable = shackleable;
-            this.isShackled = shackled;
+            this.numShackled = shackled;
             this.isEndPoint = false;
         }
 
-        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, bool shackled, bool damageable, bool endPoint)
+        public Collide(int id, Rectangle hb, bool enemy, bool shackleable, int shackled, bool damageable, bool endPoint)
         {
             this.entityID = id;
             this.hitbox = hb;
             this.isEnemy = enemy;
             this.isDamageable = damageable;
             this.isShackleable = shackleable;
-            this.isShackled = shackled;
+            this.numShackled = shackled;
             this.isEndPoint = endPoint;
         }
     }

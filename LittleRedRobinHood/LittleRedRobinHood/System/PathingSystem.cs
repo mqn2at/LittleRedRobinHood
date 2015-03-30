@@ -18,7 +18,7 @@ namespace LittleRedRobinHood.System
                 {
                     //Find current point and destination point
                     int entityID = entities[entityList[i]].entityID;
-                    if (!componentManager.getCollides()[entityID].isShackled)
+                    if (componentManager.getCollides()[entityID].numShackled == 0)
                     {
                         List<Vector2> path = componentManager.getPatrols()[entityID].waypoint;
                         Rectangle rectangle = componentManager.getCollides()[entityID].hitbox;
