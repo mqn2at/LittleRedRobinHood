@@ -92,13 +92,13 @@ namespace LittleRedRobinHood
         }
         public void addCollide(int id, Rectangle hb, bool enemy, bool shackle, bool damageable)
         {
-            Collide temp = new Collide(id, hb, enemy, shackle,false,damageable);
+            Collide temp = new Collide(id, hb, enemy, shackle, 0,damageable);
             collides.Add(id, temp);
             entities[id].isCollide = true;
         }
         public void addCollide(int id, Rectangle hb, bool enemy, bool shackle, bool damageable, bool endpoint)
         {
-            Collide temp = new Collide(id, hb, enemy, shackle,false,damageable,endpoint);
+            Collide temp = new Collide(id, hb, enemy, shackle, 0,damageable,endpoint);
             collides.Add(id, temp);
             entities[id].isCollide = true;
         }
