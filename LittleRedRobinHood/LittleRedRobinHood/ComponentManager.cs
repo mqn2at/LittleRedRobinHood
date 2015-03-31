@@ -20,10 +20,13 @@ namespace LittleRedRobinHood
         private Dictionary<int, Projectile> projectiles;
         private Dictionary<int, Shackle> shacklePlatforms;
         private Dictionary<int, Patrol> patrols;
+        private Dictionary<int, Text> texts;
         private Rectangle healthBox, arrowBox, shackleBox; //for UI drawing
         private Texture2D healthSprite, arrowSprite, shackleSprite;
         private int maxID;
         public int playerID; // GET RID OF LATER
+        public int selectID; // ALSO GET RID OF LATER
+        public int numStages; //YET ANOTHER FOR THE CHOPPING BOARD
         public ContentManager conman;
         public ComponentManager(ContentManager cm)
         {
@@ -34,6 +37,7 @@ namespace LittleRedRobinHood
             this.projectiles = new Dictionary<int, Projectile>();
             this.shacklePlatforms = new Dictionary<int, Shackle>();
             this.patrols = new Dictionary<int, Patrol>();
+            this.texts = new Dictionary<int, Text>();
             this.maxID = 0;
             this.conman = cm;
             //adjust UI position here
@@ -77,6 +81,10 @@ namespace LittleRedRobinHood
         {
             return this.patrols;
         }
+        public Dictionary<int, Text> getTexts()
+        {
+            return this.texts;
+        }
 
         public int addEntity()
         {
@@ -92,6 +100,11 @@ namespace LittleRedRobinHood
             Player temp = new Player(id);
             players.Add(id, temp);
             this.playerID = id;
+        }
+
+        public void setSelect(int id)
+        {
+            this.selectID = id;
         }
 
         public void addCollide(int id, Rectangle hb, bool enemy, bool shackle)
@@ -142,6 +155,20 @@ namespace LittleRedRobinHood
             Patrol temp = new Patrol(id, path, spd);
             patrols.Add(id, temp);
             entities[id].isPatrol = true;
+        }
+
+        public void addText(int id, SpriteFont font, Vector2 trigger, Vector2 position, string text)
+        {
+            Text temp = new Text(font, trigger, position, text);
+            texts.Add(id, temp);
+            entities[id].isText = true;
+        }
+
+        public void addText(int id, SpriteFont font, Vector2 trigger, Vector2 position, string text, bool vis)
+        {
+            Text temp = new Text(font, trigger, position, text, vis);
+            texts.Add(id, temp);
+            entities[id].isText = true;
         }
 
         public Rectangle getHealthBox()

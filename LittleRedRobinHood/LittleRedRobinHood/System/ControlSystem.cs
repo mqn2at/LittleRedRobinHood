@@ -19,6 +19,8 @@ namespace LittleRedRobinHood.System
         public MouseState ms;
         public MouseState mso;
         private bool clicked = false;
+        public int menuIndex = 0;
+        public bool subMenu = false;
         private int TIMER_MAX = 10;
         private int SHACKLE_SPEED = 9;
         private int ARROW_SPEED = 12;
@@ -28,7 +30,7 @@ namespace LittleRedRobinHood.System
         private int TIMER_JUMP_MAX = 20;
         private int jump_timer;
         private int timer;
-        private int pause_timer; //shouldn't have to exist
+        private int menuTimer;
 
         public ControlSystem()
         {
@@ -197,20 +199,80 @@ namespace LittleRedRobinHood.System
         //
         public bool checkPause()
         {
-            if (pause_timer > 0)
+            return onPress(Keys.P);
+        }
+
+        public int UpdateMainMenu(ComponentManager cm)
+        {
+            if (menuTimer > 0)
             {
-                pause_timer -= 1;
-                return false;
+                menuTimer -= 1;
             }
             else
             {
-                if (onPress(Keys.P))
+                if (isPressed(Keys.Enter) || isPressed(Keys.E))
                 {
-                    pause_timer = TIMER_MAX;
-                    return true;
+                    menuTimer = TIMER_MAX;
+                    if (subMenu)
+                    {
+                        if (menuIndex == cm.numStages)
+                        {
+                            subMenu = false;
+                            menuIndex = 1;
+                            return -1;
+                        }
+                        return menuIndex;
+                    }
+                    else
+                    {
+                        switch (menuIndex)
+                        {
+                            case 0:
+                                return 0;
+                            case 1:
+                                subMenu = true;
+                                menuIndex = 0;
+                                break;
+                            default:
+                                Console.WriteLine("there is a problem");
+                                break;
+                        }
+
+                    }
                 }
-                return false;
+                else if (isPressed(Keys.Up) || isPressed(Keys.W))
+                {
+                    menuTimer = TIMER_MAX;
+                    if (menuIndex == 0)
+                    {
+                        if (subMenu)
+                        {
+                            menuIndex = cm.numStages;
+                        }
+                        else
+                        {
+                            menuIndex = 1;
+                        }
+                    }
+                    else
+                    {
+                        menuIndex -= 1;
+                    }
+                }
+                else if (isPressed(Keys.Down) || isPressed(Keys.S))
+                {
+                    menuTimer = TIMER_MAX;
+                    if ((subMenu && menuIndex == cm.numStages) || (!subMenu && menuIndex >= 1))
+                    {
+                        menuIndex = 0;
+                    }
+                    else
+                    {
+                        menuIndex += 1;
+                    }
+                }
             }
+            return -1;
         }
 
         public bool isPressed(Keys key)

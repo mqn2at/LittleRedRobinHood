@@ -30,6 +30,7 @@ namespace LittleRedRobinHood
         PathingSystem pathsys;
         AnimatedSpriteSystem anisys;
         private bool paused;
+        private bool mainMenu;
         int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
@@ -57,6 +58,7 @@ namespace LittleRedRobinHood
             pathsys = new PathingSystem();
             anisys = new AnimatedSpriteSystem();
             paused = false;
+            mainMenu = true; //start with main menu open
             //Create stages
             this.stages = new List<Stage>();
             Stage stage0 = new Stage("stage0.tmx", this.manager);
@@ -65,6 +67,7 @@ namespace LittleRedRobinHood
             this.stages.Add(stage1);
             Stage stage2 = new Stage("stage2.tmx", this.manager);
             this.stages.Add(stage2);
+            this.manager.numStages = this.stages.ToArray().Length;
 
             base.Initialize();
         }
@@ -79,7 +82,8 @@ namespace LittleRedRobinHood
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //text
             font = this.Content.Load<SpriteFont>("Arial");
-            stages[currentStage].LoadContent(this.Content);
+            this.LoadMainMenu();
+            //stages[currentStage].LoadContent(this.Content); now called during updates of main menu
             // TODO: use this.Content to load your game content here
         }
         protected void LoadStage(int stageNum)
@@ -93,6 +97,23 @@ namespace LittleRedRobinHood
             manager.getPatrols().Clear();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
+
+        }
+
+        protected void LoadMainMenu()
+        {
+            //Add selection indicator
+            int temp = manager.addEntity();
+            manager.setSelect(temp);
+            manager.addCollide(temp, new Rectangle(25, 128, 16, 16), false, false);
+            manager.addSprite(temp, 25, 25, this.Content.Load<Texture2D>("Sprite-soda.png"));
+            //Add texts to be drawn
+            temp = manager.addEntity();
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(25, 25), "Little Red Robin Hood", true);
+            temp = manager.addEntity();
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(50, 125), "New Game", true);
+            temp = manager.addEntity();
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(50, 160), "Level Select", true);
 
         }
 
@@ -116,25 +137,37 @@ namespace LittleRedRobinHood
                 Exit();
 
             consys.UpdateStates();
-            if (consys.checkPause())
+            if (mainMenu)
             {
-                paused = !paused;
-                Console.WriteLine(paused);
+                int temp  = consys.UpdateMainMenu(manager);
+                if (temp > -1)
+                {
+                    mainMenu = false;
+                    LoadStage(temp);
+                }
             }
-            if (consys.checkReset())
+            else
             {
-                LoadStage(currentStage);
-            }
-            if (!paused)
-            {
-                consys.Update(manager);
-            projsys.Update(manager, GraphicsDevice);
-            pathsys.Update(manager);
-            if (colsys.Update(manager, GraphicsDevice))
-            {
-                currentStage = (currentStage + 1) % 3;
-                LoadStage(currentStage);
-            }
+                if (consys.checkPause())
+                {
+                    paused = !paused;
+                    Console.WriteLine(paused);
+                }
+                if (consys.checkReset())
+                {
+                    LoadStage(currentStage);
+                }
+                if (!paused)
+                {
+                    consys.Update(manager);
+                    projsys.Update(manager, GraphicsDevice);
+                    pathsys.Update(manager);
+                    if (colsys.Update(manager, GraphicsDevice))
+                    {
+                        currentStage = (currentStage + 1) % 3;
+                        LoadStage(currentStage);
+                    }
+                }
             }
             base.Update(gameTime);
         }
@@ -145,29 +178,61 @@ namespace LittleRedRobinHood
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (!paused)
-            {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            stages[currentStage].Draw(spriteBatch, GraphicsDevice);
-            /*Dictionary<int, Collide> collides = manager.getCollides();
-            foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
-                spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
-            }*/
-            //Moved above foreach to AnimatedSpriteSystem
-            anisys.Draw(spriteBatch, manager);
-            //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
-            DrawShackle();
-            //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
-            // TODO: Add your drawing code here
-            spriteBatch.DrawString(font, "HELLO", new Vector2(120, 10), Color.White);
-            spriteBatch.End();
+            if (mainMenu)
+            {
+                foreach (KeyValuePair<int, Text> pair in manager.getTexts())
+                {
+                    if (pair.Value.visible)
+                    {
+                        spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.Black);
+                    }
+                }
+                Collide selC = manager.getCollides()[manager.selectID];
+                Sprite selS = manager.getSprites()[manager.selectID];
+                int selX = selC.hitbox.X;
+                int selY = selC.hitbox.Y;
+                if (consys.subMenu)
+                {
+                    selX += 50; //adjust for indented submenu
+                    selY = 195; // next item down
+                    for (int x = 0; x <= manager.numStages; x++ )
+                    {
+                        if (x != manager.numStages)
+                        {
+                            spriteBatch.DrawString(font, "Stage: " + x, new Vector2(100, 195 + x*35), Color.Black);
+                        }
+                        else
+                        {
+                            spriteBatch.DrawString(font, "Back", new Vector2(100, 195 + x*35), Color.Black);
+                        }
+                    }
+                }
+                selY += consys.menuIndex * 35;
+                spriteBatch.Draw(selS.sprite, new Rectangle(selX, selY, selC.hitbox.Width, selC.hitbox.Height), Color.White);
+            }
+            else if (!paused)
+            {
+                stages[currentStage].Draw(spriteBatch, GraphicsDevice);
+                /*Dictionary<int, Collide> collides = manager.getCollides();
+                foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
+                    spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
+                }*/
+                //Moved above foreach to AnimatedSpriteSystem
+                anisys.Draw(spriteBatch, manager);
+                //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
+                DrawShackle();
+                //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
+                // TODO: Add your drawing code here
+                //spriteBatch.DrawString(font, "HELLO", new Vector2(120, 10), Color.White);
             }
             else
             {
-                GraphicsDevice.Clear(Color.CornflowerBlue);
+                spriteBatch.DrawString(font, "PAUSED", new Vector2(350, 250), Color.Black);
                 //Make it display "PAUSED"
             }
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
