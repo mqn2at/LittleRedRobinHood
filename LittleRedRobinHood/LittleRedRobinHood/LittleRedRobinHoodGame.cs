@@ -175,7 +175,7 @@ namespace LittleRedRobinHood
                     (int)start.X,
                     (int)start.Y,
                     (int)edge.Length(), //sb will strech the texture to fill this rectangle
-                    1), //width of line, change this to make thicker line
+                    5), //width of line, change this to make thicker line
                 null,
                 Color.Black, //colour of line
                 angle,     //angle of line (calulated above)

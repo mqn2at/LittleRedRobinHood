@@ -154,14 +154,14 @@ namespace LittleRedRobinHood.System
                                 else if (playerHitbox.X + playerHitbox.Width > objectHitbox.X
                                     && playerHitbox.X + playerHitbox.Width < objectHitbox.X + collideables[objectID].hitbox.Width)
                                 {
-                                    Console.WriteLine("collide LEFT");
+                                    ///Console.WriteLine("collide LEFT");
                                     manager.getCollides()[playerID].hitbox.X = objectHitbox.X - playerHitbox.Width;
                                 }
                                 //right side of object
                                 else if (playerHitbox.X < objectHitbox.X + objectHitbox.Width
                                     && playerHitbox.X > objectHitbox.X)
                                 {
-                                    Console.WriteLine("collide RIGHT");
+                                    ///Console.WriteLine("collide RIGHT");
                                     manager.getCollides()[playerID].hitbox.X = objectHitbox.X + objectHitbox.Width;
                                 }
                             }
@@ -191,10 +191,23 @@ namespace LittleRedRobinHood.System
                             //Arrow Collision
                             if (manager.getProjectiles()[projectileID].isArrow)
                             {
-                                //Arrow - Damageable Enemy Collision NEED TO ADD DAMAGE
+                                //Arrow - Damageable Enemy Collision
                                 if (manager.getCollides()[objectEntity.entityID].isDamageable)
                                 {
+                                    //Remove enemy
                                     toBeRemoved.Add(objectEntity.entityID);
+
+                                    //Remove shackles linked to enemy
+                                    foreach (int shackleID in manager.getShackles().Keys){
+                                        int shackledID1 = manager.getShackles()[shackleID].firstPointID;
+                                        int shackledID2 = manager.getShackles()[shackleID].secondPointID;
+
+                                        if (objectEntity.entityID == shackledID1 || objectEntity.entityID == shackledID2)
+                                        {
+                                            toBeRemoved.Add(shackleID);
+                                        }
+                                    }
+
                                 }
 
                                 //Arrow - Shackle Platform Collision
@@ -218,7 +231,7 @@ namespace LittleRedRobinHood.System
                                     int secondUnshackled = manager.getShackles()[objectEntity.entityID].secondPointID;
                                     manager.getCollides()[firstUnshackled].numShackled--;
                                     manager.getCollides()[secondUnshackled].numShackled--;
-                                    //manager.getPlayers()[manager.playerID].shackles += 1;
+                                    manager.getPlayers()[manager.playerID].shackles += 1;
                                 }
                                 toBeRemoved.Add(projectileID);
                                 manager.getPlayers()[manager.playerID].arrows += 1;
@@ -234,34 +247,49 @@ namespace LittleRedRobinHood.System
                                     int otherID = checkShackle(projectileID, objectEntity, manager);
                                     if (otherID != -1)
                                     {
-                                        //Set two entities as shackled
-                                        manager.getCollides()[objectEntity.entityID].numShackled++;
-                                        manager.getCollides()[otherID].numShackled++;
+                                        //Check to see if shackle already exists
+                                        bool shackleExists = false;
+                                        foreach (Shackle shackle in manager.getShackles().Values)
+                                        {
+                                            if((shackle.firstPointID == objectEntity.entityID && shackle.secondPointID == otherID)
+                                                || (shackle.firstPointID == otherID && shackle.secondPointID == objectEntity.entityID)){
+                                                    shackleExists = true;
+                                                    manager.getPlayers()[manager.playerID].shackles += 1;
+                                                    Console.WriteLine("Shackle already exists!");
+                                                    break;
+                                                }
+                                        }
 
-                                        //Add Shackle
-                                        int newShackleID = manager.addEntity();
-                                        Rectangle tempRect1 = manager.getCollides()[objectEntity.entityID].hitbox;
-                                        Rectangle tempRect2 = manager.getCollides()[otherID].hitbox;
-                                        int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
-                                        int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
-                                        int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
-                                        int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
+                                        //Make Shackle if doesn't exist
+                                        if (!shackleExists){
+                                            //Set two entities as shackled
+                                            manager.getCollides()[objectEntity.entityID].numShackled++;
+                                            manager.getCollides()[otherID].numShackled++;
 
-                                        manager.addShackle(newShackleID, objectEntity.entityID, otherID);
-                                        manager.addCollide(newShackleID, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, false);
+                                            //Add Shackle
+                                            int newShackleID = manager.addEntity();
+                                            Rectangle tempRect1 = manager.getCollides()[objectEntity.entityID].hitbox;
+                                            Rectangle tempRect2 = manager.getCollides()[otherID].hitbox;
+                                            int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
+                                            int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
+                                            int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
+                                            int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
 
-                                        ///Console.WriteLine("MADE SHACKLE!!! Number of Shackles: " + manager.getShackles().Count);
+                                            manager.addShackle(newShackleID, objectEntity.entityID, otherID);
+                                            manager.addCollide(newShackleID, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, false);
+                                        }                                        
                                     }
                                 }
-
-                                //Shacke Projectile - random collideable
+                                    
+                                //Shackle Projectile - random collideable
                                 else
                                 {
-                                    
+                                    manager.getPlayers()[manager.playerID].shackles += 1;
+                                    Console.WriteLine("No Shackle Made.");
                                 }
+                                Console.WriteLine("Number of shackle platforms: " + manager.getShackles().Count);
                             }
                             toBeRemoved.Add(projectileID);
-                            manager.getPlayers()[manager.playerID].shackles += 1;
                         }
                     }    
                 }

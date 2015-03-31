@@ -24,65 +24,74 @@ namespace LittleRedRobinHood.System
                         Rectangle rectangle = componentManager.getCollides()[entityID].hitbox;
                         Vector2 currentPos = new Vector2((float)(rectangle.X + (0.5) * rectangle.Width),
                             (float)(rectangle.Y + (0.5) * rectangle.Height));
-                        Console.WriteLine(componentManager.getPatrols()[entityID].currentDest);
-                        Vector2 destPos = path[componentManager.getPatrols()[entityID].currentDest];
-
-                        //Calculate angle
-                        double height = (double)(currentPos.Y - destPos.Y);
-                        double width = (double)(currentPos.X - destPos.X);
-                        double hypotenuse = Math.Sqrt(Math.Pow(height, 2) + Math.Pow(width, 2));
-                        double angle = Math.Atan2(height, width);
-                        //Move patrolling unit
-                        int speed = componentManager.getPatrols()[entityID].speed;
-
-                        int dX = (int)(speed * Math.Cos(angle))*-1;
-                        int dY = (int)(speed * Math.Sin(angle))*-1;
-                        Console.WriteLine("dx:" + dX + " dy:" + dY);
-                        
-                        int x = componentManager.getCollides()[entityID].hitbox.X + dX;
-                        int y = componentManager.getCollides()[entityID].hitbox.Y + dY;
-
-
-                        int dest = componentManager.getPatrols()[entityID].currentDest;
-                        //check if overshot
-                        if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) || destPos.X==x)
+                        if (path.Count != 0)
                         {
+                            Vector2 destPos = path[componentManager.getPatrols()[entityID].currentDest];
+                                                
+                            //Calculate angle
+                            double height = (double)(currentPos.Y - destPos.Y);
+                            double width = (double)(currentPos.X - destPos.X);
+                            double hypotenuse = Math.Sqrt(Math.Pow(height, 2) + Math.Pow(width, 2));
+                            double angle = Math.Atan2(height, width);
+                            //Move patrolling unit
+                            int speed = componentManager.getPatrols()[entityID].speed;
 
-                            //componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
-                            //componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;
+                            int dX = (int)(speed * Math.Cos(angle)) * -1;
+                            int dY = (int)(speed * Math.Sin(angle)) * -1;
 
-                            if (path.Count-1 == componentManager.getPatrols()[entityID].currentDest)
-                            {
-                                componentManager.getPatrols()[entityID].setCurrentDest(0);
-                            }
-                            else
-                            {
-                                componentManager.getPatrols()[entityID].setCurrentDest(dest+1);
-                                //destPos = path[componentManager.getPatrols()[entityID].currentDest];
+                            int x = componentManager.getCollides()[entityID].hitbox.X + dX;
+                            int y = componentManager.getCollides()[entityID].hitbox.Y + dY;
 
-                            }
-                        }
-                        else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y)|| destPos.Y==y)
-                        {
 
-                            //componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
-                            //componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;
-                            if (path.Count - 1 == componentManager.getPatrols()[entityID].currentDest)
+                            int dest = componentManager.getPatrols()[entityID].currentDest;
+                            //Console.WriteLine(dest);
+                            //check if overshot
+                            if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) && (dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                             {
-                                componentManager.getPatrols()[entityID].setCurrentDest(0);
+
+                                /*componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
+                                componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;*/
+
+                                if (path.Count - 1 == componentManager.getPatrols()[entityID].currentDest)
+                                {
+
+                                    componentManager.getPatrols()[entityID].setCurrentDest(0);
+                                }
+                                else
+                                {
+                                    dest = dest + 1;
+
+                                    componentManager.getPatrols()[entityID].setCurrentDest(dest);
+
+                                    //destPos = path[componentManager.getPatrols()[entityID].currentDest];
+
+                                }
                             }
-                            else
+                            /*else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                             {
-                                componentManager.getPatrols()[entityID].setCurrentDest(dest + 1);
-                            }
-                        }
-                        //else
-                        //{
+
+                                componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
+                                componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;
+                                if (path.Count - 1 == componentManager.getPatrols()[entityID].currentDest)
+                                {
+                                    componentManager.getPatrols()[entityID].setCurrentDest(0);
+                                }
+                                else
+                                {
+
+                                    dest = dest + 1;
+
+                                    componentManager.getPatrols()[entityID].setCurrentDest(dest);
+
+                                }
+                            }*/
+                            
 
                             componentManager.getCollides()[entityID].hitbox.X = x;
                             componentManager.getCollides()[entityID].hitbox.Y = y;
-                        //}
-                        
+                            
+
+                        }
                     }
                 }
                 else if (entities[entityList[i]].isHoming)
