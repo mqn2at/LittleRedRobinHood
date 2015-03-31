@@ -25,7 +25,10 @@ namespace LittleRedRobinHood.System
         private int X_SPEED = 4;
         private int JUMP = 15;
         private int MAX_FALL = 20;
+        private int TIMER_JUMP_MAX = 20;
+        private int jump_timer;
         private int timer;
+        private int pause_timer; //shouldn't have to exist
 
         public ControlSystem()
         {
@@ -36,31 +39,32 @@ namespace LittleRedRobinHood.System
             this.timer = TIMER_MAX;
         }
 
-        public bool Update(ComponentManager cm)
+        public void UpdateStates()
         {
             kbo = kb;
             kb = Keyboard.GetState();
             mso = ms;
             ms = Mouse.GetState();
+        }
+        public bool Update(ComponentManager cm)
+        {
             Player player = cm.getPlayers()[cm.playerID];
             Collide pMove = cm.getCollides()[cm.playerID];
-            
-            //Check reset first; we don't have to do anything if we are reseting
-            if (isPressed(Keys.R))
+            if (jump_timer > 0)
             {
-                Console.WriteLine("RESET!");
-                return true;
+                jump_timer--;
             }
 
             if (player.grounded)
             {
                 player.dy = 0;
                 //Jumping
-                if (isPressed(Keys.Space) || isPressed(Keys.W) || isPressed(Keys.Up))
+                if ((isPressed(Keys.Space) || isPressed(Keys.W) || isPressed(Keys.Up)) && jump_timer == 0)
                 {
                     player.dy -= JUMP;
                     player.jumping = true;
                     player.grounded = false;
+                    jump_timer = TIMER_JUMP_MAX;
                 }
             }
             //Player is falling; apply gravity then update position. Player can also accelerate even faster down.
@@ -184,6 +188,29 @@ namespace LittleRedRobinHood.System
             //DON'T RESET
             return false;
 
+        }
+
+        public bool checkReset()
+        {
+            return onPress(Keys.R);
+        }
+        //
+        public bool checkPause()
+        {
+            if (pause_timer > 0)
+            {
+                pause_timer -= 1;
+                return false;
+            }
+            else
+            {
+                if (onPress(Keys.P))
+                {
+                    pause_timer = TIMER_MAX;
+                    return true;
+                }
+                return false;
+            }
         }
 
         public bool isPressed(Keys key)

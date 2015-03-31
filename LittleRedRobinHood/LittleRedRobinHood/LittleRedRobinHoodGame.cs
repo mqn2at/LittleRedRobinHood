@@ -28,6 +28,7 @@ namespace LittleRedRobinHood
         ProjectileSystem projsys;
         PathingSystem pathsys;
         AnimatedSpriteSystem anisys;
+        private bool paused;
         int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
@@ -54,7 +55,7 @@ namespace LittleRedRobinHood
             projsys = new ProjectileSystem();
             pathsys = new PathingSystem();
             anisys = new AnimatedSpriteSystem();
-
+            paused = false;
             //Create stages
             this.stages = new List<Stage>();
             Stage stage0 = new Stage("stage0.tmx", this.manager);
@@ -110,17 +111,26 @@ namespace LittleRedRobinHood
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (consys.Update(manager))
+            consys.UpdateStates();
+            if (consys.checkPause())
+            {
+                paused = !paused;
+                Console.WriteLine(paused);
+            }
+            if (consys.checkReset())
             {
                 LoadStage(currentStage);
             }
-            projsys.Update(manager, GraphicsDevice);
-            pathsys.Update(manager);
-
-            if (colsys.Update(manager, GraphicsDevice))
+            if (!paused)
             {
-                currentStage = (currentStage + 1) % 3;
-                LoadStage(currentStage);
+                consys.Update(manager);
+                projsys.Update(manager, GraphicsDevice);
+                pathsys.Update(manager);
+                if (colsys.Update(manager, GraphicsDevice))
+                {
+                    currentStage = (currentStage + 1) % 3;
+                    LoadStage(currentStage);
+                }
             }
             base.Update(gameTime);
         }
@@ -131,20 +141,28 @@ namespace LittleRedRobinHood
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            stages[currentStage].Draw(spriteBatch, GraphicsDevice);
-            /*Dictionary<int, Collide> collides = manager.getCollides();
-            foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
-                spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
-            }*/
-            //Moved above foreach to AnimatedSpriteSystem
-            anisys.Draw(spriteBatch, manager);
-            //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
-            DrawShackle();
-            //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
-            // TODO: Add your drawing code here
-            spriteBatch.End();
+            if (!paused)
+            {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
+                spriteBatch.Begin();
+                stages[currentStage].Draw(spriteBatch, GraphicsDevice);
+                /*Dictionary<int, Collide> collides = manager.getCollides();
+                foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
+                    spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
+                }*/
+                //Moved above foreach to AnimatedSpriteSystem
+                anisys.Draw(spriteBatch, manager);
+                //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
+                DrawShackle();
+                //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
+                // TODO: Add your drawing code here
+                spriteBatch.End();
+            }
+            else
+            {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
+                //Make it display "PAUSED"
+            }
             base.Draw(gameTime);
         }
 
