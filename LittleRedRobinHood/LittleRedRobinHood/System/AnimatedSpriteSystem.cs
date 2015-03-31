@@ -18,22 +18,23 @@ namespace LittleRedRobinHood.System
         public bool idle = true;
         public bool shooting = false;
 
-        private int currentFrame;
-        private int totalFrame;
+        private int playerCurrentFrame = 0;
+        private int playerTotalFrame = 40;
+        private int patrolCurrentFrame = 0;
+        private int patrolTotalFrame = 3;
         private int spriteSpeed = 10;
         //private int spriteWidth;
         //private int spriteHeight;
         public List<Vector2> idleCoords;
         public List<Vector2> runningCoords;
         public List<Vector2> shootingCoords;
+        public List<Vector2> flyingCoords;
         ///public List<Vector2> jump;
         //End Sprite Animation
 
         public AnimatedSpriteSystem()
         {
             //Initialize player spritesheet coordinates
-            currentFrame = 0;
-            totalFrame = 40;
             idleCoords = new List<Vector2>();
             idleCoords.Add(new Vector2(0, 0));
             idleCoords.Add(new Vector2(1, 0));
@@ -55,6 +56,12 @@ namespace LittleRedRobinHood.System
             shootingCoords.Add(new Vector2(5, 3));
             shootingCoords.Add(new Vector2(6, 3));
             shootingCoords.Add(new Vector2(7, 3));
+
+            //Patrol enemy spritesheed coordinates
+            flyingCoords = new List<Vector2>();
+            flyingCoords.Add(new Vector2(0, 0));
+            flyingCoords.Add(new Vector2(1, 0));
+            flyingCoords.Add(new Vector2(2, 0));
         }
 
         public void Draw(SpriteBatch sb, ComponentManager cm)
@@ -75,11 +82,11 @@ namespace LittleRedRobinHood.System
                 //check if sprite is an animated sprite
                 if (sp.Value.animated)
                 {
+                    int column = 0;
+                    int row = 0;
                     //Player animation
-                    if (cm.getPlayers()[sp.Value.entityID] != null)
+                    if (cm.getEntities()[sp.Value.entityID].isPlayer)
                     {
-                        int column = 0;
-                        int row = 0;
                         //Check which way player is facing
                         if (cm.getPlayers()[sp.Value.entityID].is_right)
                         {
@@ -92,27 +99,27 @@ namespace LittleRedRobinHood.System
                         //shooting
                         if (cm.getPlayers()[sp.Value.entityID].shooting)
                         {
-                            column = (int)(this.shootingCoords[currentFrame / spriteSpeed].X);
-                            row = (int)(this.shootingCoords[currentFrame / spriteSpeed].Y);
-                            Console.WriteLine(currentFrame + "/" + totalFrame);
-                            if (currentFrame == totalFrame - 1)
+                            column = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].X);
+                            row = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].Y);
+                            //Console.WriteLine(currentFrame + "/" + totalFrame);
+                            if (playerCurrentFrame == playerTotalFrame - 1)
                             {
                                 cm.getPlayers()[sp.Value.entityID].shooting = false;
-                                currentFrame = 0;
-                                totalFrame = spriteSpeed * idleCoords.Count;
+                                playerCurrentFrame = 0;
+                                playerTotalFrame = spriteSpeed * idleCoords.Count;
                             }
                         }
                         //running
                         else if (cm.getPlayers()[sp.Value.entityID].running)
                         {
-                            column = (int)(this.runningCoords[currentFrame / spriteSpeed].X);
-                            row = (int)(this.runningCoords[currentFrame / spriteSpeed].Y);
+                            column = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].X);
+                            row = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].Y);
                         }
                         //idle
                         else
                         {
-                            column = (int)(this.idleCoords[currentFrame / spriteSpeed].X);
-                            row = (int)(this.idleCoords[currentFrame / spriteSpeed].Y);
+                            column = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].X);
+                            row = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].Y);
                         }
                         //grab the current animation frame
                         Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
@@ -121,15 +128,48 @@ namespace LittleRedRobinHood.System
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
                         //update the current frames
-                        currentFrame++;
-                        if (currentFrame == totalFrame)
+                        playerCurrentFrame++;
+                        if (playerCurrentFrame == playerTotalFrame)
                         {
-                            currentFrame = 0;
+                            playerCurrentFrame = 0;
                         }
                     }
                     //Patrol animation
-                    else if (cm.getPatrols()[sp.Value.entityID] != null) {
+                    else if (cm.getEntities()[sp.Value.entityID].isPatrol)
+                    {
+                        //currentFrame = 0;
+                        row = 0;
+                        column = 0;
+                        //Check which way patrol is facing
+                        if (cm.getPatrols()[sp.Value.entityID].is_right)
+                        {
+                            effect = SpriteEffects.None;
+                        }
+                        else
+                        {
+                            effect = SpriteEffects.FlipHorizontally;
+                        }
+                        //flying
+                        column = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].X);
+                        row = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].Y);
+                        //Console.WriteLine(currentFrame + "/" + totalFrame);
+                        if (patrolCurrentFrame == patrolTotalFrame - 1)
+                        {
+                            patrolCurrentFrame = 0;
+                            patrolTotalFrame = spriteSpeed * flyingCoords.Count;
+                        }
+                        //grab the current animation frame
+                        Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
+                        Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
+                        //draw the current animation frame
+                        sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
+                        //update the current frames
+                        patrolCurrentFrame++;
+                        if (patrolCurrentFrame == patrolTotalFrame)
+                        {
+                            patrolCurrentFrame = 0;
+                        }
                     }
                 }
                 else //no animation, so just draw

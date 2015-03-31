@@ -12,6 +12,7 @@ namespace LittleRedRobinHood.Component
         public readonly List<Vector2> waypoint;
         public readonly int speed;
         public int currentDest;
+        public bool is_right = false;
 
         public Patrol(int id, List<Vector2> path, int spd)
         {
