@@ -41,7 +41,7 @@ namespace LittleRedRobinHood
             this.shackleBox = new Rectangle(10, 40, 25, 25);
             this.arrowBox = new Rectangle(10, 70, 25, 25);
             //adjust UI images here
-            this.healthSprite = conman.Load<Texture2D>("Sprite-soda.png");
+            this.healthSprite = conman.Load<Texture2D>("heart.png");
             this.arrowSprite = conman.Load<Texture2D>("arrow.gif");
             this.shackleSprite = conman.Load<Texture2D>("rope.png");
         }
