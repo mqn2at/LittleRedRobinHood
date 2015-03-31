@@ -44,7 +44,7 @@ namespace LittleRedRobinHood.System
 
 
                             int dest = componentManager.getPatrols()[entityID].currentDest;
-                            Console.WriteLine(dest);
+                            //Console.WriteLine(dest);
                             //check if overshot
                             if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) && (dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                             {
