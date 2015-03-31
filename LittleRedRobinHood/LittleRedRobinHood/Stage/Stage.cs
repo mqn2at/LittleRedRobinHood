@@ -76,8 +76,10 @@ namespace LittleRedRobinHood
                 if (enemycount == 0)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                    waypoints.Add(new Vector2(o.X, o.Y - 200));
+                    waypoints.Add(new Vector2(o.X, o.Y - 100));
                     waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(o.X +100 , o.Y-100));
+
                 }
                 if (enemycount == 1)
                 {
