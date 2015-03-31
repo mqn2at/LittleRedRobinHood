@@ -16,6 +16,8 @@ namespace LittleRedRobinHood.System
             
             int[] entityList = manager.getEntities().Keys.ToArray();
             List<int> toBeRemoved = new List<int>();
+            List<int> shackleCollided = new List<int>();
+            List<int> arrowCollided = new List<int>();
             for (int i = 0; i < entityList.Count(); i++)
             {
                 for (int j = i + 1; j < entityList.Count(); j++)
@@ -26,6 +28,13 @@ namespace LittleRedRobinHood.System
                         continue;
                     }
 
+                    //Check to see if both enetities exist
+                    if (toBeRemoved.Contains(manager.getEntities()[entityList[i]].entityID)
+                        || toBeRemoved.Contains(manager.getEntities()[entityList[i]].entityID))
+                    {
+                            continue;
+                    }
+
                     Collide collide1 = manager.getCollides()[manager.getEntities()[entityList[i]].entityID];
                     Collide collide2 = manager.getCollides()[manager.getEntities()[entityList[j]].entityID];
                     
@@ -33,6 +42,7 @@ namespace LittleRedRobinHood.System
 
                     if (COLLIDED)
                     {
+
                         //Player Collision
                         if (manager.getEntities()[entityList[i]].isPlayer || manager.getEntities()[entityList[j]].isPlayer)
                         {
@@ -231,10 +241,19 @@ namespace LittleRedRobinHood.System
                                     int secondUnshackled = manager.getShackles()[objectEntity.entityID].secondPointID;
                                     manager.getCollides()[firstUnshackled].numShackled--;
                                     manager.getCollides()[secondUnshackled].numShackled--;
-                                    manager.getPlayers()[manager.playerID].shackles += 1;
+                                    if (!shackleCollided.Contains(projectileID))
+                                    {
+                                        manager.getPlayers()[manager.playerID].shackles += 1;
+                                        shackleCollided.Add(projectileID);
+                                    }
+                                    
                                 }
                                 toBeRemoved.Add(projectileID);
-                                manager.getPlayers()[manager.playerID].arrows += 1;
+                                if (!arrowCollided.Contains(projectileID))
+                                {
+                                    manager.getPlayers()[manager.playerID].arrows += 1;
+                                    arrowCollided.Add(projectileID);
+                                }
                             }
 
                             //Shackle Projectile
@@ -254,7 +273,11 @@ namespace LittleRedRobinHood.System
                                             if((shackle.firstPointID == objectEntity.entityID && shackle.secondPointID == otherID)
                                                 || (shackle.firstPointID == otherID && shackle.secondPointID == objectEntity.entityID)){
                                                     shackleExists = true;
-                                                    manager.getPlayers()[manager.playerID].shackles += 1;
+                                                    if (!shackleCollided.Contains(projectileID))
+                                                    {
+                                                        manager.getPlayers()[manager.playerID].shackles += 1;
+                                                        shackleCollided.Add(projectileID);
+                                                    }
                                                     Console.WriteLine("Shackle already exists!");
                                                     break;
                                                 }
@@ -277,14 +300,28 @@ namespace LittleRedRobinHood.System
 
                                             manager.addShackle(newShackleID, objectEntity.entityID, otherID);
                                             manager.addCollide(newShackleID, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, false);
+
+                                            //Check number of shackles
+                                            if (shackleCollided.Contains(projectileID))
+                                            {
+                                                manager.getPlayers()[manager.playerID].shackles -= 1;
+                                            }
                                         }                                        
                                     }
+                                    //Replenish shackle if enemy not shackled
+                                    else if (!shackleCollided.Contains(projectileID))
+                                    {
+                                        manager.getPlayers()[manager.playerID].shackles += 1;
+                                        shackleCollided.Add(projectileID);
+                                    }
+                                    
                                 }
                                     
                                 //Shackle Projectile - random collideable
-                                else
+                                else if (!shackleCollided.Contains(projectileID))
                                 {
                                     manager.getPlayers()[manager.playerID].shackles += 1;
+                                    shackleCollided.Add(projectileID);
                                     Console.WriteLine("No Shackle Made.");
                                 }
                                 Console.WriteLine("Number of shackle platforms: " + manager.getShackles().Count);
