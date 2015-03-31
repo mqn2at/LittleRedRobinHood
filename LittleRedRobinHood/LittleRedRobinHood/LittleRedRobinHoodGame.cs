@@ -21,6 +21,7 @@ namespace LittleRedRobinHood
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont font;
         List<Stage> stages;
         ComponentManager manager;
         CollisionSystem colsys;
@@ -76,6 +77,8 @@ namespace LittleRedRobinHood
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            //text
+            font = this.Content.Load<SpriteFont>("Arial");
             stages[currentStage].LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
         }
@@ -90,6 +93,7 @@ namespace LittleRedRobinHood
             manager.getPatrols().Clear();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
+
         }
 
         /// <summary>
@@ -124,13 +128,13 @@ namespace LittleRedRobinHood
             if (!paused)
             {
                 consys.Update(manager);
-                projsys.Update(manager, GraphicsDevice);
-                pathsys.Update(manager);
-                if (colsys.Update(manager, GraphicsDevice))
-                {
-                    currentStage = (currentStage + 1) % 3;
-                    LoadStage(currentStage);
-                }
+            projsys.Update(manager, GraphicsDevice);
+            pathsys.Update(manager);
+            if (colsys.Update(manager, GraphicsDevice))
+            {
+                currentStage = (currentStage + 1) % 3;
+                LoadStage(currentStage);
+            }
             }
             base.Update(gameTime);
         }
@@ -143,20 +147,21 @@ namespace LittleRedRobinHood
         {
             if (!paused)
             {
-                GraphicsDevice.Clear(Color.CornflowerBlue);
-                spriteBatch.Begin();
-                stages[currentStage].Draw(spriteBatch, GraphicsDevice);
-                /*Dictionary<int, Collide> collides = manager.getCollides();
-                foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
-                    spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
-                }*/
-                //Moved above foreach to AnimatedSpriteSystem
-                anisys.Draw(spriteBatch, manager);
-                //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
-                DrawShackle();
-                //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
-                // TODO: Add your drawing code here
-                spriteBatch.End();
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+            stages[currentStage].Draw(spriteBatch, GraphicsDevice);
+            /*Dictionary<int, Collide> collides = manager.getCollides();
+            foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
+                spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
+            }*/
+            //Moved above foreach to AnimatedSpriteSystem
+            anisys.Draw(spriteBatch, manager);
+            //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
+            DrawShackle();
+            //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
+            // TODO: Add your drawing code here
+            spriteBatch.DrawString(font, "HELLO", new Vector2(120, 10), Color.White);
+            spriteBatch.End();
             }
             else
             {

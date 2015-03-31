@@ -101,7 +101,7 @@ namespace LittleRedRobinHood.System
                         {
                             column = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].X);
                             row = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].Y);
-                            //Console.WriteLine(currentFrame + "/" + totalFrame);
+                            //update current player frame
                             if (playerCurrentFrame == playerTotalFrame - 1)
                             {
                                 cm.getPlayers()[sp.Value.entityID].shooting = false;
@@ -137,7 +137,6 @@ namespace LittleRedRobinHood.System
                     //Patrol animation
                     else if (cm.getEntities()[sp.Value.entityID].isPatrol)
                     {
-                        //currentFrame = 0;
                         row = 0;
                         column = 0;
                         //Check which way patrol is facing
@@ -149,14 +148,18 @@ namespace LittleRedRobinHood.System
                         {
                             effect = SpriteEffects.FlipHorizontally;
                         }
-                        //flying
-                        column = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].X);
-                        row = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].Y);
-                        //Console.WriteLine(currentFrame + "/" + totalFrame);
-                        if (patrolCurrentFrame == patrolTotalFrame - 1)
+                        //flying patrols
+                        //check whether or not they are shackled/frozen
+                        if (cm.getCollides()[sp.Value.entityID].numShackled == 0)
                         {
-                            patrolCurrentFrame = 0;
-                            patrolTotalFrame = spriteSpeed * flyingCoords.Count;
+                            column = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].X);
+                            row = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].Y);
+                            //update current patrol frame
+                            if (patrolCurrentFrame == patrolTotalFrame - 1)
+                            {
+                                patrolCurrentFrame = 0;
+                                patrolTotalFrame = spriteSpeed * flyingCoords.Count;
+                            }
                         }
                         //grab the current animation frame
                         Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
@@ -178,6 +181,7 @@ namespace LittleRedRobinHood.System
                 }
             }
         }
+
         public void drawUI(SpriteBatch sb, ComponentManager cm)
         {
             Player pl = cm.getPlayers()[cm.playerID];
