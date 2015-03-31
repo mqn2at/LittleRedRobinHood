@@ -21,6 +21,7 @@ namespace LittleRedRobinHood
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont font;
         List<Stage> stages;
         ComponentManager manager;
         CollisionSystem colsys;
@@ -75,6 +76,8 @@ namespace LittleRedRobinHood
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            //text
+            font = this.Content.Load<SpriteFont>("Arial");
             stages[currentStage].LoadContent(this.Content);
             // TODO: use this.Content to load your game content here
         }
@@ -89,6 +92,7 @@ namespace LittleRedRobinHood
             manager.getPatrols().Clear();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
+
         }
 
         /// <summary>
@@ -144,6 +148,7 @@ namespace LittleRedRobinHood
             DrawShackle();
             //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
             // TODO: Add your drawing code here
+            spriteBatch.DrawString(font, "HELLO", new Vector2(120, 10), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }
