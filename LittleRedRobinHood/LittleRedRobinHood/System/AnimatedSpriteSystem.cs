@@ -27,7 +27,6 @@ namespace LittleRedRobinHood.System
         public List<Vector2> runningCoords;
         public List<Vector2> shootingCoords;
         ///public List<Vector2> jump;
-        public SpriteEffects effect = SpriteEffects.None;
         //End Sprite Animation
 
         public AnimatedSpriteSystem()
@@ -66,97 +65,76 @@ namespace LittleRedRobinHood.System
             Dictionary<int, LittleRedRobinHood.Component.Collide> collides = cm.getCollides();
             foreach (KeyValuePair<int, LittleRedRobinHood.Component.Sprite> sp in cm.getSprites())
             {
-                //spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 int spriteX = cm.getCollides()[sp.Value.entityID].hitbox.X;
                 int spriteY = cm.getCollides()[sp.Value.entityID].hitbox.Y;
 
                 Texture2D image = cm.getSprites()[sp.Value.entityID].sprite;
                 int spriteWidth = cm.getSprites()[sp.Value.entityID].width;
                 int spriteHeight = cm.getSprites()[sp.Value.entityID].height;
+                SpriteEffects effect = SpriteEffects.None;
+                //check if sprite is an animated sprite
                 if (sp.Value.animated)
                 {
-                    //Sprite animation
-                    int column = 0;
-                    int row = 0;
-                    if (cm.getPlayers()[sp.Value.entityID].shooting)
+                    //Player animation
+                    if (cm.getPlayers()[sp.Value.entityID] != null)
                     {
-                        column = (int)(this.shootingCoords[currentFrame / spriteSpeed].X);
-                        row = (int)(this.shootingCoords[currentFrame / spriteSpeed].Y);
-                        Console.WriteLine(currentFrame + "/" + totalFrame);
-                        if (currentFrame == totalFrame - 1)
+                        int column = 0;
+                        int row = 0;
+                        //Check which way player is facing
+                        if (cm.getPlayers()[sp.Value.entityID].is_right)
                         {
-                            cm.getPlayers()[sp.Value.entityID].shooting = false;
-                            currentFrame = 0;
-                            totalFrame = spriteSpeed * idleCoords.Count;
+                            effect = SpriteEffects.None;
                         }
-                        Console.WriteLine("SHOOTING");
-                    }
-                    /*else if (idle)
-                    {
-                        column = (int)(this.idleCoords[currentFrame / spriteSpeed].X);
-                        row = (int)(this.idleCoords[currentFrame / spriteSpeed].Y);
-                    }*/
-                    else if (cm.getPlayers()[sp.Value.entityID].running)
-                    {
-                        column = (int)(this.runningCoords[currentFrame / spriteSpeed].X);
-                        row = (int)(this.runningCoords[currentFrame / spriteSpeed].Y);
-                        Console.WriteLine("RUNNING");
-                    }
-                    else //idle
-                    {
-                        column = (int)(this.idleCoords[currentFrame / spriteSpeed].X);
-                        row = (int)(this.idleCoords[currentFrame / spriteSpeed].Y);
-                        Console.WriteLine("IDLE");
-                    }
+                        else
+                        {
+                            effect = SpriteEffects.FlipHorizontally;
+                        }
+                        //shooting
+                        if (cm.getPlayers()[sp.Value.entityID].shooting)
+                        {
+                            column = (int)(this.shootingCoords[currentFrame / spriteSpeed].X);
+                            row = (int)(this.shootingCoords[currentFrame / spriteSpeed].Y);
+                            Console.WriteLine(currentFrame + "/" + totalFrame);
+                            if (currentFrame == totalFrame - 1)
+                            {
+                                cm.getPlayers()[sp.Value.entityID].shooting = false;
+                                currentFrame = 0;
+                                totalFrame = spriteSpeed * idleCoords.Count;
+                            }
+                        }
+                        //running
+                        else if (cm.getPlayers()[sp.Value.entityID].running)
+                        {
+                            column = (int)(this.runningCoords[currentFrame / spriteSpeed].X);
+                            row = (int)(this.runningCoords[currentFrame / spriteSpeed].Y);
+                        }
+                        //idle
+                        else
+                        {
+                            column = (int)(this.idleCoords[currentFrame / spriteSpeed].X);
+                            row = (int)(this.idleCoords[currentFrame / spriteSpeed].Y);
+                        }
+                        //grab the current animation frame
+                        Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
+                        Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
+                        //draw the current animation frame
+                        sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
-                    Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
-                    Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
-                    //Sprite animation end
+                        //update the current frames
+                        currentFrame++;
+                        if (currentFrame == totalFrame)
+                        {
+                            currentFrame = 0;
+                        }
+                    }
+                    //Patrol animation
+                    else if (cm.getPatrols()[sp.Value.entityID] != null) {
 
-                    sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
-
-                    //Sprite Animation
-                    currentFrame++;
-                    if (currentFrame == totalFrame)
-                    {
-                        currentFrame = 0;
                     }
                 }
-                else
+                else //no animation, so just draw
                 {
-                    //Sprite animation
-                    /*
-                    int column = 0;
-                    int row = 0;
-                    if (shooting)
-                    {
-                        column = (int)(this.shootingCoords[currentFrame / spriteSpeed].X);
-                        row = (int)(this.shootingCoords[currentFrame / spriteSpeed].Y);
-                        Console.WriteLine(currentFrame + "/" + totalFrame);
-                        if (currentFrame == totalFrame - 1)
-                        {
-                            shooting = false;
-                            currentFrame = 0;
-                            totalFrame = spriteSpeed * idleCoords.Count;
-                        }
-                    }
-                    else if (idle)
-                    {
-                        column = (int)(this.idleCoords[currentFrame / spriteSpeed].X);
-                        row = (int)(this.idleCoords[currentFrame / spriteSpeed].Y);
-                    }
-                    else if (running)
-                    {
-                        column = (int)(this.runningCoords[currentFrame / spriteSpeed].X);
-                        row = (int)(this.runningCoords[currentFrame / spriteSpeed].Y);
-                    }
-
-                    Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
-                    Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
-                    //Sprite animation end
-                    */
-                    //sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
-                    sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+                   sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
                 }
             }
         }

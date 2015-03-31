@@ -85,12 +85,16 @@ namespace LittleRedRobinHood.System
                 pMove.hitbox.X += X_SPEED;
                 player.grounded = false;
                 player.running = true;
+                player.is_right = true;
+                //cm.getSprites()[player.entityID].effect = SpriteEffects.None;
             }
             else if (isPressed(Keys.A) || isPressed(Keys.Left))
             {
                 pMove.hitbox.X -= X_SPEED;
                 player.grounded = false;
                 player.running = true;
+                //cm.getSprites()[player.entityID].effect = SpriteEffects.FlipHorizontally;
+                player.is_right = false;
             }
             else
             {
