@@ -15,7 +15,7 @@
   <properties>
    <property name="objectmeta" value="objectvalue"/>
   </properties>
-  <object id="3" name="box1" x="316" y="382" width="36" height="63">
+  <object id="3" name="box1" x="316" y="350" width="32" height="97">
    <properties>
     <property name="name" value="box1"/>
    </properties>
@@ -25,7 +25,7 @@
     <property name="name" value="ground"/>
    </properties>
   </object>
-  <object id="16" name="box2" x="544" y="321" width="32" height="124">
+  <object id="16" name="box2" x="544" y="290" width="32" height="156">
    <properties>
     <property name="name" value="box2"/>
    </properties>
@@ -44,12 +44,12 @@
   </object>
  </objectgroup>
  <objectgroup name="shackleables">
-  <object id="15" name="shackleable1" x="315" y="349" width="38" height="32">
+  <object id="15" name="shackleable1" x="316" y="350" width="32" height="32">
    <properties>
     <property name="name" value="shackleable1"/>
    </properties>
   </object>
-  <object id="18" name="shackleable2" x="543" y="289" width="34" height="33">
+  <object id="18" name="shackleable2" x="544" y="289" width="32" height="32">
    <properties>
     <property name="name" value="shackleable2"/>
    </properties>
