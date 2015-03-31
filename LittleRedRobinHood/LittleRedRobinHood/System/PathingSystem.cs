@@ -39,6 +39,16 @@ namespace LittleRedRobinHood.System
                             int dX = (int)(speed * Math.Cos(angle)) * -1;
                             int dY = (int)(speed * Math.Sin(angle)) * -1;
 
+                            //For Sprite Animations
+                            if (dX <= 0)
+                            {
+                                componentManager.getPatrols()[entityID].is_right = false;
+                            }
+                            else
+                            {
+                                componentManager.getPatrols()[entityID].is_right = true;
+                            }
+
                             int x = componentManager.getCollides()[entityID].hitbox.X + dX;
                             int y = componentManager.getCollides()[entityID].hitbox.Y + dY;
 

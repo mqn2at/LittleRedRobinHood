@@ -99,7 +99,7 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));*/
 
                 cm.addPatrol(tempID, waypoints, 3);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("hawk.png"));
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("birdsheet.png"), true);
                 enemycount++;
             }
 
