@@ -134,6 +134,14 @@ namespace LittleRedRobinHood.System
             //Shackle
             if (!clicked && player.shackles > 0 && ms.LeftButton == ButtonState.Pressed)
             {
+                if (pMove.hitbox.X - ms.X > 0)
+                {
+                    player.is_right = false;
+                }
+                else
+                {
+                    player.is_right = true;
+                }
                 Console.WriteLine("-1 shackle");
                 double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
                 int temp = cm.addEntity();
@@ -149,6 +157,14 @@ namespace LittleRedRobinHood.System
             //Arrow
             else if (!clicked && player.arrows > 0 && ms.RightButton == ButtonState.Pressed)
             {
+                if (pMove.hitbox.X - ms.X > 0)
+                {
+                    player.is_right = false;
+                }
+                else
+                {
+                    player.is_right = true;
+                }
                 Console.WriteLine("-1 arrow");
                 double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
                 int temp = cm.addEntity();
