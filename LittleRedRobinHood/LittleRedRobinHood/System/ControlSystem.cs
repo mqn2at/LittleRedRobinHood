@@ -63,12 +63,19 @@ namespace LittleRedRobinHood.System
                     player.grounded = false;
                 }
             }
-            //Player is falling; apply gravity then update position
+            //Player is falling; apply gravity then update position. Player can also accelerate even faster down.
             else
             {
                 if (player.dy < MAX_FALL)
                 {
                     player.dy += 1;
+                }
+                if (isPressed(Keys.S) || isPressed(Keys.Down))
+                {
+                    if (player.dy < MAX_FALL)
+                    {
+                        player.dy += 1;
+                    }
                 }
                 pMove.hitbox.Y += player.dy;
             }

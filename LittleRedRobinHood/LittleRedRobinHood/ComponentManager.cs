@@ -20,6 +20,8 @@ namespace LittleRedRobinHood
         private Dictionary<int, Projectile> projectiles;
         private Dictionary<int, Shackle> shacklePlatforms;
         private Dictionary<int, Patrol> patrols;
+        private Rectangle healthBox, arrowBox, shackleBox; //for UI drawing
+        private Texture2D healthSprite, arrowSprite, shackleSprite;
         private int maxID;
         public int playerID; // GET RID OF LATER
         public ContentManager conman;
@@ -34,6 +36,14 @@ namespace LittleRedRobinHood
             this.patrols = new Dictionary<int, Patrol>();
             this.maxID = 0;
             this.conman = cm;
+            //adjust UI position here
+            this.healthBox = new Rectangle(10, 10, 25, 25);
+            this.shackleBox = new Rectangle(10, 40, 25, 25);
+            this.arrowBox = new Rectangle(10, 70, 25, 25);
+            //adjust UI images here
+            this.healthSprite = conman.Load<Texture2D>("Sprite-soda.png");
+            this.arrowSprite = conman.Load<Texture2D>("arrow.gif");
+            this.shackleSprite = conman.Load<Texture2D>("rope.png");
         }
 
         public Dictionary<int, Entity> getEntities()
@@ -132,6 +142,36 @@ namespace LittleRedRobinHood
             Patrol temp = new Patrol(id, path, spd);
             patrols.Add(id, temp);
             entities[id].isPatrol = true;
+        }
+
+        public Rectangle getHealthBox()
+        {
+            return this.healthBox;
+        }
+
+        public Rectangle getArrowsBox()
+        {
+            return this.arrowBox;
+        }
+
+        public Rectangle getShackleBox()
+        {
+            return this.shackleBox;
+        }
+
+        public Texture2D getHealthSprite()
+        {
+            return this.healthSprite;
+        }
+
+        public Texture2D getArrowSprite()
+        {
+            return this.arrowSprite;
+        }
+
+        public Texture2D getShackleSprite()
+        {
+            return this.shackleSprite;
         }
     }
 }

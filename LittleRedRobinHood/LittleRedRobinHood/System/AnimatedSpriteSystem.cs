@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 //using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using LittleRedRobinHood.Component;
 //using Microsoft.Xna.Framework.Input;
 //using Microsoft.Xna.Framework.Storage;
 
@@ -59,6 +60,9 @@ namespace LittleRedRobinHood.System
 
         public void Draw(SpriteBatch sb, ComponentManager cm)
         {
+            //draw UI
+            this.drawUI(sb, cm);
+            //draw everything else
             Dictionary<int, LittleRedRobinHood.Component.Collide> collides = cm.getCollides();
             foreach (KeyValuePair<int, LittleRedRobinHood.Component.Sprite> sp in cm.getSprites())
             {
@@ -154,6 +158,28 @@ namespace LittleRedRobinHood.System
                     //sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
                     sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
                 }
+            }
+        }
+        public void drawUI(SpriteBatch sb, ComponentManager cm)
+        {
+            Player pl = cm.getPlayers()[cm.playerID];
+            Rectangle hB = cm.getHealthBox();
+            Rectangle aB = cm.getArrowsBox();
+            Rectangle shB = cm.getShackleBox();
+            Texture2D hS = cm.getHealthSprite();
+            Texture2D aS = cm.getArrowSprite();
+            Texture2D shS = cm.getShackleSprite();
+            for (int x = 0; x < pl.health; x++)
+            {
+                sb.Draw(hS, new Rectangle(hB.X + (x * 30), hB.Y, hB.Width, hB.Height), Color.White);
+            }
+            for (int x = 0; x < pl.arrows; x++)
+            {
+                sb.Draw(aS, new Rectangle(aB.X + (x * 30), aB.Y, aB.Width, aB.Height), Color.White);
+            }
+            for (int x = 0; x < pl.shackles; x++)
+            {
+                sb.Draw(shS, new Rectangle(shB.X + (x * 30), shB.Y, shB.Width, shB.Height), Color.White);
             }
         }
     }
