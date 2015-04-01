@@ -45,6 +45,7 @@ namespace LittleRedRobinHood
         public void LoadContent(ContentManager content)
         {
             map = Map.Load(Path.Combine(content.RootDirectory, tmxFile), content);
+            background = content.Load<Texture2D>("Gothic-Forest_Clip_Art.png");
             width = map.Width;
             height = map.Height;
             int tempID;
@@ -118,7 +119,9 @@ namespace LittleRedRobinHood
 
         public void Draw(SpriteBatch sb, GraphicsDevice gd)
         {
-            //Draw the map / background
+            //HARDCODED DRAWING BACKGROUND IMAGE
+            sb.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
+            //Draw the map
             map.Draw(sb, new Rectangle(0, 0, gd.Viewport.Width, gd.Viewport.Height), new Vector2());
         }
         
