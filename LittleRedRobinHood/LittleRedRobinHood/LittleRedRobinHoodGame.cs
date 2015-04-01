@@ -88,13 +88,7 @@ namespace LittleRedRobinHood
         }
         protected void LoadStage(int stageNum)
         {
-            manager.getEntities().Clear();
-            manager.getSprites().Clear();
-            manager.getCollides().Clear();
-            manager.getPlayers().Clear();
-            manager.getProjectiles().Clear();
-            manager.getShackles().Clear();
-            manager.getPatrols().Clear();
+            manager.clearDictionaries();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
 
@@ -102,6 +96,9 @@ namespace LittleRedRobinHood
 
         protected void LoadMainMenu()
         {
+            //Reset menu details
+            consys.subMenu = false;
+            consys.menuIndex = 0;
             //Add selection indicator
             int temp = manager.addEntity();
             manager.setSelect(temp);
@@ -123,6 +120,7 @@ namespace LittleRedRobinHood
         /// </summary>
         protected override void UnloadContent()
         {
+         
             // TODO: Unload any non ContentManager content here
         }
 
@@ -164,8 +162,17 @@ namespace LittleRedRobinHood
                     pathsys.Update(manager);
                     if (colsys.Update(manager, GraphicsDevice))
                     {
-                        currentStage = (currentStage + 1) % 3;
-                        LoadStage(currentStage);
+                        if (currentStage < manager.numStages - 1)
+                        {
+                            currentStage += 1;
+                            LoadStage(currentStage);
+                        }
+                        else
+                        {
+                            manager.clearDictionaries();
+                            LoadMainMenu();
+                            mainMenu = true;
+                        }
                     }
                 }
             }

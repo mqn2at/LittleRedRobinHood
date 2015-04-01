@@ -50,6 +50,18 @@ namespace LittleRedRobinHood
             this.shackleSprite = conman.Load<Texture2D>("rope.png");
         }
 
+        public void clearDictionaries()
+        {
+            this.entities.Clear();
+            this.sprites.Clear();
+            this.collides.Clear();
+            this.players.Clear();
+            this.projectiles.Clear();
+            this.shacklePlatforms.Clear();
+            this.patrols.Clear();
+            this.texts.Clear();
+        }
+
         public Dictionary<int, Entity> getEntities()
         {
             return this.entities;
