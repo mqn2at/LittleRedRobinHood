@@ -83,7 +83,16 @@
     <Content Include="Content\arrow.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\BBHood.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\birdsheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\forest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Gothic-Forest_Clip_Art.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\hawk.png">
@@ -93,6 +102,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\hood.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\hood2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Player_Sprites.png">
@@ -116,7 +128,6 @@
     <Folder Include="bin\WindowsGL\Release\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\mytest.tmx" />
     <None Include="Content\stage0.tmx" />
     <None Include="Content\stage1.tmx" />
     <None Include="Content\stage2.tmx" />

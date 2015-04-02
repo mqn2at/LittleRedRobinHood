@@ -120,7 +120,7 @@ namespace LittleRedRobinHood
         /// </summary>
         protected override void UnloadContent()
         {
-         
+
             // TODO: Unload any non ContentManager content here
         }
 
@@ -137,7 +137,7 @@ namespace LittleRedRobinHood
             consys.UpdateStates();
             if (mainMenu)
             {
-                int temp  = consys.UpdateMainMenu(manager);
+                int temp = consys.UpdateMainMenu(manager);
                 if (temp > -1)
                 {
                     mainMenu = false;
@@ -204,15 +204,15 @@ namespace LittleRedRobinHood
                 {
                     selX += 50; //adjust for indented submenu
                     selY = 195; // next item down
-                    for (int x = 0; x <= manager.numStages; x++ )
+                    for (int x = 0; x <= manager.numStages; x++)
                     {
                         if (x != manager.numStages)
                         {
-                            spriteBatch.DrawString(font, "Stage: " + x, new Vector2(100, 195 + x*35), Color.Black);
+                            spriteBatch.DrawString(font, "Stage: " + x, new Vector2(100, 195 + x * 35), Color.Black);
                         }
                         else
                         {
-                            spriteBatch.DrawString(font, "Back", new Vector2(100, 195 + x*35), Color.Black);
+                            spriteBatch.DrawString(font, "Back", new Vector2(100, 195 + x * 35), Color.Black);
                         }
                     }
                 }
@@ -227,7 +227,7 @@ namespace LittleRedRobinHood
                     spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
-                anisys.Draw(spriteBatch, manager);
+                anisys.Draw(spriteBatch, manager, gameTime);
                 //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
                 DrawShackle();
                 //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
