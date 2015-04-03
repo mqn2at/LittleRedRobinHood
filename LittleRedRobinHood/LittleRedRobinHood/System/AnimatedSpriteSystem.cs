@@ -162,7 +162,7 @@ namespace LittleRedRobinHood.System
                         }
                         //grab the current animation frame
                         Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
-                        Rectangle destinationRectangle = new Rectangle(spriteX, spriteY-25, spriteWidth, spriteHeight);
+                        Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
                         //draw the current animation frame
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
