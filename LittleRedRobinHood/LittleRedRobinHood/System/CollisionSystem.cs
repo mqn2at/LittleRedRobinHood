@@ -79,6 +79,7 @@ namespace LittleRedRobinHood.System
 
                             //Player - Shackle Collision WILL NEED TO BE IMPROVED
                             //Currently not accounting for shackles as walls
+                            //BUG, bottom get pushed to top for some reason
                             else if (manager.getEntities()[objectIndex].isShackle)
                             {
                                 int firstPointID = manager.getShackles()[objectID].firstPointID;
@@ -119,24 +120,31 @@ namespace LittleRedRobinHood.System
                                 {
                                     //Find point on shackle platform that is at the middle of the player's width
                                     double shackleY = slope * (double)(playerMidX - bottomPoint.X) + bottomPoint.Y;
-                                    double playerMidY = (double)(playerTop.Y + playerBottom.Y) / 2.0;
+                                    double playerMidY = (double)(playerBottom.Y - playerCollide.Height/2.0);
 
                                     Console.WriteLine(shackleY + " | " + playerMidY + " | " + playerBottom.Y);
                                     //Player on top of shackle
-                                    if (shackleY < playerMidY)
+                                    if (shackleY < playerMidY && shackleY+playerCollide.Height/2.0 > playerMidY)
                                     {
+                                        Console.WriteLine("PLAYER ON TOP OF SHACKLE!");
                                         manager.getCollides()[playerID].hitbox.Y = (gd.Viewport.Height - (int)shackleY) - playerCollide.Height;
                                         manager.getPlayers()[playerID].grounded = true;
                                     }
+                                    /*
                                     //Player on bottom of shackle
                                     else if (shackleY > playerMidY)
                                     {
-                                        manager.getCollides()[playerID].hitbox.Y = gd.Viewport.Height - (int)shackleY;
+                                        Console.WriteLine("PLAYER BELOW SHACKLE!");
+                                        manager.getCollides()[playerID].hitbox.Y = Math.Max(manager.getCollides()[playerID].hitbox.Y, 
+                                            gd.Viewport.Height - (int)shackleY);
                                     }
+                                     * */
                                 }
                             }
 
                             //Player - Object Collision
+                            //FIX SOME BUG THAT CAUSES PLAYER TO PUSH OFF OF LEFT + 
+                            //
                             else if (!manager.getEntities()[objectIndex].isShackle && !manager.getEntities()[objectIndex].isProjectile)
                             {
                                 Dictionary<int, Collide> collideables = manager.getCollides();
@@ -204,6 +212,7 @@ namespace LittleRedRobinHood.System
                                 //Arrow - Damageable Enemy Collision
                                 if (manager.getCollides()[objectEntity.entityID].isDamageable)
                                 {
+                                    Console.WriteLine("ARROW HIT ENEMY!"); ////
                                     //Remove enemy
                                     toBeRemoved.Add(objectEntity.entityID);
 
@@ -218,41 +227,80 @@ namespace LittleRedRobinHood.System
                                         }
                                     }
 
+                                    //Remove arrow
+                                    toBeRemoved.Add(projectileID);
+                                    if (!arrowCollided.Contains(projectileID))
+                                    {
+                                        manager.getPlayers()[manager.playerID].arrows += 1;
+                                        arrowCollided.Add(projectileID);
+                                    }
                                 }
 
                                 //Arrow - Shackle Platform Collision
-                                //COLLISION DETECTION TRACKS HITBOX, NOT ACTUAL SHACKLE
                                 else if (objectEntity.isShackle)
                                 {
+                                    Console.WriteLine("ARROW HIT SHACKLE HITBOX!"); ////
+
                                     //Detect Collision
+                                    int spd = manager.getProjectiles()[projectileID].speed;
+                                    double ang = manager.getProjectiles()[projectileID].angle;
+                                    Vector2 currArrLoc = new Vector2(manager.getCollides()[projectileID].hitbox.X,
+                                        manager.getCollides()[projectileID].hitbox.Y);
+                                    Vector2 prevArrLoc = new Vector2(currArrLoc.X - (int)(spd * Math.Cos(ang)),
+                                        currArrLoc.Y - (int)(spd * Math.Sin(ang)));
+                                    int firstPtID = manager.getShackles()[objectEntity.entityID].firstPointID;
+                                    int secondPtID = manager.getShackles()[objectEntity.entityID].secondPointID;
+                                    Rectangle firstPtBox = manager.getCollides()[firstPtID].hitbox;
+                                    Rectangle secondPtBox = manager.getCollides()[secondPtID].hitbox;
+                                    Vector2 firstPt = new Vector2(firstPtBox.X + firstPtBox.Width / 2, firstPtBox.Y + firstPtBox.Height / 2);
+                                    Vector2 secondPt = new Vector2(secondPtBox.X + secondPtBox.Width / 2, secondPtBox.Y + secondPtBox.Height / 2);
 
-
-                                    //Remove shackle
-                                    toBeRemoved.Add(objectEntity.entityID);
-
-                                    //Make player fall if player on shackle
-                                    if (manager.getCollides()[objectEntity.entityID].hitbox.Intersects(manager.getCollides()[manager.playerID].hitbox))
+                                    //If the sweep collision happens
+                                    if (arrowShackleCollide(prevArrLoc, currArrLoc, firstPt, secondPt))
                                     {
-                                        manager.getPlayers()[manager.playerID].grounded = false;
-                                    }
+                                        //Remove shackle
+                                        toBeRemoved.Add(objectEntity.entityID);
 
-                                    //Unshackle objects
-                                    int firstUnshackled = manager.getShackles()[objectEntity.entityID].firstPointID;
-                                    int secondUnshackled = manager.getShackles()[objectEntity.entityID].secondPointID;
-                                    manager.getCollides()[firstUnshackled].numShackled--;
-                                    manager.getCollides()[secondUnshackled].numShackled--;
-                                    if (!shackleCollided.Contains(projectileID))
-                                    {
-                                        manager.getPlayers()[manager.playerID].shackles += 1;
-                                        shackleCollided.Add(projectileID);
+                                        //Make player fall if player on shackle
+                                        if (manager.getCollides()[objectEntity.entityID].hitbox.Intersects(manager.getCollides()[manager.playerID].hitbox))
+                                        {
+                                            manager.getPlayers()[manager.playerID].grounded = false;
+                                        }
+
+                                        //Unshackle objects
+                                        int firstUnshackled = manager.getShackles()[objectEntity.entityID].firstPointID;
+                                        int secondUnshackled = manager.getShackles()[objectEntity.entityID].secondPointID;
+                                        manager.getCollides()[firstUnshackled].numShackled--;
+                                        manager.getCollides()[secondUnshackled].numShackled--;
+                                        if (!shackleCollided.Contains(projectileID))
+                                        {
+                                            manager.getPlayers()[manager.playerID].shackles += 1;
+                                            shackleCollided.Add(projectileID);
+                                        }
+
+                                        //Remove arrow
+                                        toBeRemoved.Add(projectileID);
+                                        if (!arrowCollided.Contains(projectileID))
+                                        {
+                                            manager.getPlayers()[manager.playerID].arrows += 1;
+                                            arrowCollided.Add(projectileID);
+                                        }
+                                        Console.WriteLine("ARROW HIT SHACKLE!"); ////
                                     }
-                                    
                                 }
-                                toBeRemoved.Add(projectileID);
-                                if (!arrowCollided.Contains(projectileID))
+                                
+                                //Arrow - other collideable Collision
+                                else
                                 {
-                                    manager.getPlayers()[manager.playerID].arrows += 1;
-                                    arrowCollided.Add(projectileID);
+                                    Console.WriteLine("ARROW HIT SOMETHING ELSE!"); ////
+
+                                    //Remove arrow
+                                    toBeRemoved.Add(projectileID);
+                                    if (!arrowCollided.Contains(projectileID))
+                                    {
+                                        manager.getPlayers()[manager.playerID].arrows += 1;
+                                        arrowCollided.Add(projectileID);
+                                    }
                                 }
                             }
 
@@ -325,8 +373,10 @@ namespace LittleRedRobinHood.System
                                     Console.WriteLine("No Shackle Made.");
                                 }
                                 Console.WriteLine("Number of shackle platforms: " + manager.getShackles().Count);
+
+                                //remove Shackle
+                                toBeRemoved.Add(projectileID);
                             }
-                            toBeRemoved.Add(projectileID);
                         }
                     }    
                 }
@@ -345,6 +395,8 @@ namespace LittleRedRobinHood.System
             return false;
         }
 
+
+        //Method to check if objects are in a line to be shackled
         public int checkShackle(int projectileID, Entity objectEntity, ComponentManager componentManager)
         {
             double angle = componentManager.getProjectiles()[projectileID].angle;
@@ -381,6 +433,60 @@ namespace LittleRedRobinHood.System
                 }
             }
             return otherID;
+        }
+
+
+        /*
+         * METHODS FOR CHECKING SWEEPING COLLISION
+         * Source: http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+         */
+
+        //Checks if point b is on line segment ac
+        private bool onSegment(Vector2 p, Vector2 q, Vector2 r)
+        {
+            return (q.X <= Math.Max(p.X, r.X) && q.X >= Math.Min(p.X, r.X) && q.Y <= Math.Max(p.Y, r.Y) && q.Y >= Math.Min(p.Y, r.Y));
+        }
+
+        //Find orientation of 3 points: a,b,c
+        //0 = colinear, 1 = clockwise, 2 = counter clockwise
+        private int orientation(Vector2 p, Vector2 q, Vector2 r)
+        {
+            float val = (q.Y - p.Y) * (r.X - q.X) - (q.X - p.X) * (r.Y - q.Y);
+            if (val == 0)
+            {
+                return 0;
+            }
+            return (val > 0) ? 1 : 2;
+        }
+
+        //Method to check if line segments intersect for sweep collision
+        private bool arrowShackleCollide(Vector2 p1, Vector2 q1, Vector2 p2, Vector2 q2)
+        {
+            // Find the four orientations needed for general and
+            // special cases
+            int o1 = orientation(p1, q1, p2);
+            int o2 = orientation(p1, q1, q2);
+            int o3 = orientation(p2, q2, p1);
+            int o4 = orientation(p2, q2, q1);
+
+            // General case
+            if (o1 != o2 && o3 != o4)
+                return true;
+
+            // Special Cases
+            // p1, q1 and p2 are colinear and p2 lies on segment p1q1
+            if (o1 == 0 && onSegment(p1, p2, q1)) return true;
+
+            // p1, q1 and p2 are colinear and q2 lies on segment p1q1
+            if (o2 == 0 && onSegment(p1, q2, q1)) return true;
+
+            // p2, q2 and p1 are colinear and p1 lies on segment p2q2
+            if (o3 == 0 && onSegment(p2, p1, q2)) return true;
+
+            // p2, q2 and q1 are colinear and q1 lies on segment p2q2
+            if (o4 == 0 && onSegment(p2, q1, q2)) return true;
+
+            return false; // Doesn't fall in any of the above cases
         }
     }
 }

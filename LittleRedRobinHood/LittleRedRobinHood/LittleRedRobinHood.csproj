@@ -131,6 +131,10 @@
     <Folder Include="bin\WindowsGL\Release\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Arial.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\mytest.tmx" />
     <None Include="Content\stage0.tmx" />
     <None Include="Content\stage1.tmx" />
     <None Include="Content\stage2.tmx" />
