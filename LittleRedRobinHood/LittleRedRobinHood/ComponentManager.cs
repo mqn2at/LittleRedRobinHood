@@ -60,6 +60,7 @@ namespace LittleRedRobinHood
             this.shacklePlatforms.Clear();
             this.patrols.Clear();
             this.texts.Clear();
+            this.maxID = 0;
         }
 
         public Dictionary<int, Entity> getEntities()
@@ -179,6 +180,13 @@ namespace LittleRedRobinHood
         public void addText(int id, SpriteFont font, Vector2 trigger, Vector2 position, string text, bool vis)
         {
             Text temp = new Text(font, trigger, position, text, vis);
+            texts.Add(id, temp);
+            entities[id].isText = true;
+        }
+
+        public void addText(int id, SpriteFont font, Vector2 trigger, Vector2 position, string text, bool vis, Single scale)
+        {
+            Text temp = new Text(font, trigger, position, text, vis, scale);
             texts.Add(id, temp);
             entities[id].isText = true;
         }
