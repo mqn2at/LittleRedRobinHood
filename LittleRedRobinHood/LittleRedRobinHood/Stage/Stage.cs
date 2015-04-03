@@ -58,12 +58,14 @@ namespace LittleRedRobinHood
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
             }
 
+            int shackleBoxID = 0;
             //Add shackleable objects
             shackleables = map.ObjectGroups["shackleables"].Objects;
             foreach (Squared.Tiled.Object o in shackleables.Values)
             {
                 tempID = cm.addEntity();
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true);
+                shackleBoxID = tempID;
             }
 
             //Add all enemies
@@ -74,6 +76,7 @@ namespace LittleRedRobinHood
                 tempID = cm.addEntity();
                 //HARD CODED ENEMY MOVEMENTS IN, need to change later based on stage
                 List<Vector2> waypoints = new List<Vector2>();
+                if (tmxFile.Equals("stage2.tmx")) {
                 if (enemycount == 0)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
@@ -82,13 +85,13 @@ namespace LittleRedRobinHood
                     waypoints.Add(new Vector2(o.X +100 , o.Y-100));
 
                 }
-                if (enemycount == 1)
+                else if (enemycount == 1)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
                     waypoints.Add(new Vector2(o.X, o.Y + 250));
                     waypoints.Add(new Vector2(o.X, o.Y));
                 }
-                if (enemycount == 2)
+                else if (enemycount == 2)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, true);
                     waypoints.Add(new Vector2(o.X+200, o.Y));
@@ -100,6 +103,25 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));*/
 
                 cm.addPatrol(tempID, waypoints, 3);
+                }
+                else if (tmxFile.Equals("stage3.tmx")) {
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
+                    waypoints.Add(new Vector2(o.X, o.Y - 100));
+                    waypoints.Add(new Vector2(o.X, o.Y));
+
+                    cm.addPatrol(tempID, waypoints, 2);
+                }
+                else if (tmxFile.Equals("stage4.tmx"))
+                {
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
+                    waypoints.Add(new Vector2(o.X, o.Y - 100));
+                    waypoints.Add(new Vector2(o.X, o.Y));
+
+                    cm.addPatrol(tempID, waypoints, 2);
+
+                    int shackleTemp = cm.addEntity();
+                    cm.addShackle(shackleTemp, tempID, shackleBoxID);
+                }
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("birdsheet.png"), true);
                 enemycount++;
             }
