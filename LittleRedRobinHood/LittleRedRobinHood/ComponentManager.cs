@@ -123,6 +123,17 @@ namespace LittleRedRobinHood
             this.selectID = id;
         }
 
+        public void persistLives(int life)
+        {
+            Player temp = players[this.playerID];
+            temp.lives = life;
+        }
+
+        public int currentLives()
+        {
+            return this.players[this.playerID].lives;
+        }
+
         public void addCollide(int id, Rectangle hb, bool enemy, bool shackle)
         {
             Collide temp = new Collide(id, hb, enemy, shackle);
