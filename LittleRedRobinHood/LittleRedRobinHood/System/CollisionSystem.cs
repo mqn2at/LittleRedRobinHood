@@ -11,7 +11,8 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        public bool Update(ComponentManager manager, GraphicsDevice gd)
+        //returns an int representing the status -1 : nothing special, 0 : reload the stage,  1 : level beat
+        public int Update(ComponentManager manager, GraphicsDevice gd)
         {
             
             int[] entityList = manager.getEntities().Keys.ToArray();
@@ -67,13 +68,14 @@ namespace LittleRedRobinHood.System
                             if (manager.getCollides()[objectID].isEndPoint)
                             {
                                 Console.WriteLine("FINISHED STAGE!!!");
-                                return true;
+                                return 1;
                             }
 
                             //Player - Enemy Collision
-                            else if (manager.getCollides()[objectID].isEnemy)
+                            else if (manager.getCollides()[objectID].isEnemy && manager.getCollides()[objectID].numShackled == 0)
                             {
-                                manager.getPlayers()[playerID].health--;
+                                manager.getPlayers()[playerID].lives--;
+                                return 0;
                                 //ADD SOME SORT OF PUSHING
                             }
 
@@ -392,7 +394,7 @@ namespace LittleRedRobinHood.System
                 manager.getEntities().Remove(id);
             }
 
-            return false;
+            return -1;
         }
 
 

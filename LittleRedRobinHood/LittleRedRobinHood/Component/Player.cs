@@ -10,7 +10,7 @@ namespace LittleRedRobinHood.Component
         public readonly int entityID;
         public readonly int MAX_ARROWS = 3;
         public readonly int MAX_SHACKLES = 3;
-        public int health = 3;
+        public int lives = 3;
         public int arrows;
         public int shackles;
         public bool grounded;

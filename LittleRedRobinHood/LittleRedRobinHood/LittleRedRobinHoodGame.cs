@@ -185,26 +185,47 @@ namespace LittleRedRobinHood
             {
                 if (consys.checkReset())
                 {
+                    int temp = manager.currentLives();
                     LoadStage(currentStage);
+                    manager.persistLives(temp);
                 }
                 if (!paused)
                 {
                     consys.Update(manager);
                     projsys.Update(manager, GraphicsDevice);
                     pathsys.Update(manager);
-                    if (colsys.Update(manager, GraphicsDevice))
+                    switch (colsys.Update(manager, GraphicsDevice))
                     {
-                        if (currentStage < manager.numStages - 1)
-                        {
-                            currentStage += 1;
-                            LoadStage(currentStage);
-                        }
-                        else
-                        {
-                            manager.clearDictionaries();
-                            LoadMainMenu();
-                            mainMenu = true;
-                        }
+                        case 1:
+                            if (currentStage < manager.numStages - 1)
+                            {
+                                currentStage += 1;
+                                goto default;
+                            }
+                            else
+                            {
+                                manager.clearDictionaries();
+                                LoadMainMenu();
+                                mainMenu = true;
+                                break;
+                            }
+                        case -1: 
+                            break;
+                        default:
+                            int temp = manager.currentLives();
+                            if (temp == 0) //add death screen here later
+                            {
+                                manager.clearDictionaries();
+                                LoadMainMenu();
+                                mainMenu = true;
+                                break;
+                            }
+                            else
+                            {
+                                LoadStage(currentStage);
+                                manager.persistLives(temp);
+                                break;
+                            }
                     }
                 }
                 switch (consys.checkPause())
