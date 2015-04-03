@@ -114,12 +114,14 @@ namespace LittleRedRobinHood.System
                 {
                     timer -= 1;
                     player.shooting = true;
+                    cm.soundsys.playBow();
                 }
                 else
                 {
                     Console.WriteLine("timer done!");
                     clicked = false;
                     player.shooting = false;
+                    cm.soundsys.stopBow();
                 }
             }
             /*

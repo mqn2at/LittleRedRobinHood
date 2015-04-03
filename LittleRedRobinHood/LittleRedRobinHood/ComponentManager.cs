@@ -21,6 +21,7 @@ namespace LittleRedRobinHood
         private Dictionary<int, Shackle> shacklePlatforms;
         private Dictionary<int, Patrol> patrols;
         private Dictionary<int, Text> texts;
+        public SoundSystem soundsys;
         private Rectangle healthBox, arrowBox, shackleBox; //for UI drawing
         private Texture2D healthSprite, arrowSprite, shackleSprite;
         private int maxID;
@@ -38,6 +39,8 @@ namespace LittleRedRobinHood
             this.shacklePlatforms = new Dictionary<int, Shackle>();
             this.patrols = new Dictionary<int, Patrol>();
             this.texts = new Dictionary<int, Text>();
+            soundsys = new SoundSystem();
+            soundsys.LoadContent(cm);
             this.maxID = 0;
             this.conman = cm;
             //adjust UI position here
