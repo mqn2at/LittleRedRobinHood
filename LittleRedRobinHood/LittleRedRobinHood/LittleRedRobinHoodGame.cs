@@ -250,7 +250,7 @@ namespace LittleRedRobinHood
                     {
                         if (x != manager.numStages)
                         {
-                            spriteBatch.DrawString(font, "Stage: " + x, new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * x), Color.Black);
+                            spriteBatch.DrawString(font, "Stage: " + (x + 1), new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * x), Color.Black);
                         }
                         else
                         {
