@@ -181,7 +181,9 @@ namespace LittleRedRobinHood
             {
                 if (consys.checkReset())
                 {
+                    int temp = manager.currentLives();
                     LoadStage(currentStage);
+                    manager.persistLives(temp);
                 }
                 if (!paused)
                 {
@@ -193,7 +195,9 @@ namespace LittleRedRobinHood
                         if (currentStage < manager.numStages - 1)
                         {
                             currentStage += 1;
+                            int temp = manager.currentLives();
                             LoadStage(currentStage);
+                            manager.persistLives(temp);
                         }
                         else
                         {

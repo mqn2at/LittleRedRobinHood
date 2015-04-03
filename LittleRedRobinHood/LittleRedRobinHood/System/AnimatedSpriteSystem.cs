@@ -240,7 +240,7 @@ namespace LittleRedRobinHood.System
             Texture2D hS = cm.getHealthSprite();
             Texture2D aS = cm.getArrowSprite();
             Texture2D shS = cm.getShackleSprite();
-            for (int x = 0; x < pl.health; x++)
+            for (int x = 0; x < pl.lives; x++)
             {
                 sb.Draw(hS, new Rectangle(hB.X + (x * 30), hB.Y, hB.Width, hB.Height), Color.White);
             }

@@ -71,9 +71,9 @@ namespace LittleRedRobinHood.System
                             }
 
                             //Player - Enemy Collision
-                            else if (manager.getCollides()[objectID].isEnemy)
+                            else if (manager.getCollides()[objectID].isEnemy && manager.getCollides()[objectID].numShackled == 0)
                             {
-                                manager.getPlayers()[playerID].health--;
+                                manager.getPlayers()[playerID].lives--;
                                 //ADD SOME SORT OF PUSHING
                             }
 
