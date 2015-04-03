@@ -11,6 +11,8 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
+        private int MAX_SHACKLE_LENGTH = 200;
+
         //returns an int representing the status -1 : nothing special, 0 : reload the stage,  1 : level beat
         public int Update(ComponentManager manager, GraphicsDevice gd)
         {
@@ -314,6 +316,19 @@ namespace LittleRedRobinHood.System
                                 {
                                     //Check for shackle
                                     int otherID = checkShackle(projectileID, objectEntity, manager);
+                                    //Check shackle length
+                                    if(otherID != -1){
+                                        Rectangle objCollide = manager.getCollides()[objectEntity.entityID].hitbox;
+                                        Rectangle otherCollide = manager.getCollides()[otherID].hitbox;
+                                        Vector2 objCoord = new Vector2(objCollide.X, objCollide.Y);
+                                        Vector2 otherCoord = new Vector2(otherCollide.X, otherCollide.Y);
+
+                                        float dist = Vector2.Distance(objCoord, otherCoord);
+                                        if (dist > this.MAX_SHACKLE_LENGTH)
+                                        {
+                                            otherID = -1;
+                                        }
+                                    }
                                     if (otherID != -1)
                                     {
                                         //Check to see if shackle already exists
