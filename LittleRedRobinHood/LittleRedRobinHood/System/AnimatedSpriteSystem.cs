@@ -14,12 +14,15 @@ namespace LittleRedRobinHood.System
     class AnimatedSpriteSystem
     {
         //Sprite Animation Stuff
+        float time;
+        const float frameTime = 0.1f;
+
         public bool running = false;
         public bool idle = true;
         public bool shooting = false;
 
         private int playerCurrentFrame = 0;
-        private int playerTotalFrame = 40;
+        private int playerTotalFrame = 10;
         private int patrolCurrentFrame = 0;
         private int patrolTotalFrame = 3;
         private int spriteSpeed = 10;
@@ -29,13 +32,43 @@ namespace LittleRedRobinHood.System
         public List<Vector2> runningCoords;
         public List<Vector2> shootingCoords;
         public List<Vector2> flyingCoords;
-        ///public List<Vector2> jump;
+        public List<Vector2> jumpCoords;
         //End Sprite Animation
 
         public AnimatedSpriteSystem()
         {
             //Initialize player spritesheet coordinates
             idleCoords = new List<Vector2>();
+            idleCoords.Add(new Vector2(0, 0));
+            idleCoords.Add(new Vector2(1, 0));
+            idleCoords.Add(new Vector2(2, 0));
+            idleCoords.Add(new Vector2(3, 0));
+            idleCoords.Add(new Vector2(4, 0));
+            idleCoords.Add(new Vector2(5, 0));
+            idleCoords.Add(new Vector2(6, 0));
+            idleCoords.Add(new Vector2(7, 0));
+            idleCoords.Add(new Vector2(8, 0));
+            idleCoords.Add(new Vector2(9, 0));
+
+            runningCoords = new List<Vector2>();
+            runningCoords.Add(new Vector2(0, 1));
+            runningCoords.Add(new Vector2(1, 1));
+            runningCoords.Add(new Vector2(2, 1));
+            runningCoords.Add(new Vector2(3, 1));
+            runningCoords.Add(new Vector2(4, 1));
+            runningCoords.Add(new Vector2(5, 1));
+            runningCoords.Add(new Vector2(6, 1));
+            runningCoords.Add(new Vector2(7, 1));
+            runningCoords.Add(new Vector2(8, 1));
+            runningCoords.Add(new Vector2(9, 1));
+
+            shootingCoords = new List<Vector2>();
+           /* shootingCoords.Add(new Vector2(4, 3));
+            shootingCoords.Add(new Vector2(5, 3));
+            shootingCoords.Add(new Vector2(6, 3));
+            shootingCoords.Add(new Vector2(7, 3));*/
+            //Initialize player spritesheet coordinates
+           /* idleCoords = new List<Vector2>();
             idleCoords.Add(new Vector2(0, 0));
             idleCoords.Add(new Vector2(1, 0));
             idleCoords.Add(new Vector2(2, 0));
@@ -55,7 +88,7 @@ namespace LittleRedRobinHood.System
             shootingCoords.Add(new Vector2(4, 3));
             shootingCoords.Add(new Vector2(5, 3));
             shootingCoords.Add(new Vector2(6, 3));
-            shootingCoords.Add(new Vector2(7, 3));
+            shootingCoords.Add(new Vector2(7, 3));*/
 
             //Patrol enemy spritesheed coordinates
             flyingCoords = new List<Vector2>();
@@ -64,7 +97,7 @@ namespace LittleRedRobinHood.System
             flyingCoords.Add(new Vector2(2, 0));
         }
 
-        public void Draw(SpriteBatch sb, ComponentManager cm)
+        public void Draw(SpriteBatch sb, ComponentManager cm, GameTime gameTime)
         {
             //draw UI
             this.drawUI(sb, cm);
@@ -84,6 +117,7 @@ namespace LittleRedRobinHood.System
                 {
                     int column = 0;
                     int row = 0;
+                    
                     //Player animation
                     if (cm.getEntities()[sp.Value.entityID].isPlayer)
                     {
@@ -97,7 +131,7 @@ namespace LittleRedRobinHood.System
                             effect = SpriteEffects.FlipHorizontally;
                         }
                         //shooting
-                        if (cm.getPlayers()[sp.Value.entityID].shooting)
+                       /* if (cm.getPlayers()[sp.Value.entityID].shooting)
                         {
                             column = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].X);
                             row = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].Y);
@@ -108,31 +142,46 @@ namespace LittleRedRobinHood.System
                                 playerCurrentFrame = 0;
                                 playerTotalFrame = spriteSpeed * idleCoords.Count;
                             }
-                        }
+                        }*/
                         //running
-                        else if (cm.getPlayers()[sp.Value.entityID].running)
+                        /*else*/ if (cm.getPlayers()[sp.Value.entityID].running)
                         {
-                            column = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].X);
-                            row = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].Y);
+                            //column = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].X);
+                            column = playerCurrentFrame;
+                            //row = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].Y);
+                            row = 1;
                         }
                         //idle
                         else
                         {
-                            column = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].X);
-                            row = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].Y);
+                            //column = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].X);
+                            column = playerCurrentFrame;
+                            //Console.WriteLine("playerCurrentFrame: " + playerCurrentFrame);
+                            //row = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].Y);
+                            row = 0;
                         }
                         //grab the current animation frame
                         Rectangle sourceRectangle = new Rectangle(spriteWidth * column, spriteHeight * row, spriteWidth, spriteHeight);
-                        Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
+                        Rectangle destinationRectangle = new Rectangle(spriteX, spriteY-25, spriteWidth, spriteHeight);
                         //draw the current animation frame
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
                         //update the current frames
-                        playerCurrentFrame++;
+                        time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        while (time > frameTime)
+                        {
+                            // Play the next frame in the SpriteSheet
+                            playerCurrentFrame++;
+                            // reset elapsed time
+                            time = 0f;
+                        }
+                        if (playerCurrentFrame >= playerTotalFrame)
+                            playerCurrentFrame = 0;
+                        /* playerCurrentFrame++;
                         if (playerCurrentFrame == playerTotalFrame)
                         {
                             playerCurrentFrame = 0;
-                        }
+                        }*/
                     }
                     //Patrol animation
                     else if (cm.getEntities()[sp.Value.entityID].isPatrol)

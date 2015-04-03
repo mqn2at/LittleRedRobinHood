@@ -19,7 +19,7 @@
  </layer>
  <layer name="objs" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBTQEsjSwQ51KpmDz62GVLIDn1utcYgLkWgHyK26QKyHhcblDxkS7SAHqNHBDhgAAOvNbrPcBQAA
+   H4sIAAAAAAAAC2NgGAWjYBTQEsjSwQ51KpmDz62GVLIDn1utcYgLkWgHPrfikpMh0Q5ygBod7IABAC1X4OXcBQAA
   </data>
  </layer>
  <layer name="plants" width="25" height="15">

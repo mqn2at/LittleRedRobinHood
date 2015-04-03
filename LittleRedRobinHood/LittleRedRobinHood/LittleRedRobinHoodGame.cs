@@ -139,7 +139,7 @@ namespace LittleRedRobinHood
             manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 200), "PAUSED", true, 1);
             temp = manager.addEntity();
             manager.addText(temp, font, new Vector2(0, 0), new Vector2(300, 250), "Press P to unpause\nPress M to quit", true, 1);
-            
+
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace LittleRedRobinHood
                         break;
                     default:
                         break;
-                }
+            }
             }
             base.Update(gameTime);
         }
@@ -264,7 +264,7 @@ namespace LittleRedRobinHood
                     spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
-                anisys.Draw(spriteBatch, manager);
+                anisys.Draw(spriteBatch, manager, gameTime);
                 //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
                 DrawShackle();
                 //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
