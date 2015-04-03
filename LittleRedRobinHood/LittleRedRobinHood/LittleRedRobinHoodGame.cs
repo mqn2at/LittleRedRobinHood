@@ -31,6 +31,7 @@ namespace LittleRedRobinHood
         AnimatedSpriteSystem anisys;
         private bool paused;
         private bool mainMenu;
+        private bool songPlaying = false;
         private int TITLESTART = 25;
         private int MENUSTART_X = 50;
         private int MENUSTART_Y = 125;
@@ -96,6 +97,7 @@ namespace LittleRedRobinHood
             this.LoadMainMenu();
             //stages[currentStage].LoadContent(this.Content); now called during updates of main menu
             // TODO: use this.Content to load your game content here
+          
         }
         protected void LoadStage(int stageNum)
         {
@@ -103,7 +105,6 @@ namespace LittleRedRobinHood
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
             LoadPauseMenu();
-
         }
 
         protected void LoadMainMenu()
@@ -124,6 +125,9 @@ namespace LittleRedRobinHood
             temp = manager.addEntity();
             manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.MENUSTART_X, this.MENUSTART_Y + this.MENUOFFSET_Y), "Level Select", true, 1);
 
+            //Song
+            manager.soundsys.stopSong();
+            manager.soundsys.playMenuSong();
         }
 
         protected void LoadPauseMenu()
@@ -170,6 +174,7 @@ namespace LittleRedRobinHood
                 {
                     mainMenu = false;
                     LoadStage(temp);
+                    manager.soundsys.playGameSong();
                 }
             }
             else
