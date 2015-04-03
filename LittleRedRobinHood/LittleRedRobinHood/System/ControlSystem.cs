@@ -26,7 +26,7 @@ namespace LittleRedRobinHood.System
         private int ARROW_SPEED = 12;
         private int X_SPEED = 4;
         private int JUMP = 15;
-        private int MAX_FALL = 20;
+        private int MAX_FALL = 17;
         private int TIMER_JUMP_MAX = 20;
         private int jump_timer;
         private int timer;
@@ -114,12 +114,14 @@ namespace LittleRedRobinHood.System
                 {
                     timer -= 1;
                     player.shooting = true;
+                    cm.soundsys.playBow();
                 }
                 else
                 {
                     Console.WriteLine("timer done!");
                     clicked = false;
                     player.shooting = false;
+                    cm.soundsys.stopBow();
                 }
             }
             /*
@@ -196,13 +198,26 @@ namespace LittleRedRobinHood.System
         {
             return onPress(Keys.R);
         }
-        //
-        public bool checkPause()
+        
+        //1 is P pressed (pause), 0 is M pressed (quit/main menu), -1 is no change
+        public int checkPause()
         {
-            return onPress(Keys.P);
+            if (onPress(Keys.P))
+            {
+                return 1;
+            }
+            else if (onPress(Keys.M))
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
-        public int UpdateMainMenu(ComponentManager cm)
+        //handle menu controls
+        public int UpdateMenu(ComponentManager cm)
         {
             if (menuTimer > 0)
             {

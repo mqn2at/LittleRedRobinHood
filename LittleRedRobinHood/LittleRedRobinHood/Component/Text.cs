@@ -14,6 +14,7 @@ namespace LittleRedRobinHood.Component
         public readonly Vector2 textPosition;
         public readonly string text;
         public bool visible;
+        public Single scale;
 
         public Text(SpriteFont font, Vector2 posTrigger, Vector2 posText, string text)
         {
@@ -22,6 +23,7 @@ namespace LittleRedRobinHood.Component
             this.textPosition = posText;
             this.text = text;
             visible = false;
+            this.scale = 1;
         }
 
         public Text(SpriteFont font, Vector2 posTrigger, Vector2 posText, string text, bool visible)
@@ -31,6 +33,17 @@ namespace LittleRedRobinHood.Component
             this.textPosition = posText;
             this.text = text;
             this.visible = visible;
+            this.scale = 1;
+        }
+
+        public Text(SpriteFont font, Vector2 posTrigger, Vector2 posText, string text, bool visible, Single scale)
+        {
+            this.font = font;
+            this.triggerPosition = posTrigger;
+            this.textPosition = posText;
+            this.text = text;
+            this.visible = visible;
+            this.scale = scale;
         }
     }
 }

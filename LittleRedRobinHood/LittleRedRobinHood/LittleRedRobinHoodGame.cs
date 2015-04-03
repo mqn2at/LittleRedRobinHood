@@ -31,6 +31,18 @@ namespace LittleRedRobinHood
         AnimatedSpriteSystem anisys;
         private bool paused;
         private bool mainMenu;
+        private bool songPlaying = false;
+        private int TITLESTART = 25;
+        private int MENUSTART_X = 50;
+        private int MENUSTART_Y = 125;
+        private int MENUOFFSET_Y = 35;
+        private int SUBMENUOFFSET_X = 50;
+        private int SUBMENUOFFSET_Y = 35;
+        private int SUBMENUSTART_Y = 70;
+        private int SELECTOFFSET_X = 10;
+        private Single TITLESIZE = 1.5F;
+        
+
         int currentStage = 0;
         public LittleRedRobinHoodGame()
             : base()
@@ -85,35 +97,52 @@ namespace LittleRedRobinHood
             this.LoadMainMenu();
             //stages[currentStage].LoadContent(this.Content); now called during updates of main menu
             // TODO: use this.Content to load your game content here
+          
         }
         protected void LoadStage(int stageNum)
         {
-            manager.getEntities().Clear();
-            manager.getSprites().Clear();
-            manager.getCollides().Clear();
-            manager.getPlayers().Clear();
-            manager.getProjectiles().Clear();
-            manager.getShackles().Clear();
-            manager.getPatrols().Clear();
+            manager.clearDictionaries();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
-
+            LoadPauseMenu();
         }
 
         protected void LoadMainMenu()
         {
+            //Reset menu details
+            consys.subMenu = false;
+            consys.menuIndex = 0;
             //Add selection indicator
             int temp = manager.addEntity();
             manager.setSelect(temp);
-            manager.addCollide(temp, new Rectangle(25, 128, 16, 16), false, false);
-            manager.addSprite(temp, 25, 25, this.Content.Load<Texture2D>("Sprite-soda.png"));
+            manager.addCollide(temp, new Rectangle(this.MENUSTART_X - 20 - this.SELECTOFFSET_X, this.MENUSTART_Y, 20, 20), false, false);
+            manager.addSprite(temp, 20, 20, this.Content.Load<Texture2D>("Sprite-soda.png"));
             //Add texts to be drawn
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(25, 25), "Little Red Robin Hood", true);
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(50, 125), "New Game", true);
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.MENUSTART_X, this.MENUSTART_Y), "New Game", true, 1);
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(50, 160), "Level Select", true);
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.MENUSTART_X, this.MENUSTART_Y + this.MENUOFFSET_Y), "Level Select", true, 1);
+
+            //Song
+            manager.soundsys.stopSong();
+            manager.soundsys.playMenuSong();
+        }
+
+        protected void LoadPauseMenu()
+        {
+            //Reset menu details
+            consys.subMenu = false;
+            consys.menuIndex = 0;
+            //Add texts to be drawn
+            int temp = manager.addEntity();
+            temp = manager.addEntity();
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
+            temp = manager.addEntity();
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 200), "PAUSED", true, 1);
+            temp = manager.addEntity();
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(300, 250), "Press P to unpause\nPress M to quit", true, 1);
 
         }
 
@@ -123,6 +152,7 @@ namespace LittleRedRobinHood
         /// </summary>
         protected override void UnloadContent()
         {
+            //should really do something with this
             // TODO: Unload any non ContentManager content here
         }
 
@@ -139,20 +169,16 @@ namespace LittleRedRobinHood
             consys.UpdateStates();
             if (mainMenu)
             {
-                int temp  = consys.UpdateMainMenu(manager);
+                int temp  = consys.UpdateMenu(manager);
                 if (temp > -1)
                 {
                     mainMenu = false;
                     LoadStage(temp);
+                    manager.soundsys.playGameSong();
                 }
             }
             else
             {
-                if (consys.checkPause())
-                {
-                    paused = !paused;
-                    Console.WriteLine(paused);
-                }
                 if (consys.checkReset())
                 {
                     LoadStage(currentStage);
@@ -164,10 +190,33 @@ namespace LittleRedRobinHood
                     pathsys.Update(manager);
                     if (colsys.Update(manager, GraphicsDevice))
                     {
-                        currentStage = (currentStage + 1) % 3;
-                        LoadStage(currentStage);
+                        if (currentStage < manager.numStages - 1)
+                        {
+                            currentStage += 1;
+                            LoadStage(currentStage);
+                        }
+                        else
+                        {
+                            manager.clearDictionaries();
+                            LoadMainMenu();
+                            mainMenu = true;
+                        }
                     }
                 }
+                switch (consys.checkPause())
+                {
+                    case 1:
+                        paused = !paused;
+                        break;
+                    case 0:
+                        manager.clearDictionaries();
+                        LoadMainMenu();
+                        mainMenu = true;
+                        paused = false;
+                        break;
+                    default:
+                        break;
+            }
             }
             base.Update(gameTime);
         }
@@ -186,7 +235,7 @@ namespace LittleRedRobinHood
                 {
                     if (pair.Value.visible)
                     {
-                        spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.Black);
+                        spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.Black, 0, new Vector2(0, 0), pair.Value.scale, SpriteEffects.None, 1);
                     }
                 }
                 Collide selC = manager.getCollides()[manager.selectID];
@@ -195,21 +244,21 @@ namespace LittleRedRobinHood
                 int selY = selC.hitbox.Y;
                 if (consys.subMenu)
                 {
-                    selX += 50; //adjust for indented submenu
-                    selY = 195; // next item down
-                    for (int x = 0; x <= manager.numStages; x++ )
+                    selX += this.SUBMENUOFFSET_X; //adjust for indented submenu
+                    selY = this.MENUSTART_Y + this.MENUOFFSET_Y + this.SUBMENUOFFSET_Y; // start of submenu
+                    for (int x = 0; x <= manager.numStages; x++)
                     {
                         if (x != manager.numStages)
                         {
-                            spriteBatch.DrawString(font, "Stage: " + x, new Vector2(100, 195 + x*35), Color.Black);
+                            spriteBatch.DrawString(font, "Stage: " + x, new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * x), Color.Black);
                         }
                         else
                         {
-                            spriteBatch.DrawString(font, "Back", new Vector2(100, 195 + x*35), Color.Black);
+                            spriteBatch.DrawString(font, "Back", new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * x), Color.Black);
                         }
                     }
                 }
-                selY += consys.menuIndex * 35;
+                selY += consys.menuIndex * this.MENUOFFSET_Y;
                 spriteBatch.Draw(selS.sprite, new Rectangle(selX, selY, selC.hitbox.Width, selC.hitbox.Height), Color.White);
             }
             else if (!paused)
@@ -220,7 +269,7 @@ namespace LittleRedRobinHood
                     spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
-                anisys.Draw(spriteBatch, manager);
+                anisys.Draw(spriteBatch, manager, gameTime);
                 //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
                 DrawShackle();
                 //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
@@ -229,8 +278,14 @@ namespace LittleRedRobinHood
             }
             else
             {
-                spriteBatch.DrawString(font, "PAUSED", new Vector2(350, 250), Color.Black);
-                //Make it display "PAUSED"
+                //Display paused information
+                foreach (KeyValuePair<int, Text> pair in manager.getTexts())
+                {
+                    if (pair.Value.visible)
+                    {
+                        spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.Black, 0, new Vector2(0, 0), pair.Value.scale, SpriteEffects.None, 1);
+                    }
+                }
             }
             spriteBatch.End();
             base.Draw(gameTime);

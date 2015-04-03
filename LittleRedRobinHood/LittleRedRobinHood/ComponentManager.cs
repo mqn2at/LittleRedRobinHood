@@ -21,6 +21,7 @@ namespace LittleRedRobinHood
         private Dictionary<int, Shackle> shacklePlatforms;
         private Dictionary<int, Patrol> patrols;
         private Dictionary<int, Text> texts;
+        public SoundSystem soundsys;
         private Rectangle healthBox, arrowBox, shackleBox; //for UI drawing
         private Texture2D healthSprite, arrowSprite, shackleSprite;
         private int maxID;
@@ -38,6 +39,8 @@ namespace LittleRedRobinHood
             this.shacklePlatforms = new Dictionary<int, Shackle>();
             this.patrols = new Dictionary<int, Patrol>();
             this.texts = new Dictionary<int, Text>();
+            soundsys = new SoundSystem();
+            soundsys.LoadContent(cm);
             this.maxID = 0;
             this.conman = cm;
             //adjust UI position here
@@ -48,6 +51,19 @@ namespace LittleRedRobinHood
             this.healthSprite = conman.Load<Texture2D>("heart.png");
             this.arrowSprite = conman.Load<Texture2D>("arrow.gif");
             this.shackleSprite = conman.Load<Texture2D>("rope.png");
+        }
+
+        public void clearDictionaries()
+        {
+            this.entities.Clear();
+            this.sprites.Clear();
+            this.collides.Clear();
+            this.players.Clear();
+            this.projectiles.Clear();
+            this.shacklePlatforms.Clear();
+            this.patrols.Clear();
+            this.texts.Clear();
+            this.maxID = 0;
         }
 
         public Dictionary<int, Entity> getEntities()
@@ -167,6 +183,13 @@ namespace LittleRedRobinHood
         public void addText(int id, SpriteFont font, Vector2 trigger, Vector2 position, string text, bool vis)
         {
             Text temp = new Text(font, trigger, position, text, vis);
+            texts.Add(id, temp);
+            entities[id].isText = true;
+        }
+
+        public void addText(int id, SpriteFont font, Vector2 trigger, Vector2 position, string text, bool vis, Single scale)
+        {
+            Text temp = new Text(font, trigger, position, text, vis, scale);
             texts.Add(id, temp);
             entities[id].isText = true;
         }
