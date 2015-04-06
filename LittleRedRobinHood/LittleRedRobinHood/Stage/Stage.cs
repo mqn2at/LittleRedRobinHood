@@ -16,6 +16,7 @@ namespace LittleRedRobinHood
         //private List<Entity> entityList;
         private ComponentManager cm;
         private SortedList<string, Squared.Tiled.Object> obstacles;
+        private SortedList<string, Squared.Tiled.Object> platforms;
         private SortedList<string, Squared.Tiled.Object> shackleables;
         private SortedList<string, Squared.Tiled.Object> enemies;
         private Squared.Tiled.Object start;
@@ -58,6 +59,20 @@ namespace LittleRedRobinHood
             {
                 tempID = cm.addEntity();
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
+            }
+
+            //Add all collidable platforms
+            platforms = map.ObjectGroups["platforms"].Objects;
+            foreach (Squared.Tiled.Object o in platforms.Values)
+            {
+                tempID = cm.addEntity();
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
+                List<Vector2> waypoints = new List<Vector2>();
+                waypoints.Add(new Vector2(o.X, o.Y));
+                waypoints.Add(new Vector2(o.X, o.Y - 100));
+                
+                cm.addPatrol(tempID, waypoints, 2);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
             }
 
             //int shackleBoxID = 0;
