@@ -20,7 +20,7 @@ namespace LittleRedRobinHood.Component
             this.firstPointID = fpID;
             this.secondPointID = spID;
             this.playerOnShackle = false;
-            this.playerMade = false;
+            this.playerMade = true;
             this.timer = 3; //seconds?
         }
 
@@ -30,7 +30,7 @@ namespace LittleRedRobinHood.Component
             this.firstPointID = fpID;
             this.secondPointID = spID;
             this.playerOnShackle = false;
-            this.playerMade = false;
+            this.playerMade = true;
             this.timer = duration; //seconds?
         }
 

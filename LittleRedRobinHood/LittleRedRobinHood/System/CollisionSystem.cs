@@ -31,7 +31,7 @@ namespace LittleRedRobinHood.System
                         continue;
                     }
 
-                    //Check to see if both enetities exist
+                    //Check to see if both entities exist
                     if (toBeRemoved.Contains(manager.getEntities()[entityList[i]].entityID)
                         || toBeRemoved.Contains(manager.getEntities()[entityList[i]].entityID))
                     {
@@ -78,7 +78,6 @@ namespace LittleRedRobinHood.System
                             {
                                 manager.getPlayers()[playerID].lives--;
                                 return 0;
-                                //ADD SOME SORT OF PUSHING
                             }
 
                             //Player - Shackle Collision WILL NEED TO BE IMPROVED
@@ -438,6 +437,26 @@ namespace LittleRedRobinHood.System
                 manager.getShackles().Remove(id);
                 manager.getEntities().Remove(id);
             }
+
+            //Check to see if player is out of bounds
+            //X-axis - Prevent player from leaving screen X-wise
+            Rectangle playerHB = manager.getCollides()[manager.playerID].hitbox;
+            if (playerHB.X < 0)
+            {
+                manager.getCollides()[manager.playerID].hitbox.X = 0;
+            }
+            if (playerHB.X + playerHB.Width > gd.Viewport.Width)
+            {
+                manager.getCollides()[manager.playerID].hitbox.X = gd.Viewport.Width - playerHB.Width;
+            }
+
+            //Y-axis
+            if (playerHB.Y > gd.Viewport.Height)
+            {
+                manager.getPlayers()[manager.playerID].lives--;
+                return 0;
+            }
+            Console.WriteLine("PLAYER AT: " + playerHB.X + "," + playerHB.Y);
 
             return -1;
         }
