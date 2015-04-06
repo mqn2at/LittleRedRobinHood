@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="28">
+ <properties>
+  <property name="mapmeta" value="mapvalue"/>
+ </properties>
+ <tileset firstgid="1" name="Untitled" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="256" height="32"/>
+ </tileset>
+ <tileset firstgid="9" name="forest" tilewidth="32" tileheight="32">
+  <image source="forest.png" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="109" name="Gothic-Forest_Clip_Art" tilewidth="800" tileheight="480">
+  <image source="Gothic-Forest_Clip_Art.png" width="800" height="480"/>
+ </tileset>
+ <layer name="background" width="25" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglFAT5BLBzsAhaw4tdwFAAA=
+  </data>
+ </layer>
+ <layer name="background1" width="25" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHKBgFowA/EBhoBwwhAADXgWoP3AUAAA==
+  </data>
+ </layer>
+ <layer name="background2" width="25" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGLpADohloTQ1gSwSWwOI1aE0NYE6EtsIiA2hNK2ADRBbQ2lagZHsD1nCSlAAOf5QJ6wEBQzH+FBkQOR7agJkf2gzIPI9NQGyP5BpagJkfwAALgB6xNwFAAA=
+  </data>
+ </layer>
+ <layer name="top" width="25" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoC0QorH5ICBDZfP4sYipUdkOSSqbNwoGFmBLM9QGo2lmFJACAEd3Vb/cBQAA
+  </data>
+ </layer>
+ <objectgroup name="obstacles">
+  <properties>
+   <property name="objectmeta" value="objectvalue"/>
+  </properties>
+  <object id="6" name="ground2" x="704" y="66" width="101" height="421">
+   <properties>
+    <property name="name" value="ground2"/>
+   </properties>
+  </object>
+  <object id="13" name="ground1" x="-3" y="416" width="713" height="86">
+   <properties>
+    <property name="name" value="ground2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="startFinish">
+  <object id="10" name="start" x="35" y="350" width="48" height="64">
+   <properties>
+    <property name="name" value="start"/>
+   </properties>
+  </object>
+  <object id="12" name="finish" x="767" y="1" width="32" height="64">
+   <properties>
+    <property name="name" value="finish"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="enemies">
+  <object id="14" name="enemy1" x="180" y="216" width="34" height="31">
+   <properties>
+    <property name="name" value="enemy1"/>
+   </properties>
+  </object>
+  <object id="27" name="enemy2" x="451" y="13" width="34" height="31">
+   <properties>
+    <property name="name" value="enemy2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="shackleables">
+  <object id="23" name="shackleable1" x="320" y="267" width="32" height="32">
+   <properties>
+    <property name="name" value="shackleable1"/>
+   </properties>
+  </object>
+  <object id="26" name="shackleable2" x="608" y="74" width="32" height="32">
+   <properties>
+    <property name="name" value="shackleable2"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

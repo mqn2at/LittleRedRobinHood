@@ -153,6 +153,13 @@ namespace LittleRedRobinHood
             entities[id].isCollide = true;
         }
 
+        public void addCollide(int id, Rectangle hb, bool enemy, bool shackle, int shackled, bool damageable)
+        {
+            Collide temp = new Collide(id, hb, enemy, shackle, shackled, damageable);
+            collides.Add(id, temp);
+            entities[id].isCollide = true;
+        }
+
         public void addSprite(int id, int width, int height, Texture2D sprite)
         {
             Sprite temp = new Sprite(id, width, height, sprite);
@@ -176,6 +183,13 @@ namespace LittleRedRobinHood
             shacklePlatforms.Add(id, temp);
             entities[id].isShackle = true;
         }
+        public void addShackle(int id, int fpID, int spID, bool playerMade)
+        {
+            Shackle temp = new Shackle(id, fpID, spID, playerMade);
+            shacklePlatforms.Add(id, temp);
+            entities[id].isShackle = true;
+        }
+
 
         public void addPatrol(int id, List<Vector2> path, int spd)
         {
