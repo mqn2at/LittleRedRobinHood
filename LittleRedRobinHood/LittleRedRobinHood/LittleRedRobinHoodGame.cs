@@ -167,6 +167,7 @@ namespace LittleRedRobinHood
                 Exit();
 
             consys.UpdateStates();
+            manager.soundsys.Update(mainMenu, currentStage);
             if (mainMenu)
             {
                 int temp  = consys.UpdateMenu(manager);
@@ -174,7 +175,7 @@ namespace LittleRedRobinHood
                 {
                     mainMenu = false;
                     LoadStage(temp);
-                    manager.soundsys.playGameSong();
+                    manager.soundsys.playGameSong(currentStage);
                 }
             }
             else
