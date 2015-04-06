@@ -118,7 +118,7 @@ namespace LittleRedRobinHood.System
                 }
                 else
                 {
-                    Console.WriteLine("timer done!");
+                    //Console.WriteLine("timer done!");
                     clicked = false;
                     player.shooting = false;
                     cm.soundsys.stopBow();
@@ -150,7 +150,7 @@ namespace LittleRedRobinHood.System
                 {
                     player.is_right = true;
                 }
-                Console.WriteLine("-1 shackle");
+                //Console.WriteLine("-1 shackle");
                 double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, false, angle, SHACKLE_SPEED);
@@ -173,7 +173,7 @@ namespace LittleRedRobinHood.System
                 {
                     player.is_right = true;
                 }
-                Console.WriteLine("-1 arrow");
+                //Console.WriteLine("-1 arrow");
                 double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, true, angle, ARROW_SPEED);
