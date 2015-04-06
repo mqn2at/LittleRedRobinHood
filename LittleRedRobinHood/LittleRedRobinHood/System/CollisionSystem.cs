@@ -11,7 +11,7 @@ namespace LittleRedRobinHood.System
 {
     class CollisionSystem
     {
-        private int MAX_SHACKLE_LENGTH = 200;
+        private int MAX_SHACKLE_LENGTH = 250;
 
         //returns an int representing the status -1 : nothing special, 0 : reload the stage,  1 : level beat
         public int Update(ComponentManager manager, GraphicsDevice gd)
