@@ -113,7 +113,7 @@ namespace LittleRedRobinHood
                 }
                 else if (tmxFile.Equals("stage4.tmx"))
                 {
-                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, false, 1, false);
                     waypoints.Add(new Vector2(o.X, o.Y - 100));
                     waypoints.Add(new Vector2(o.X, o.Y));
 
