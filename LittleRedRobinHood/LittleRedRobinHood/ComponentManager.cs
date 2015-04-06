@@ -183,6 +183,13 @@ namespace LittleRedRobinHood
             shacklePlatforms.Add(id, temp);
             entities[id].isShackle = true;
         }
+        public void addShackle(int id, int fpID, int spID, bool playerMade)
+        {
+            Shackle temp = new Shackle(id, fpID, spID, playerMade);
+            shacklePlatforms.Add(id, temp);
+            entities[id].isShackle = true;
+        }
+
 
         public void addPatrol(int id, List<Vector2> path, int spd)
         {

@@ -121,6 +121,15 @@ namespace LittleRedRobinHood
 
                     int shackleTemp = cm.addEntity();
                     cm.addShackle(shackleTemp, tempID, shackleBoxID);
+
+                    Rectangle tempRect1 = cm.getCollides()[tempID].hitbox;
+                    Rectangle tempRect2 = cm.getCollides()[shackleBoxID].hitbox;
+                    int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
+                    int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
+                    int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
+                    int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
+
+                    cm.addCollide(shackleTemp, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, false);
                 }
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("birdsheet.png"), true);
                 enemycount++;
