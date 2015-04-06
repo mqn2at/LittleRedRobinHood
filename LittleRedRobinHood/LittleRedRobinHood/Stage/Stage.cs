@@ -22,6 +22,7 @@ namespace LittleRedRobinHood
         private Squared.Tiled.Object finish;
         private int width;
         private int height;
+        private List<int> preExistingShackleIDs;
         private Texture2D background;
         private String tmxFile;
         int num_Obj;
@@ -30,6 +31,7 @@ namespace LittleRedRobinHood
         public Stage(String tmxFile, ComponentManager cm) {
             this.tmxFile = tmxFile;
             this.cm = cm;
+            this.preExistingShackleIDs = new List<int>();
         }
 
         public int getWidth()
@@ -58,14 +60,14 @@ namespace LittleRedRobinHood
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
             }
 
-            int shackleBoxID = 0;
+            //int shackleBoxID = 0;
             //Add shackleable objects
             shackleables = map.ObjectGroups["shackleables"].Objects;
             foreach (Squared.Tiled.Object o in shackleables.Values)
             {
                 tempID = cm.addEntity();
-                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true);
-                shackleBoxID = tempID;
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true,1,false);
+                preExistingShackleIDs.Add(tempID);
             }
 
             //Add all enemies
@@ -97,10 +99,6 @@ namespace LittleRedRobinHood
                     waypoints.Add(new Vector2(o.X+200, o.Y));
                     waypoints.Add(new Vector2(o.X, o.Y));
                 }
-                /*List<Vector2> waypoints = new List<Vector2>();
-                waypoints.Add(new Vector2(o.X+200, o.Y));
-                waypoints.Add(new Vector2(o.X, o.Y+200));
-                waypoints.Add(new Vector2(o.X, o.Y));*/
 
                 cm.addPatrol(tempID, waypoints, 3);
                 }
@@ -114,22 +112,23 @@ namespace LittleRedRobinHood
                 else if (tmxFile.Equals("stage4.tmx"))
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, false, 1, false);
-                    waypoints.Add(new Vector2(o.X, o.Y - 100));
+                    waypoints.Add(new Vector2(o.X, o.Y + 150));
                     waypoints.Add(new Vector2(o.X, o.Y));
 
                     cm.addPatrol(tempID, waypoints, 2);
 
+                    //Connect pre-existing shackles
                     int shackleTemp = cm.addEntity();
-                    cm.addShackle(shackleTemp, tempID, shackleBoxID);
-
+                    cm.addShackle(shackleTemp, tempID, preExistingShackleIDs[enemycount]);
+                    //Calculate hitbox for shackle
                     Rectangle tempRect1 = cm.getCollides()[tempID].hitbox;
-                    Rectangle tempRect2 = cm.getCollides()[shackleBoxID].hitbox;
+                    Rectangle tempRect2 = cm.getCollides()[preExistingShackleIDs[enemycount]].hitbox;
                     int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
                     int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
                     int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
                     int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
-
-                    cm.addCollide(shackleTemp, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, false);
+                    //Add collide for shackle
+                    cm.addCollide(shackleTemp, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, true);
                 }
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("birdsheet.png"), true);
                 enemycount++;
