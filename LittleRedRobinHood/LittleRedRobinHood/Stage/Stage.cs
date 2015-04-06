@@ -66,7 +66,7 @@ namespace LittleRedRobinHood
             foreach (Squared.Tiled.Object o in shackleables.Values)
             {
                 tempID = cm.addEntity();
-                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true,1,false);
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true);
                 preExistingShackleIDs.Add(tempID);
             }
 
@@ -111,7 +111,7 @@ namespace LittleRedRobinHood
                 }
                 else if (tmxFile.Equals("stage4.tmx"))
                 {
-                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, false, 1, false);
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, 1, false);
                     waypoints.Add(new Vector2(o.X, o.Y + 150));
                     waypoints.Add(new Vector2(o.X, o.Y));
 
