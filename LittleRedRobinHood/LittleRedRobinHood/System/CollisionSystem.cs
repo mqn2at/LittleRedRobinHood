@@ -276,7 +276,7 @@ namespace LittleRedRobinHood.System
                                         int secondUnshackled = manager.getShackles()[objectEntity.entityID].secondPointID;
                                         manager.getCollides()[firstUnshackled].numShackled--;
                                         manager.getCollides()[secondUnshackled].numShackled--;
-                                        if (!shackleCollided.Contains(projectileID))
+                                        if (!shackleCollided.Contains(projectileID) && manager.getShackles()[objectEntity.entityID].playerMade)
                                         {
                                             manager.getPlayers()[manager.playerID].shackles += 1;
                                             shackleCollided.Add(projectileID);
