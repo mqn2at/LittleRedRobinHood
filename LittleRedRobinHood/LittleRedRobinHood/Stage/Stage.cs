@@ -119,7 +119,7 @@ namespace LittleRedRobinHood
 
                     //Connect pre-existing shackles
                     int shackleTemp = cm.addEntity();
-                    cm.addShackle(shackleTemp, tempID, preExistingShackleIDs[enemycount]);
+                    cm.addShackle(shackleTemp, tempID, preExistingShackleIDs[enemycount],false);
                     //Calculate hitbox for shackle
                     Rectangle tempRect1 = cm.getCollides()[tempID].hitbox;
                     Rectangle tempRect2 = cm.getCollides()[preExistingShackleIDs[enemycount]].hitbox;
