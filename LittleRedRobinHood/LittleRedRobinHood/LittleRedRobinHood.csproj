@@ -143,7 +143,15 @@
     <None Include="Content\mytest.tmx" />
     <None Include="Content\stage0.tmx" />
     <None Include="Content\stage1.tmx" />
-    <None Include="Content\stage2.tmx" />
+    <None Include="Content\stage2.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\stage3.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\stage4.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
