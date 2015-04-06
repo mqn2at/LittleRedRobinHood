@@ -198,6 +198,13 @@ namespace LittleRedRobinHood
             entities[id].isPatrol = true;
         }
 
+        public void addPatrol(int id, List<Vector2> path, int spd, bool cycle)
+        {
+            Patrol temp = new Patrol(id, path, spd, cycle);
+            patrols.Add(id, temp);
+            entities[id].isPatrol = true;
+        }
+
         public void addText(int id, SpriteFont font, Vector2 trigger, Vector2 position, string text)
         {
             Text temp = new Text(font, trigger, position, text);

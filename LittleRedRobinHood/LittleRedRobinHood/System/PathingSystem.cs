@@ -55,7 +55,7 @@ namespace LittleRedRobinHood.System
 
                             int dest = componentManager.getPatrols()[entityID].currentDest;
                             //Console.WriteLine(dest);
-                            //check if overshot
+                            //check if overshot assume 0 is the spawn point
                             if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) && (dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                             {
 
@@ -64,18 +64,32 @@ namespace LittleRedRobinHood.System
 
                                 if (path.Count - 1 == componentManager.getPatrols()[entityID].currentDest)
                                 {
-
-                                    componentManager.getPatrols()[entityID].setCurrentDest(0);
+                                    if (componentManager.getPatrols()[entityID].isCyclical)
+                                    {
+                                        componentManager.getPatrols()[entityID].setCurrentDest(0);
+                                        componentManager.getCollides()[entityID].hitbox.X = x;
+                                        componentManager.getCollides()[entityID].hitbox.Y = y;
+                                    }
+                                    else
+                                    {
+                                        Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest-1];
+                                        componentManager.getCollides()[entityID].hitbox.X = (int)destCyclical.X;
+                                        componentManager.getCollides()[entityID].hitbox.Y = (int)destCyclical.Y;
+                                    }
                                 }
                                 else
                                 {
                                     dest = dest + 1;
-
                                     componentManager.getPatrols()[entityID].setCurrentDest(dest);
-
+                                    componentManager.getCollides()[entityID].hitbox.X = x;
+                                    componentManager.getCollides()[entityID].hitbox.Y = y;
                                     //destPos = path[componentManager.getPatrols()[entityID].currentDest];
-
                                 }
+                            }
+                            else
+                            {
+                                componentManager.getCollides()[entityID].hitbox.X = x;
+                                componentManager.getCollides()[entityID].hitbox.Y = y;
                             }
                             /*else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                             {
@@ -95,11 +109,6 @@ namespace LittleRedRobinHood.System
 
                                 }
                             }*/
-                            
-
-                            componentManager.getCollides()[entityID].hitbox.X = x;
-                            componentManager.getCollides()[entityID].hitbox.Y = y;
-                            
 
                         }
                     }
