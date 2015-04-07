@@ -106,7 +106,7 @@ namespace LittleRedRobinHood
                     waypoints.Add(new Vector2(o.X, o.Y+200));
                 }
                 cm.addPatrol(tempID, waypoints, 3);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("crate.png"), false);
                 platformNum++;
             }
 
