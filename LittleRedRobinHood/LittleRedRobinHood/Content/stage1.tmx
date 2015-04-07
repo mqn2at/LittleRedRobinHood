@@ -77,4 +77,5 @@
   </object>
  </objectgroup>
  <objectgroup name="enemies"/>
+ <objectgroup name="platforms"/>
 </map>
