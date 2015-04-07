@@ -21,7 +21,7 @@ namespace LittleRedRobinHood.System
         private bool clicked = false;
         public int menuIndex = 0;
         public bool subMenu = false;
-        private int TIMER_MAX = 10;
+        private int TIMER_MAX = 8;
         private int SHACKLE_SPEED = 9;
         private int ARROW_SPEED = 12;
         private int X_SPEED = 4;
@@ -285,6 +285,33 @@ namespace LittleRedRobinHood.System
                     {
                         menuIndex += 1;
                     }
+                }
+                else if (subMenu)
+                {
+
+                    if (isPressed(Keys.Right) || isPressed(Keys.D))
+                    {
+                        menuTimer = TIMER_MAX;
+                        menuIndex += 8;
+                        if (menuIndex > cm.numStages)
+                        {
+                            menuIndex = menuIndex % 8;
+                        }
+                    }
+                    else if (isPressed(Keys.Left) || isPressed(Keys.A))
+                    {
+                        menuTimer = TIMER_MAX;
+                        menuIndex -= 8;
+                        if (menuIndex < 0)
+                        {
+                            menuIndex += (8*(1+(cm.numStages/8)));
+                            if (menuIndex > cm.numStages)
+                            {
+                                menuIndex = cm.numStages;
+                            }
+                        }
+                    }
+
                 }
             }
             return -1;
