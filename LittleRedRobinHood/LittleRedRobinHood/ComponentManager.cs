@@ -160,6 +160,13 @@ namespace LittleRedRobinHood
             entities[id].isCollide = true;
         }
 
+        public void addCollide(int id, Rectangle hb, bool platform)
+        {
+            Collide temp = new Collide(id, hb, platform);
+            collides.Add(id, temp);
+            entities[id].isCollide = true;
+        }
+
         public void addSprite(int id, int width, int height, Texture2D sprite)
         {
             Sprite temp = new Sprite(id, width, height, sprite);

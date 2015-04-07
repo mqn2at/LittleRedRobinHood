@@ -85,6 +85,11 @@ namespace LittleRedRobinHood
             this.stages.Add(stage4);
             Stage stage5 = new Stage("stage5.tmx", this.manager);
             this.stages.Add(stage5);
+            Stage stage6 = new Stage("stage6.tmx", this.manager);
+            this.stages.Add(stage6);
+            this.stages.Add(stage6);
+            this.stages.Add(stage6);
+
             this.manager.numStages = this.stages.ToArray().Length;
 
             base.Initialize();
