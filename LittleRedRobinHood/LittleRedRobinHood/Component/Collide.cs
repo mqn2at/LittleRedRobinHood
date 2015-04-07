@@ -20,9 +20,6 @@ namespace LittleRedRobinHood.Component
         public int numShackled;
         public Rectangle hitbox;
 
-        public readonly bool movingPlatform;
-        public Vector2 prevLocation;
-
         public Collide(int id, Rectangle hb, bool enemy, bool shackleable)
         {
             this.entityID = id;
