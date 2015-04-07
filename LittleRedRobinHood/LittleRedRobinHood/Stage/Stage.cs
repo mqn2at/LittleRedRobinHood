@@ -87,18 +87,23 @@ namespace LittleRedRobinHood
                     if (platformNum % 2 == 0)
                     {
                         waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X, o.Y - 180));
+                        waypoints.Add(new Vector2(o.X+200, o.Y));
                     }
                     else
                     {
                         waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X+200, o.Y));
+                        waypoints.Add(new Vector2(o.X-200, o.Y));
                     }
+                }
+                else if (tmxFile.Equals("stage7.tmx"))
+                {
+                    waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(o.X, o.Y-300));
                 }
                 else
                 {
                     waypoints.Add(new Vector2(o.X, o.Y));
-                    waypoints.Add(new Vector2(o.X-100, o.Y));
+                    waypoints.Add(new Vector2(o.X, o.Y+200));
                 }
                 cm.addPatrol(tempID, waypoints, 3);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
@@ -174,6 +179,30 @@ namespace LittleRedRobinHood
                     int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
                     //Add collide for shackle
                     cm.addCollide(shackleTemp, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, true);
+                }
+                else if (tmxFile.Equals("stage7.tmx"))
+                {
+                    if (enemycount == 0)
+                    {
+                        cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
+                        waypoints.Add(new Vector2(o.X, o.Y - 100));
+                        waypoints.Add(new Vector2(o.X, o.Y));
+
+                    }
+                    else if (enemycount == 1)
+                    {
+                        cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
+                        waypoints.Add(new Vector2(o.X, o.Y + 100));
+                        waypoints.Add(new Vector2(o.X, o.Y));
+                    }
+                    else if (enemycount == 2)
+                    {
+                        cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, true);
+                        waypoints.Add(new Vector2(o.X - 200, o.Y));
+                        waypoints.Add(new Vector2(o.X, o.Y));
+                    }
+
+                    cm.addPatrol(tempID, waypoints, 3);
                 }
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("birdsheet.png"), true);
                 enemycount++;
