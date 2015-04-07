@@ -87,12 +87,12 @@ namespace LittleRedRobinHood
                     if (platformNum % 2 == 0)
                     {
                         waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X, o.Y - 180));
+                        waypoints.Add(new Vector2(o.X+200, o.Y));
                     }
                     else
                     {
                         waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X+200, o.Y));
+                        waypoints.Add(new Vector2(o.X-200, o.Y));
                     }
                 }
                 else
