@@ -35,6 +35,7 @@ namespace LittleRedRobinHood.System
                 game_songs_inst.Add(game_songs[x].CreateInstance());
             }
             game_songs_inst.Add(game_songs[0].CreateInstance());
+            game_songs_inst.Add(game_songs[0].CreateInstance());
             menu_song = content.Load<SoundEffect>("DST-ALightIntro.wav");
             menu_song_inst = menu_song.CreateInstance();
             prev_inst = menu_song_inst;

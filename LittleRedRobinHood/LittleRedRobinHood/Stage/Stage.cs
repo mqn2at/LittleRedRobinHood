@@ -66,11 +66,11 @@ namespace LittleRedRobinHood
             int platformNum = 0;
             foreach (Squared.Tiled.Object o in platforms.Values)
             {
+                tempID = cm.addEntity();
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height),true);
+                List<Vector2> waypoints = new List<Vector2>();
                 if (tmxFile.Equals("stage5.tmx"))
                 {
-                    tempID = cm.addEntity();
-                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
-                    List<Vector2> waypoints = new List<Vector2>();
                     if (platformNum % 2 == 0)
                     {
                         waypoints.Add(new Vector2(o.X, o.Y));
@@ -81,20 +81,27 @@ namespace LittleRedRobinHood
                         waypoints.Add(new Vector2(o.X, o.Y));
                         waypoints.Add(new Vector2(o.X, o.Y + 180));
                     }
-                    cm.addPatrol(tempID, waypoints, 3);
-                    cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                }
+                else if (tmxFile.Equals("stage6.tmx"))
+                {
+                    if (platformNum % 2 == 0)
+                    {
+                        waypoints.Add(new Vector2(o.X, o.Y));
+                        waypoints.Add(new Vector2(o.X, o.Y - 180));
+                    }
+                    else
+                    {
+                        waypoints.Add(new Vector2(o.X, o.Y));
+                        waypoints.Add(new Vector2(o.X+200, o.Y));
+                    }
                 }
                 else
                 {
-                    tempID = cm.addEntity();
-                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
-                    List<Vector2> waypoints = new List<Vector2>();
                     waypoints.Add(new Vector2(o.X, o.Y));
-                    waypoints.Add(new Vector2(o.X, o.Y - 100));
-
-                    cm.addPatrol(tempID, waypoints, 3);
-                    cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                    waypoints.Add(new Vector2(o.X-100, o.Y));
                 }
+                cm.addPatrol(tempID, waypoints, 3);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
                 platformNum++;
             }
 
