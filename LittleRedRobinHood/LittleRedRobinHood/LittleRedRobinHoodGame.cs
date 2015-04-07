@@ -31,7 +31,7 @@ namespace LittleRedRobinHood
         AnimatedSpriteSystem anisys;
         private bool paused;
         private bool mainMenu;
-        private bool songPlaying = false;
+        private int MENU_COUNT = 8;
         private int TITLESTART = 25;
         private int MENUSTART_X = 50;
         private int MENUSTART_Y = 125;
@@ -85,10 +85,6 @@ namespace LittleRedRobinHood
             this.stages.Add(stage4);
             Stage stage5 = new Stage("stage5.tmx", this.manager);
             this.stages.Add(stage5);
-            for (int x = 0; x < 14; x++)
-            {
-                this.stages.Add(stage4);
-            }
             this.manager.numStages = this.stages.ToArray().Length;
 
             base.Initialize();
@@ -282,15 +278,18 @@ namespace LittleRedRobinHood
                     {
                         if (x != manager.numStages)
                         {
-                            spriteBatch.DrawString(font, "Stage: " + (x + 1), new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * x), Color.Black);
+                            spriteBatch.DrawString(font, "Stage: " + (x + 1), new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X + this.SUBMENUOFFSET_X * 3 * (x / MENU_COUNT) + selC.hitbox.Width, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * (x % MENU_COUNT)), Color.Black);
                         }
                         else
                         {
-                            spriteBatch.DrawString(font, "Back", new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * x), Color.Black);
+                            spriteBatch.DrawString(font, "Back", new Vector2(this.MENUSTART_X + this.SUBMENUOFFSET_X + this.SUBMENUOFFSET_X * 3 * (x / MENU_COUNT) + selC.hitbox.Width, this.MENUSTART_Y + this.SUBMENUSTART_Y + this.SUBMENUOFFSET_Y * (x % MENU_COUNT)), Color.Black);
                         }
                     }
+                    selX += selC.hitbox.Width;
                 }
-                selY += consys.menuIndex * this.MENUOFFSET_Y;
+                selY += (consys.menuIndex % MENU_COUNT) * this.MENUOFFSET_Y;
+                selX += (consys.menuIndex / MENU_COUNT) * 3 * this.SUBMENUOFFSET_X;
+                //Console.WriteLine("MenuIndex: " + consys.menuIndex);
                 spriteBatch.Draw(selS.sprite, new Rectangle(selX, selY, selC.hitbox.Width, selC.hitbox.Height), Color.White);
             }
             else if (!paused)
