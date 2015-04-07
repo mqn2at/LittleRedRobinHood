@@ -21,6 +21,7 @@ namespace LittleRedRobinHood.System
             List<int> toBeRemoved = new List<int>();
             List<int> shackleCollided = new List<int>();
             List<int> arrowCollided = new List<int>();
+            bool playerCollided = false;
             for (int i = 0; i < entityList.Count(); i++)
             {
                 for (int j = i + 1; j < entityList.Count(); j++)
@@ -49,6 +50,8 @@ namespace LittleRedRobinHood.System
                         //Player Collision
                         if (manager.getEntities()[entityList[i]].isPlayer || manager.getEntities()[entityList[j]].isPlayer)
                         {
+                            playerCollided = true;
+
                             int playerID = 0;
                             int objectID = 0;
                             int objectIndex = 0;
@@ -456,7 +459,11 @@ namespace LittleRedRobinHood.System
                 manager.getPlayers()[manager.playerID].lives--;
                 return 0;
             }
-            Console.WriteLine("PLAYER AT: " + playerHB.X + "," + playerHB.Y);
+
+            if (!playerCollided)
+            {
+                manager.getPlayers()[manager.playerID].grounded = false;
+            }
 
             return -1;
         }

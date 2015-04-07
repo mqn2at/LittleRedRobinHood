@@ -16,6 +16,7 @@ namespace LittleRedRobinHood
         //private List<Entity> entityList;
         private ComponentManager cm;
         private SortedList<string, Squared.Tiled.Object> obstacles;
+        private SortedList<string, Squared.Tiled.Object> platforms;
         private SortedList<string, Squared.Tiled.Object> shackleables;
         private SortedList<string, Squared.Tiled.Object> enemies;
         private Squared.Tiled.Object start;
@@ -60,13 +61,27 @@ namespace LittleRedRobinHood
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
             }
 
+            //Add all collidable platforms
+            platforms = map.ObjectGroups["platforms"].Objects;
+            foreach (Squared.Tiled.Object o in platforms.Values)
+            {
+                tempID = cm.addEntity();
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
+                List<Vector2> waypoints = new List<Vector2>();
+                waypoints.Add(new Vector2(o.X, o.Y));
+                waypoints.Add(new Vector2(o.X, o.Y - 100));
+                
+                cm.addPatrol(tempID, waypoints, 2);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+            }
+
             //int shackleBoxID = 0;
             //Add shackleable objects
             shackleables = map.ObjectGroups["shackleables"].Objects;
             foreach (Squared.Tiled.Object o in shackleables.Values)
             {
                 tempID = cm.addEntity();
-                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true,1,false);
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true);
                 preExistingShackleIDs.Add(tempID);
             }
 
@@ -111,7 +126,7 @@ namespace LittleRedRobinHood
                 }
                 else if (tmxFile.Equals("stage4.tmx"))
                 {
-                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, false, 1, false);
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, 1, false);
                     waypoints.Add(new Vector2(o.X, o.Y + 150));
                     waypoints.Add(new Vector2(o.X, o.Y));
 

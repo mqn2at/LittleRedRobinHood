@@ -61,4 +61,5 @@
  </objectgroup>
  <objectgroup name="enemies"/>
  <objectgroup name="shackleables"/>
+ <objectgroup name="platforms"/>
 </map>
