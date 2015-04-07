@@ -169,7 +169,10 @@ namespace LittleRedRobinHood.System
                                     && playerHitbox.Y + playerHitbox.Height < objectHitbox.Y + objectHitbox.Height
                                     && playerHitbox.Y + (int)(0.73 * playerHitbox.Height) < objectHitbox.Y)
                                 {
-                                    manager.getPlayers()[playerID].grounded = true;
+                                    if (manager.getPlayers()[manager.playerID].dy >= 0)
+                                    {
+                                        manager.getPlayers()[playerID].grounded = true;
+                                    }
                                     manager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
                                 }
 
@@ -460,7 +463,7 @@ namespace LittleRedRobinHood.System
                 return 0;
             }
 
-            if (!playerCollided)
+            if (!playerCollided && manager.getPlayers()[manager.playerID].dy >= 0)
             {
                 manager.getPlayers()[manager.playerID].grounded = false;
             }
