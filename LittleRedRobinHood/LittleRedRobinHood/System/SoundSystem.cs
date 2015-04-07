@@ -19,7 +19,7 @@ namespace LittleRedRobinHood.System
         SoundEffectInstance bow_sound_1_inst, menu_song_inst, prev_inst;
         List<SoundEffect> game_songs;
         List<SoundEffectInstance> game_songs_inst;
-
+        private static int STAGES_PER_SONG = 3;
         //SoundEffectInstance gameSong_inst;
         //sMediaPlayer gs;
 
@@ -29,14 +29,17 @@ namespace LittleRedRobinHood.System
             bow_sound_1_inst = bow_sound_1.CreateInstance();
             game_songs = new List<SoundEffect>();
             game_songs_inst = new List<SoundEffectInstance>();
-            game_songs.Add(content.Load<SoundEffect>("DST-3rdBallad.wav"));
+            game_songs.Add(content.Load<SoundEffect>("Evgeny_Grinko_-_05_-_Sunset.wav"));
+            game_songs.Add(content.Load<SoundEffect>("Dexter_Britain_-_09_-_From_Truth.wav"));
+            game_songs.Add(content.Load<SoundEffect>("Dexter_Britain_-_05_-_Seeing_The_Future.wav"));
+            game_songs.Add(content.Load<SoundEffect>("Dexter_Britain_-_07_-_The_Time_To_Run.wav"));
+            game_songs.Add(content.Load<SoundEffect>("Dexter_Britain_-_09_-_Stop_It_Instrumental.wav"));
+            game_songs.Add(content.Load<SoundEffect>("Dexter_Britain_-_12_-_After_The_week_Ive_Had.wav"));
             for (int x = 0; x < game_songs.Count; x++)
             {
                 game_songs_inst.Add(game_songs[x].CreateInstance());
             }
-            game_songs_inst.Add(game_songs[0].CreateInstance());
-            game_songs_inst.Add(game_songs[0].CreateInstance());
-            menu_song = content.Load<SoundEffect>("DST-ALightIntro.wav");
+            menu_song = content.Load<SoundEffect>("Chan_Wai_Fat_-_05_-_Dream_instrumental.wav");
             menu_song_inst = menu_song.CreateInstance();
             prev_inst = menu_song_inst;
             
@@ -58,7 +61,7 @@ namespace LittleRedRobinHood.System
                 }
                 else
                 {
-                    prev_inst = game_songs_inst[currentStage / 3];
+                    prev_inst = game_songs_inst[currentStage / STAGES_PER_SONG];
                 }
                 prev_inst.Play();
             }
@@ -77,7 +80,7 @@ namespace LittleRedRobinHood.System
         public void playGameSong(int currentStage)
         {
             prev_inst.Stop();
-            prev_inst = game_songs_inst[currentStage / 3];
+            prev_inst = game_songs_inst[currentStage / STAGES_PER_SONG];
             prev_inst.Play();
         }
 
