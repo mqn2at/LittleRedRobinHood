@@ -226,7 +226,14 @@ namespace LittleRedRobinHood.System
                 }
                 else //no animation, so just draw
                 {
-                   sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+                    if (cm.getEntities()[sp.Value.entityID].isProjectile)
+                    {
+                        sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), null, Color.White, (float)cm.getProjectiles()[sp.Value.entityID].angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                    }
+                    else
+                    {
+                        sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+                    }
                 }
             }
         }
