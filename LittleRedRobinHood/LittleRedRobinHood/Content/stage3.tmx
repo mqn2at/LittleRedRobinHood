@@ -88,4 +88,5 @@
  </objectgroup>
  <objectgroup name="shackleables"/>
  <objectgroup name="platforms"/>
+ <objectgroup name="pinecones"/>
 </map>
