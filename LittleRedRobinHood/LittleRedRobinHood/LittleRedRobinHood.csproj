@@ -81,7 +81,7 @@
     </Content>
     <Content Include="bin\WindowsGL\Debug\LittleRedRobinHood.exe" />
     <Content Include="bin\WindowsGL\Debug\LittleRedRobinHood.pdb" />
-    <Content Include="Content\arrow.gif">
+    <Content Include="Content\arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\BBHood.png">

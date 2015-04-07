@@ -228,7 +228,7 @@ namespace LittleRedRobinHood.System
                 {
                     if (cm.getEntities()[sp.Value.entityID].isProjectile)
                     {
-                        sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), null, Color.White, (float)cm.getProjectiles()[sp.Value.entityID].angle, new Vector2(0, 0), SpriteEffects.None, 1);
+                        sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), null, Color.White, (float)cm.getProjectiles()[sp.Value.entityID].angle+(float)Math.PI, new Vector2(0, 0), SpriteEffects.None, 1);
                     }
                     else
                     {

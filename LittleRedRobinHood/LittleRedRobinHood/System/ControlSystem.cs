@@ -178,7 +178,7 @@ namespace LittleRedRobinHood.System
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, true, angle, ARROW_SPEED);
                 cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width / 2, pMove.hitbox.Y + pMove.hitbox.Height / 2, 16, 16), false, false);
-                cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("arrow.gif"));
+                cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("arrow.png"));
                 player.arrows -= 1;
                 //player.shooting = true;
                 //Force timer before next click
