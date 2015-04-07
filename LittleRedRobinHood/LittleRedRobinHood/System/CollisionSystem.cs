@@ -456,7 +456,6 @@ namespace LittleRedRobinHood.System
                 manager.getPlayers()[manager.playerID].lives--;
                 return 0;
             }
-            Console.WriteLine("PLAYER AT: " + playerHB.X + "," + playerHB.Y);
 
             return -1;
         }
