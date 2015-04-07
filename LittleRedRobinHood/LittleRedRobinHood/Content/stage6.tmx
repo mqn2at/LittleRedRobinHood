@@ -67,7 +67,7 @@
     <property name="name" value="platform1"/>
    </properties>
   </object>
-  <object id="31" name="platform2" x="230" y="280" width="64" height="32">
+  <object id="31" name="platform2" x="415" y="277" width="64" height="32">
    <properties>
     <property name="name" value="platform2"/>
    </properties>
