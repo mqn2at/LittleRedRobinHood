@@ -63,16 +63,39 @@ namespace LittleRedRobinHood
 
             //Add all collidable platforms
             platforms = map.ObjectGroups["platforms"].Objects;
+            int platformNum = 0;
             foreach (Squared.Tiled.Object o in platforms.Values)
             {
-                tempID = cm.addEntity();
-                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
-                List<Vector2> waypoints = new List<Vector2>();
-                waypoints.Add(new Vector2(o.X, o.Y));
-                waypoints.Add(new Vector2(o.X, o.Y - 100));
-                
-                cm.addPatrol(tempID, waypoints, 3);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                if (tmxFile.Equals("stage5.tmx"))
+                {
+                    tempID = cm.addEntity();
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
+                    List<Vector2> waypoints = new List<Vector2>();
+                    if (platformNum % 2 == 0)
+                    {
+                        waypoints.Add(new Vector2(o.X, o.Y));
+                        waypoints.Add(new Vector2(o.X, o.Y - 180));
+                    }
+                    else
+                    {
+                        waypoints.Add(new Vector2(o.X, o.Y));
+                        waypoints.Add(new Vector2(o.X, o.Y + 180));
+                    }
+                    cm.addPatrol(tempID, waypoints, 3);
+                    cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                }
+                else
+                {
+                    tempID = cm.addEntity();
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, false);
+                    List<Vector2> waypoints = new List<Vector2>();
+                    waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(o.X, o.Y - 100));
+
+                    cm.addPatrol(tempID, waypoints, 3);
+                    cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                }
+                platformNum++;
             }
 
             //int shackleBoxID = 0;
