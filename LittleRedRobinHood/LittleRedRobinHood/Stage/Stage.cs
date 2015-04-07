@@ -71,7 +71,7 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));
                 waypoints.Add(new Vector2(o.X, o.Y - 100));
                 
-                cm.addPatrol(tempID, waypoints, 2);
+                cm.addPatrol(tempID, waypoints, 3);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
             }
 
