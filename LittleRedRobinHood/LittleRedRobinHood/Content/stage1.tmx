@@ -78,4 +78,5 @@
  </objectgroup>
  <objectgroup name="enemies"/>
  <objectgroup name="platforms"/>
+ <objectgroup name="pinecones"/>
 </map>

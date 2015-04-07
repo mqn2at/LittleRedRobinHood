@@ -73,4 +73,5 @@
   </object>
  </objectgroup>
  <objectgroup name="platforms"/>
+ <objectgroup name="pinecones"/>
 </map>
