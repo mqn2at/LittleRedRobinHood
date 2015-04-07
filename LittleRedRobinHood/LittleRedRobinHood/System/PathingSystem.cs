@@ -66,6 +66,7 @@ namespace LittleRedRobinHood.System
                                 {
                                     if (componentManager.getPatrols()[entityID].isCyclical)
                                     {
+
                                         componentManager.getPatrols()[entityID].setCurrentDest(0);
                                         componentManager.getCollides()[entityID].hitbox.X = x;
                                         componentManager.getCollides()[entityID].hitbox.Y = y;
