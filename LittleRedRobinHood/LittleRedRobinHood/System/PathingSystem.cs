@@ -38,6 +38,7 @@ namespace LittleRedRobinHood.System
 
                             int dX = (int)(speed * Math.Cos(angle)) * -1;
                             int dY = (int)(speed * Math.Sin(angle)) * -1;
+                            
 
                             //For Sprite Animations
                             if (dX <= 0)
@@ -56,45 +57,60 @@ namespace LittleRedRobinHood.System
                             int dest = componentManager.getPatrols()[entityID].currentDest;
                             //Console.WriteLine(dest);
                             //check if overshot assume 0 is the spawn point
-                            if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) || (dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y) || (x==destPos.X && y==destPos.Y))
+                            if ((componentManager.getPatrols()[entityID].dx != null && componentManager.getPatrols()[entityID].dy != null))
                             {
-
-                                /*componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
-                                componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;*/
-
-                                if (path.Count - 1 == componentManager.getPatrols()[entityID].currentDest)
+                                if ((((dX > 0 && destPos.X < x) && (dY >= 0 && destPos.Y < y)) ||
+                                    ((dX >= 0 && destPos.X < x) && (dY < 0 && destPos.Y > y)) ||
+                                    ((dX < 0 && destPos.X > x) && (dY <= 0 && destPos.Y > y)) ||
+                                    ((dX <= 0 && destPos.X > x) && (dY > 0 && destPos.Y < y)) ||
+                                    ((dX > 0 && componentManager.getPatrols()[entityID].dx < 0) || (dX < 0 && componentManager.getPatrols()[entityID].dx > 0)) &&
+                                    (dY > 0 && componentManager.getPatrols()[entityID].dy < 0) || (dY < 0 && componentManager.getPatrols()[entityID].dy > 0)))
+                                //if (((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x)) || ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y)))//|| (x==destPos.X && y==destPos.Y)
                                 {
-                                    if (componentManager.getPatrols()[entityID].isCyclical)
-                                    {
 
-                                        componentManager.getPatrols()[entityID].setCurrentDest(0);
-                                        componentManager.getCollides()[entityID].hitbox.X = x;
-                                        componentManager.getCollides()[entityID].hitbox.Y = y;
+                                    /*componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
+                                    componentManager.getCollides()[entityID].hitbox.Y = (int)destPos.Y;*/
+
+                                    if (path.Count - 1 == componentManager.getPatrols()[entityID].currentDest)
+                                    {
+                                        if (componentManager.getPatrols()[entityID].isCyclical)
+                                        {
+
+                                            componentManager.getPatrols()[entityID].setCurrentDest(0);
+                                            componentManager.getCollides()[entityID].hitbox.X = x;
+                                            componentManager.getCollides()[entityID].hitbox.Y = y;
+                                        }
+                                        else
+                                        {
+                                            //Console.WriteLine("asdfsadf");
+                                            Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest - 1];
+                                            componentManager.getCollides()[entityID].hitbox.X = (int)destCyclical.X;
+                                            componentManager.getCollides()[entityID].hitbox.Y = (int)destCyclical.Y;
+                                            Console.WriteLine("currentdest" + componentManager.getPatrols()[entityID].currentDest);
+                                            Console.WriteLine("dx:" + (destPos.X - x) + "," + dX + "dy:" + (destPos.Y - dY) + "," + dY);
+                                        }
                                     }
                                     else
                                     {
-                                        //Console.WriteLine("asdfsadf");
-                                        Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest-1];
-                                        componentManager.getCollides()[entityID].hitbox.X = (int)destCyclical.X;
-                                        componentManager.getCollides()[entityID].hitbox.Y = (int)destCyclical.Y;
+                                        dest = dest + 1;
+                                        componentManager.getPatrols()[entityID].setCurrentDest(dest);
+                                        componentManager.getCollides()[entityID].hitbox.X = x;
+                                        componentManager.getCollides()[entityID].hitbox.Y = y;
+                                        //destPos = path[componentManager.getPatrols()[entityID].currentDest];
+                                        //Console.WriteLine("currentdest" + componentManager.getPatrols()[entityID].currentDest);
+                                        //Console.WriteLine("dx:" + (destPos.X - x) + "," + dX + "dy:" + (destPos.Y - dY) + "," + dY);
                                     }
                                 }
                                 else
                                 {
-                                    dest = dest + 1;
-                                    componentManager.getPatrols()[entityID].setCurrentDest(dest);
                                     componentManager.getCollides()[entityID].hitbox.X = x;
                                     componentManager.getCollides()[entityID].hitbox.Y = y;
-                                    //destPos = path[componentManager.getPatrols()[entityID].currentDest];
+                                    //Console.WriteLine("currentdest" + componentManager.getPatrols()[entityID].currentDest);
+                                    //Console.WriteLine("dx:" + (destPos.X - x) + "," + dX + "dy:" + (destPos.Y - dY) + "," + dY);
                                 }
                             }
-                            else
-                            {
-                                componentManager.getCollides()[entityID].hitbox.X = x;
-                                componentManager.getCollides()[entityID].hitbox.Y = y;
-                                //Console.WriteLine("currentdest"+componentManager.getPatrols()[entityID].currentDest);
-                                //Console.WriteLine("dx:" + (destPos.X-x)+","+dX + "dy:" + (destPos.Y-dY)+","+dY );
-                            }
+                            componentManager.getPatrols()[entityID].dx = dX;
+                            componentManager.getPatrols()[entityID].dy = dY;
                             /*else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                             {
 
