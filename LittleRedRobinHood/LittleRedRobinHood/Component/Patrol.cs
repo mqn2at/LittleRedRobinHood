@@ -14,7 +14,8 @@ namespace LittleRedRobinHood.Component
         public int currentDest;
         public bool is_right = false;
         public bool isCyclical;
-        public Vector2 prevLoc;
+        public int? dx = null;
+        public int? dy = null;
 
         public Patrol(int id, List<Vector2> path, int spd)
         {
