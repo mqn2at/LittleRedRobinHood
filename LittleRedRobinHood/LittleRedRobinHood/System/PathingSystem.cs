@@ -68,12 +68,15 @@ namespace LittleRedRobinHood.System
                                     {
 
                                         componentManager.getPatrols()[entityID].setCurrentDest(0);
+                                        ///componentManager.getPatrols()[entityID].prevLoc = new Vector2(componentManager.getCollides()[entityID].hitbox.X, componentManager.getCollides()[entityID].hitbox.Y);
                                         componentManager.getCollides()[entityID].hitbox.X = x;
                                         componentManager.getCollides()[entityID].hitbox.Y = y;
+                                        
                                     }
                                     else
                                     {
                                         Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest-1];
+                                        ///componentManager.getPatrols()[entityID].prevLoc = new Vector2(componentManager.getCollides()[entityID].hitbox.X, componentManager.getCollides()[entityID].hitbox.Y);
                                         componentManager.getCollides()[entityID].hitbox.X = (int)destCyclical.X;
                                         componentManager.getCollides()[entityID].hitbox.Y = (int)destCyclical.Y;
                                     }
@@ -82,6 +85,7 @@ namespace LittleRedRobinHood.System
                                 {
                                     dest = dest + 1;
                                     componentManager.getPatrols()[entityID].setCurrentDest(dest);
+                                    ///componentManager.getPatrols()[entityID].prevLoc = new Vector2(componentManager.getCollides()[entityID].hitbox.X, componentManager.getCollides()[entityID].hitbox.Y);
                                     componentManager.getCollides()[entityID].hitbox.X = x;
                                     componentManager.getCollides()[entityID].hitbox.Y = y;
                                     //destPos = path[componentManager.getPatrols()[entityID].currentDest];
@@ -89,6 +93,7 @@ namespace LittleRedRobinHood.System
                             }
                             else
                             {
+                                ///componentManager.getPatrols()[entityID].prevLoc = new Vector2(componentManager.getCollides()[entityID].hitbox.X, componentManager.getCollides()[entityID].hitbox.Y);
                                 componentManager.getCollides()[entityID].hitbox.X = x;
                                 componentManager.getCollides()[entityID].hitbox.Y = y;
                             }

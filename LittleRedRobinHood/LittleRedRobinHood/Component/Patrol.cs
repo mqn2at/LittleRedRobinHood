@@ -14,6 +14,7 @@ namespace LittleRedRobinHood.Component
         public int currentDest;
         public bool is_right = false;
         public bool isCyclical;
+        public Vector2 prevLoc;
 
         public Patrol(int id, List<Vector2> path, int spd)
         {
@@ -22,6 +23,7 @@ namespace LittleRedRobinHood.Component
             this.speed = spd;
             this.currentDest = 0;
             isCyclical = true;
+            prevLoc = new Vector2(-1, -1);
         }
         public Patrol(int id, List<Vector2> path, int spd, bool cycle)
         {
@@ -30,10 +32,12 @@ namespace LittleRedRobinHood.Component
             this.speed = spd;
             this.currentDest = 0;
             isCyclical = cycle;
+            prevLoc = new Vector2(-1, -1);
         }
         public void setCurrentDest(int dest)
         {
             this.currentDest = dest;
+            prevLoc = new Vector2(-1, -1);
         }
     }
 }
