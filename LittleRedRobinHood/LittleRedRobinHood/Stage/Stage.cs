@@ -70,7 +70,7 @@ namespace LittleRedRobinHood
                 tempID = cm.addEntity();
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height),true);
                 List<Vector2> waypoints = new List<Vector2>();
-                if (tmxFile.Equals("stage5.tmx"))
+                if (tmxFile.Equals("stage4.tmx"))
                 {
                     if (platformNum % 2 == 0)
                     {
@@ -83,7 +83,7 @@ namespace LittleRedRobinHood
                         waypoints.Add(new Vector2(o.X, o.Y + 180));
                     }
                 }
-                else if (tmxFile.Equals("stage6.tmx"))
+                else if (tmxFile.Equals("stage9.tmx"))
                 {
                     if (platformNum % 2 == 0)
                     {
@@ -130,7 +130,7 @@ namespace LittleRedRobinHood
                 tempID = cm.addEntity();
                 //HARD CODED ENEMY MOVEMENTS IN, need to change later based on stage
                 List<Vector2> waypoints = new List<Vector2>();
-                if (tmxFile.Equals("stage2.tmx")) {
+                if (tmxFile.Equals("stage3.tmx")) {
                 if (enemycount == 0)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
@@ -154,14 +154,14 @@ namespace LittleRedRobinHood
 
                 cm.addPatrol(tempID, waypoints, 3);
                 }
-                else if (tmxFile.Equals("stage3.tmx")) {
+                else if (tmxFile.Equals("stage5.tmx")) {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
                     waypoints.Add(new Vector2(o.X, o.Y - 100));
                     waypoints.Add(new Vector2(o.X, o.Y));
 
                     cm.addPatrol(tempID, waypoints, 2);
                 }
-                else if (tmxFile.Equals("stage4.tmx"))
+                else if (tmxFile.Equals("stage6.tmx"))
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, 1, false);
                     waypoints.Add(new Vector2(o.X, o.Y + 200));
