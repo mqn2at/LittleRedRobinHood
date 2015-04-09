@@ -62,4 +62,5 @@
  <objectgroup name="enemies"/>
  <objectgroup name="shackleables"/>
  <objectgroup name="platforms"/>
+ <objectgroup name="pinecones"/>
 </map>

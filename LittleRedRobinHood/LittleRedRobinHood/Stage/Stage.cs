@@ -19,6 +19,7 @@ namespace LittleRedRobinHood
         private SortedList<string, Squared.Tiled.Object> platforms;
         private SortedList<string, Squared.Tiled.Object> shackleables;
         private SortedList<string, Squared.Tiled.Object> enemies;
+        private SortedList<string, Squared.Tiled.Object> pinecones;
         private Squared.Tiled.Object start;
         private Squared.Tiled.Object finish;
         private int width;
@@ -119,6 +120,7 @@ namespace LittleRedRobinHood
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), false, true);
                 preExistingShackleIDs.Add(tempID);
             }
+          
 
             //Add all enemies
             enemies = map.ObjectGroups["enemies"].Objects;
@@ -204,8 +206,31 @@ namespace LittleRedRobinHood
 
                     cm.addPatrol(tempID, waypoints, 3);
                 }
+                else if (tmxFile.Equals("stage8.tmx"))
+                {
+                    cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
+                    waypoints.Add(new Vector2(o.X, o.Y + 200));
+                    waypoints.Add(new Vector2(o.X, o.Y));
+
+                    cm.addPatrol(tempID, waypoints, 2);
+                }
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("birdsheet.png"), true);
                 enemycount++;
+            }
+
+            //Add all PINECONES
+            pinecones = map.ObjectGroups["pinecones"].Objects;
+            foreach (Squared.Tiled.Object o in pinecones.Values)
+            {
+                tempID = cm.addEntity();
+                cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, false,false,false);
+                List<Vector2> waypoints = new List<Vector2>();
+                
+                waypoints.Add(new Vector2(o.X, o.Y));
+                waypoints.Add(new Vector2(o.X, o.Y + 400));
+                cm.addPatrol(tempID, waypoints, 4, false);
+                cm.addProjectile(tempID, true, Math.PI / 2, 2);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
             }
 
             //Add player at start

@@ -56,7 +56,7 @@ namespace LittleRedRobinHood.System
                             int dest = componentManager.getPatrols()[entityID].currentDest;
                             //Console.WriteLine(dest);
                             //check if overshot assume 0 is the spawn point
-                            if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) && (dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
+                            if ((dX > 0 && destPos.X < x) || (dX < 0 && destPos.X > x) || (dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y) || (x==destPos.X && y==destPos.Y))
                             {
 
                                 /*componentManager.getCollides()[entityID].hitbox.X = (int)destPos.X;
@@ -75,6 +75,7 @@ namespace LittleRedRobinHood.System
                                     }
                                     else
                                     {
+                                        //Console.WriteLine("asdfsadf");
                                         Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest-1];
                                         ///componentManager.getPatrols()[entityID].prevLoc = new Vector2(componentManager.getCollides()[entityID].hitbox.X, componentManager.getCollides()[entityID].hitbox.Y);
                                         componentManager.getCollides()[entityID].hitbox.X = (int)destCyclical.X;
@@ -96,6 +97,8 @@ namespace LittleRedRobinHood.System
                                 ///componentManager.getPatrols()[entityID].prevLoc = new Vector2(componentManager.getCollides()[entityID].hitbox.X, componentManager.getCollides()[entityID].hitbox.Y);
                                 componentManager.getCollides()[entityID].hitbox.X = x;
                                 componentManager.getCollides()[entityID].hitbox.Y = y;
+                                //Console.WriteLine("currentdest"+componentManager.getPatrols()[entityID].currentDest);
+                                //Console.WriteLine("dx:" + (destPos.X-x)+","+dX + "dy:" + (destPos.Y-dY)+","+dY );
                             }
                             /*else if ((dY > 0 && destPos.Y < y) || (dY < 0 && destPos.Y > y))
                             {

@@ -56,7 +56,7 @@
  </objectgroup>
  <objectgroup name="shackleables"/>
  <objectgroup name="enemies">
-  <object id="17" name="enemy1" x="274" y="332" width="34" height="31">
+  <object id="17" name="enemy1" x="274" y="375" width="34" height="31">
    <properties>
     <property name="name" value="enemy1"/>
    </properties>
@@ -73,4 +73,5 @@
   </object>
  </objectgroup>
  <objectgroup name="platforms"/>
+ <objectgroup name="pinecones"/>
 </map>
