@@ -74,26 +74,26 @@ namespace LittleRedRobinHood
                 {
                     if (platformNum % 2 == 0)
                     {
-                        waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X, o.Y - 180));
+                        waypoints.Add(new Vector2(o.X + o.Width, o.Y));
+                        waypoints.Add(new Vector2(o.X + o.Width, o.Y - 180));
                     }
                     else
                     {
-                        waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X, o.Y + 180));
+                        waypoints.Add(new Vector2(o.X + o.Width, o.Y));
+                        waypoints.Add(new Vector2(o.X + o.Width, o.Y + 180));
                     }
                 }
                 else if (tmxFile.Equals("stage9.tmx"))
                 {
                     if (platformNum % 2 == 0)
                     {
-                        waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X+200, o.Y));
+                        waypoints.Add(new Vector2(o.X, o.Y + o.Height));
+                        waypoints.Add(new Vector2(o.X + 200, o.Y + o.Height));
                     }
                     else
                     {
-                        waypoints.Add(new Vector2(o.X, o.Y));
-                        waypoints.Add(new Vector2(o.X-200, o.Y));
+                        waypoints.Add(new Vector2(o.X, o.Y + o.Height));
+                        waypoints.Add(new Vector2(o.X - 200, o.Y + o.Height));
                     }
                 }
                 else if (tmxFile.Equals("stage7.tmx"))

@@ -85,7 +85,7 @@ namespace LittleRedRobinHood.System
                                     else
                                     {
                                         //Console.WriteLine("asdfsadf");
-                                        Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest-1];
+                                            Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest - 1];
                                         componentManager.getCollides()[entityID].hitbox.X = (int)destCyclical.X;
                                         componentManager.getCollides()[entityID].hitbox.Y = (int)destCyclical.Y;
                                             Console.WriteLine("currentdest" + componentManager.getPatrols()[entityID].currentDest);
