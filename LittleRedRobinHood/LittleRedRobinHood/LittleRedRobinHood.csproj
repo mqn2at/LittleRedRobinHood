@@ -93,14 +93,30 @@
     <Content Include="Content\bow.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Chan_Wai_Fat_-_05_-_Dream_instrumental.wav" />
-    <Content Include="Content\crate.png" />
-    <Content Include="Content\Dexter_Britain_-_05_-_Seeing_The_Future.wav" />
-    <Content Include="Content\Dexter_Britain_-_07_-_The_Time_To_Run.wav" />
-    <Content Include="Content\Dexter_Britain_-_09_-_From_Truth.wav" />
-    <Content Include="Content\Dexter_Britain_-_09_-_Stop_It_Instrumental.wav" />
-    <Content Include="Content\Dexter_Britain_-_12_-_After_The_Week_Ive_Had.wav" />
-    <Content Include="Content\Evgeny_Grinko_-_05_-_Sunset.wav" />
+    <Content Include="Content\Chan_Wai_Fat_-_05_-_Dream_instrumental.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\crate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Dexter_Britain_-_05_-_Seeing_The_Future.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Dexter_Britain_-_07_-_The_Time_To_Run.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Dexter_Britain_-_09_-_From_Truth.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Dexter_Britain_-_09_-_Stop_It_Instrumental.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Dexter_Britain_-_12_-_After_The_Week_Ive_Had.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Evgeny_Grinko_-_05_-_Sunset.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\forest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -140,7 +156,6 @@
     <None Include="Content\Arial.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\mytest.tmx" />
     <None Include="Content\stage0.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -154,6 +169,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\stage4.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\stage5.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\stage6.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\stage7.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\stage8.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
