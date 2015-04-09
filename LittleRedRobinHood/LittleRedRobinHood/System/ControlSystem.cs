@@ -340,5 +340,14 @@ namespace LittleRedRobinHood.System
             return kb.IsKeyDown(key) && kbo.IsKeyDown(key);
         }
 
+
+        internal int UpdateDead(ComponentManager manager)
+        {
+            if (isPressed(Keys.M) || isPressed(Keys.Enter) || isPressed(Keys.E))
+            {
+                return 1;
+            }
+            return -1;
+        }
     }
 }

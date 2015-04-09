@@ -29,8 +29,9 @@ namespace LittleRedRobinHood
         ProjectileSystem projsys;
         PathingSystem pathsys;
         AnimatedSpriteSystem anisys;
-        private bool paused;
-        private bool mainMenu;
+        private bool paused, mainMenu, dead, realDead;
+        private int deathTimer = 0;
+        private int DEATH_TIMER_MAX = 120;
         private int MENU_COUNT = 8;
         private int TITLESTART = 25;
         private int MENUSTART_X = 50;
@@ -71,6 +72,8 @@ namespace LittleRedRobinHood
             anisys = new AnimatedSpriteSystem();
             paused = false;
             mainMenu = true; //start with main menu open
+            dead = false;
+            realDead = false;
             //Create stages
             this.stages = new List<Stage>();
             Stage stage0 = new Stage("stage0.tmx", this.manager);
@@ -155,7 +158,7 @@ namespace LittleRedRobinHood
             temp = manager.addEntity();
             manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 200), "PAUSED", true, 1);
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(300, 250), "Press P to unpause\nPress M to quit", true, 1);
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(300, 250), "Press P to unpause\nPress R to reset\nPress M to quit", true, 1);
 
         }
 
@@ -181,9 +184,19 @@ namespace LittleRedRobinHood
 
             consys.UpdateStates();
             manager.soundsys.Update(mainMenu, currentStage);
-            if (mainMenu)
+            if (realDead)
             {
-                int temp  = consys.UpdateMenu(manager);
+                int temp = consys.UpdateDead(manager);
+                if (temp > -1)
+                {
+                    mainMenu = true;
+                    realDead = false;
+                }
+
+            }
+            else if (mainMenu)
+            {
+                int temp = consys.UpdateMenu(manager);
                 if (temp > -1)
                 {
                     mainMenu = false;
@@ -195,22 +208,28 @@ namespace LittleRedRobinHood
             {
                 if (consys.checkReset())
                 {
+                    dead = false;
+                    paused = false;
                     int temp = manager.currentLives();
                     LoadStage(currentStage);
                     manager.persistLives(temp);
                 }
-                if (!paused)
+                if (!paused && !dead)
                 {
                     consys.Update(manager);
                     projsys.Update(manager, GraphicsDevice);
                     pathsys.Update(manager);
+                    int lives;
                     switch (colsys.Update(manager, GraphicsDevice))
                     {
                         case 1:
                             if (currentStage < manager.numStages - 1)
                             {
+                                lives = manager.currentLives();
                                 currentStage += 1;
-                                goto default;
+                                LoadStage(currentStage);
+                                manager.persistLives(lives);
+                                break;
                             }
                             else
                             {
@@ -219,21 +238,22 @@ namespace LittleRedRobinHood
                                 mainMenu = true;
                                 break;
                             }
-                        case -1: 
+                        case -1:
                             break;
                         default:
-                            int temp = manager.currentLives();
-                            if (temp == 0) //add death screen here later
+                            lives = manager.currentLives();
+                            if (lives == 0) //add death screen here later
                             {
+                                realDead = true;
                                 manager.clearDictionaries();
                                 LoadMainMenu();
-                                mainMenu = true;
                                 break;
                             }
                             else
                             {
+                                dead = true;
                                 LoadStage(currentStage);
-                                manager.persistLives(temp);
+                                manager.persistLives(lives);
                                 break;
                             }
                     }
@@ -251,7 +271,7 @@ namespace LittleRedRobinHood
                         break;
                     default:
                         break;
-            }
+                }
             }
             base.Update(gameTime);
         }
@@ -299,7 +319,7 @@ namespace LittleRedRobinHood
                 //Console.WriteLine("MenuIndex: " + consys.menuIndex);
                 spriteBatch.Draw(selS.sprite, new Rectangle(selX, selY, selC.hitbox.Width, selC.hitbox.Height), Color.White);
             }
-            else if (!paused)
+            else if (!paused && !realDead && !dead)
             {
                 stages[currentStage].Draw(spriteBatch, GraphicsDevice);
                 /*Dictionary<int, Collide> collides = manager.getCollides();
@@ -314,7 +334,7 @@ namespace LittleRedRobinHood
                 // TODO: Add your drawing code here
                 //spriteBatch.DrawString(font, "HELLO", new Vector2(120, 10), Color.White);
             }
-            else
+            else if(paused)
             {
                 //Display paused information
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
@@ -324,6 +344,16 @@ namespace LittleRedRobinHood
                         spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.Black, 0, new Vector2(0, 0), pair.Value.scale, SpriteEffects.None, 1);
                     }
                 }
+            }
+            else if(realDead)
+            {
+                GraphicsDevice.Clear(Color.Red);
+                spriteBatch.DrawString(font, "You are pretty terrible actually\nPress M to return to main menu", new Vector2(150, 150), Color.White);
+            }
+            else if (dead)
+            {
+                GraphicsDevice.Clear(Color.Red);
+                spriteBatch.DrawString(font, "You are bad\nPress R to reset", new Vector2(150, 150), Color.White);
             }
             spriteBatch.End();
             base.Draw(gameTime);
