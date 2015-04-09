@@ -229,8 +229,8 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));
                 waypoints.Add(new Vector2(o.X, o.Y + 400));
                 cm.addPatrol(tempID, waypoints, 4, false);
-                cm.addProjectile(tempID, true, Math.PI / 2, 2);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                //cm.addProjectile(tempID, true, Math.PI / 2, 2);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), false);
             }
 
             //Add player at start
