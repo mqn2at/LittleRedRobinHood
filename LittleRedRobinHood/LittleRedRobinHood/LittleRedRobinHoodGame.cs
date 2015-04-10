@@ -129,7 +129,7 @@ namespace LittleRedRobinHood
             manager.clearDictionaries();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
-            LoadPauseMenu();
+            //LoadPauseMenu();
 
         }
 
@@ -145,11 +145,11 @@ namespace LittleRedRobinHood
             manager.addSprite(temp, 20, 20, this.Content.Load<Texture2D>("rope.png"));
             //Add texts to be drawn
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
+            manager.addText(temp, font, new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.MENUSTART_X, this.MENUSTART_Y), "New Game", true, 1);
+            manager.addText(temp, font, new Vector2(this.MENUSTART_X, this.MENUSTART_Y), "New Game", true, 1);
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.MENUSTART_X, this.MENUSTART_Y + this.MENUOFFSET_Y), "Level Select", true, 1);
+            manager.addText(temp, font, new Vector2(this.MENUSTART_X, this.MENUSTART_Y + this.MENUOFFSET_Y), "Level Select", true, 1);
 
             //Song
             manager.soundsys.stopSong();
@@ -161,6 +161,7 @@ namespace LittleRedRobinHood
             //Reset menu details
             consys.subMenu = false;
             consys.menuIndex = 0;
+            /*
             //Add texts to be drawn
             int temp = manager.addEntity();
             temp = manager.addEntity();
@@ -169,7 +170,7 @@ namespace LittleRedRobinHood
             manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 150), "PAUSED", true, 1);
             temp = manager.addEntity();
             manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 175), "Press P to unpause\nPress R to reset\nPress M to quit", true, 1);
-
+            */
         }
 
         /// <summary>
@@ -357,13 +358,16 @@ namespace LittleRedRobinHood
             {
                 spriteBatch.Draw(pauseScreen, screenBox, Color.White);
                 //Display paused information
+                spriteBatch.DrawString(font, "PAUSED", new Vector2(350, 150), Color.Black);
+                spriteBatch.DrawString(font, "Press P to unpause\nPress R to reset\nPress M to quit", new Vector2(350, 175), Color.Black);
+                    /*
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
                 {
                     if (pair.Value.visible)
                     {
                         spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.Black, 0, new Vector2(0, 0), pair.Value.scale, SpriteEffects.None, 1);
                     }
-                }
+                }*/
             }
             else if(realDead)
             {
