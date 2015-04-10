@@ -17,6 +17,9 @@ namespace LittleRedRobinHood.Component
         public int? dx = null;
         public int? dy = null;
 
+        public int curr_dx = 0;
+        public int curr_dy = 0;
+
         public Vector2 prevPlatLoc;
         public Vector2 prevPlayerLoc;
 

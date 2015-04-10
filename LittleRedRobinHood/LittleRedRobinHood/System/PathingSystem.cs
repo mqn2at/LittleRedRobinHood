@@ -39,6 +39,9 @@ namespace LittleRedRobinHood.System
                             int dX = (int)(speed * Math.Cos(angle)) * -1;
                             int dY = (int)(speed * Math.Sin(angle)) * -1;
 
+                            //Save current dx and dy
+                            componentManager.getPatrols()[entityID].curr_dx = dX;
+                            componentManager.getPatrols()[entityID].curr_dy = dY;
 
                             //For Sprite Animations
                             if (dX <= 0)
