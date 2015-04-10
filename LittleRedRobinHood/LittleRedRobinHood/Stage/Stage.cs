@@ -256,10 +256,10 @@ namespace LittleRedRobinHood
                     cm.addCollide(temp, new Rectangle(start.X + 100, start.Y, start.Width, start.Height), false);
                     temp = cm.addEntity();
                     cm.addText(temp, cm.font, new Vector2(100, 60), "Press P to pause a level.", false);
-                    cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width, start.Height * 5), false);
+                    cm.addCollide(temp, new Rectangle(start.X + 500, start.Y - 100, start.Width, start.Height * 5), false);
                     temp = cm.addEntity();
                     cm.addText(temp, cm.font, new Vector2(100, 85), "Press R to reset a level.", false);
-                    cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width, start.Height * 5), false);
+                    cm.addCollide(temp, new Rectangle(start.X + 500, start.Y - 100, start.Width, start.Height * 5), false);
             }
             if (tmxFile.Equals("stage2.tmx"))
             {
@@ -271,10 +271,10 @@ namespace LittleRedRobinHood
                 cm.addCollide(temp, new Rectangle(start.X + 350, start.Y - 300, start.Width, start.Height * 10), false);
                 temp = cm.addEntity();
                 cm.addText(temp, cm.font, new Vector2(100, 60), "Note that you can only use 3 shackles and 3 arrows at a time.", false);
-                cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width * 2, start.Height * 5), false);
+                cm.addCollide(temp, new Rectangle(start.X + 500, start.Y - 400, start.Width * 2, start.Height * 10), false);
                 temp = cm.addEntity();
                 cm.addText(temp, cm.font, new Vector2(100, 85), "You also have only 3 lives for the entire game.", false);
-                cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width, start.Height * 5), false);
+                cm.addCollide(temp, new Rectangle(start.X + 500, start.Y - 400, start.Width, start.Height * 10), false);
             }
 
             //Add finish collidable
