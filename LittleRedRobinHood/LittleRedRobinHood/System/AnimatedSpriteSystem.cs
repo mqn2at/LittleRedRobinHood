@@ -118,8 +118,18 @@ namespace LittleRedRobinHood.System
                             effect = SpriteEffects.FlipHorizontally;
                         }
 
+                        //shooting??
+                        if (cm.getPlayers()[sp.Value.entityID].shooting)
+                        {
+                            spriteWidth = 73;
+                            spriteHeight = 58;
+                            column = playerCurrentFrame;
+                            playerTotalFrame = 5;
+                            row = 3;
+                            spriteSpeed = 5;
+                        }
                         //jumping
-                        if (cm.getPlayers()[sp.Value.entityID].jumping)
+                        else if (cm.getPlayers()[sp.Value.entityID].jumping)
                         {
                             spriteWidth = 36;
                             spriteHeight = 62; //wonky
@@ -146,16 +156,7 @@ namespace LittleRedRobinHood.System
                             column = 2;
                             row = 3.75f; //because height is not 58 like everything else
                         }
-                        //shooting??
-                        else if (cm.getPlayers()[sp.Value.entityID].shooting)
-                        {
-                            spriteWidth = 73;
-                            spriteHeight = 58;
-                            column = playerCurrentFrame;
-                            playerTotalFrame = 5;
-                            row = 3;
-                            spriteSpeed = 5;
-                        }
+                        
                         //running
                         else if (cm.getPlayers()[sp.Value.entityID].running)
                         {
@@ -181,6 +182,11 @@ namespace LittleRedRobinHood.System
                         spriteWidth = 36; //NOT SURE ABOUT THIS OK but it works fine so that's good
                         spriteHeight = 58;
                         cm.getCollides()[sp.Value.entityID].hitbox = destinationRectangle;
+                        //Make it so that shooting sprite isn't really off
+                        if (cm.getPlayers()[sp.Value.entityID].shooting && !cm.getPlayers()[sp.Value.entityID].is_right)
+                        {
+                            destinationRectangle.X = destinationRectangle.X - (73-36);
+                        }
                         //draw the current animation frame
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
