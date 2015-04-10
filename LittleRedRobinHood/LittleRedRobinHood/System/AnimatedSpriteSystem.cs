@@ -62,6 +62,14 @@ namespace LittleRedRobinHood.System
             runningCoords.Add(new Vector2(8, 1));
             runningCoords.Add(new Vector2(9, 1));
 
+            jumpCoords = new List<Vector2>();
+            jumpCoords.Add(new Vector2(0, 2));
+            jumpCoords.Add(new Vector2(1, 2));
+            jumpCoords.Add(new Vector2(2, 2));
+            jumpCoords.Add(new Vector2(3, 2));
+            jumpCoords.Add(new Vector2(4, 2));
+            jumpCoords.Add(new Vector2(5, 2));
+
             shootingCoords = new List<Vector2>();
            /* shootingCoords.Add(new Vector2(4, 3));
             shootingCoords.Add(new Vector2(5, 3));
@@ -121,6 +129,7 @@ namespace LittleRedRobinHood.System
                     //Player animation
                     if (cm.getEntities()[sp.Value.entityID].isPlayer)
                     {
+                       
                         //Check which way player is facing
                         if (cm.getPlayers()[sp.Value.entityID].is_right)
                         {
@@ -130,24 +139,37 @@ namespace LittleRedRobinHood.System
                         {
                             effect = SpriteEffects.FlipHorizontally;
                         }
-                        //shooting
-                       /* if (cm.getPlayers()[sp.Value.entityID].shooting)
+
+                        //jumping
+                        if (cm.getPlayers()[sp.Value.entityID].jumping)
                         {
-                            column = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].X);
-                            row = (int)(this.shootingCoords[playerCurrentFrame / spriteSpeed].Y);
-                            //update current player frame
-                            if (playerCurrentFrame == playerTotalFrame - 1)
+                            if (cm.getPlayers()[sp.Value.entityID].dy < 0)
                             {
-                                cm.getPlayers()[sp.Value.entityID].shooting = false;
-                                playerCurrentFrame = 0;
-                                playerTotalFrame = spriteSpeed * idleCoords.Count;
+                                playerTotalFrame = 3;
+                                column = playerCurrentFrame;
+                                row = 2;
                             }
-                        }*/
+                            //falling
+                            else if (cm.getPlayers()[sp.Value.entityID].dy >= 0)
+                            {
+                                playerTotalFrame = 1;
+                                column = 4;
+                                row = 2;
+                            }
+                        }
+                        //falling
+                        else if (cm.getPlayers()[sp.Value.entityID].dy > 6)
+                        {
+                            playerTotalFrame = 1;
+                            column = 4;
+                            row = 2;
+                        }
                         //running
-                        /*else*/ if (cm.getPlayers()[sp.Value.entityID].running)
+                        else if (cm.getPlayers()[sp.Value.entityID].running)
                         {
                             //column = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].X);
                             column = playerCurrentFrame;
+                            playerTotalFrame = 10;
                             //row = (int)(this.runningCoords[playerCurrentFrame / spriteSpeed].Y);
                             row = 1;
                         }
@@ -156,6 +178,7 @@ namespace LittleRedRobinHood.System
                         {
                             //column = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].X);
                             column = playerCurrentFrame;
+                            playerTotalFrame = 10;
                             //Console.WriteLine("playerCurrentFrame: " + playerCurrentFrame);
                             //row = (int)(this.idleCoords[playerCurrentFrame / spriteSpeed].Y);
                             row = 0;
