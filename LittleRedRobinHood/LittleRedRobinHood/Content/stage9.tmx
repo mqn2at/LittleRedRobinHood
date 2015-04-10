@@ -24,15 +24,15 @@
  </layer>
  <layer name="background2" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGLpADohloTStgAYQq0NpWgEjIDaE0rQCNkBsDaVpBUb9QTwY9QfxANkfigyIfE9NgOwPbQZEvqcmQPYHMk1NgOwPAKavaEzcBQAA
+   H4sIAAAAAAAAC2NgGLpADohlgViRgaGBVnZoALE6lKYVMAJiQyhNK2ADxNZQmlIACnM5NBoUB9TyB8hMWJij09TyB8gsmFvR6aEWH7jAcPQHMJ3B0xw1AbI/tBkQaY6aAFtaM6SyHcj+AADLmRKO3AUAAA==
   </data>
  </layer>
  <layer name="top" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHKBgFo2AUUAsAAERw0mHcBQAA
+   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHUAcKdDBLi4p2UNOsUTAKBhsAAHI+YencBQAA
   </data>
  </layer>
- <objectgroup name="obstacles">
+ <objectgroup name="obstacles" visible="0">
   <properties>
    <property name="objectmeta" value="objectvalue"/>
   </properties>
@@ -67,7 +67,7 @@
     <property name="name" value="platform1"/>
    </properties>
   </object>
-  <object id="31" name="platform2" x="415" y="277" width="64" height="32">
+  <object id="31" name="platform2" x="415" y="268" width="64" height="32">
    <properties>
     <property name="name" value="platform2"/>
    </properties>

@@ -161,6 +161,7 @@ namespace LittleRedRobinHood
                 else if (tmxFile.Equals("stage5.tmx")) {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
                     waypoints.Add(new Vector2(x, y - 100));
+                    waypoints.Add(new Vector2(x, y + 20));
                     waypoints.Add(new Vector2(x, y));
 
                     cm.addPatrol(tempID, waypoints, 2);
@@ -233,8 +234,8 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));
                 waypoints.Add(new Vector2(o.X, o.Y + 400));
                 cm.addPatrol(tempID, waypoints, 4, false);
-                cm.addProjectile(tempID, true, Math.PI / 2, 2);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                //cm.addProjectile(tempID, true, Math.PI / 2, 2);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), false);
             }
 
             //Add player at start

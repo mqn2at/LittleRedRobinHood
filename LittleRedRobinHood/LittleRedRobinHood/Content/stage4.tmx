@@ -62,22 +62,22 @@
  <objectgroup name="enemies"/>
  <objectgroup name="shackleables"/>
  <objectgroup name="platforms">
-  <object id="28" name="platform1" x="163" y="367" width="64" height="32">
+  <object id="28" name="platform1" x="152" y="367" width="64" height="32">
    <properties>
     <property name="name" value="platform1"/>
    </properties>
   </object>
-  <object id="31" name="platform2" x="271" y="228" width="64" height="32">
+  <object id="31" name="platform2" x="277" y="236" width="64" height="32">
    <properties>
     <property name="name" value="platform2"/>
    </properties>
   </object>
-  <object id="33" name="platform3" x="415" y="222" width="64" height="32">
+  <object id="33" name="platform3" x="426" y="233" width="64" height="32">
    <properties>
     <property name="name" value="platform3"/>
    </properties>
   </object>
-  <object id="34" name="platform4" x="575" y="84" width="64" height="32">
+  <object id="34" name="platform4" x="570" y="82" width="64" height="32">
    <properties>
     <property name="name" value="platform4"/>
    </properties>
