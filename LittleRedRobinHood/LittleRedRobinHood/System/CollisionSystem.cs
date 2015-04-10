@@ -179,29 +179,7 @@ namespace LittleRedRobinHood.System
                                     manager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
 
                                     //If platform is moving, have player move with
-                                    /*
-                                    if (manager.getEntities()[objectIndex].isPatrol)
-                                    {
-                                        if (!playerOnPlatform)
-                                        {
-                                            playerOnPlatform = true;
-                                        }
-                                        else
-                                        {
-                                            Patrol temp = manager.getPatrols()[objectID];
-                                            int dx = collideables[objectID].hitbox.X - (int)temp.prevPlatLoc.X;
-                                            int dy = collideables[objectID].hitbox.Y - (int)temp.prevPlatLoc.Y;
-                                            Console.WriteLine("On Moving Object: " + dx + "," + dy);
-                                            manager.getCollides()[manager.playerID].hitbox.X = manager.getCollides()[manager.playerID].hitbox.X + dx;
-                                            manager.getCollides()[manager.playerID].hitbox.Y = manager.getCollides()[manager.playerID].hitbox.Y + dy;
-                                        }
-                                        manager.getPatrols()[objectID].prevPlatLoc = new Vector2(collideables[objectID].hitbox.X, collideables[objectID].hitbox.Y);
-                                    }
-                                    else if (playerCollided)
-                                    {
-
-                                    }
-                                     * */
+                                    
                                 }
 
                                 //X-collision
@@ -313,8 +291,8 @@ namespace LittleRedRobinHood.System
                                     double ang = manager.getProjectiles()[projectileID].angle;
                                     Vector2 currArrLoc = new Vector2(manager.getCollides()[projectileID].hitbox.X,
                                         manager.getCollides()[projectileID].hitbox.Y);
-                                    Vector2 prevArrLoc = new Vector2(currArrLoc.X - (int)(spd * Math.Cos(ang)),
-                                        currArrLoc.Y - (int)(spd * Math.Sin(ang)));
+                                    Vector2 prevArrLoc = new Vector2(currArrLoc.X - (int)(2 * spd * Math.Cos(ang)),
+                                        currArrLoc.Y - (int)(2 * spd * Math.Sin(ang)));
                                     int firstPtID = manager.getShackles()[objectEntity.entityID].firstPointID;
                                     int secondPtID = manager.getShackles()[objectEntity.entityID].secondPointID;
                                     Rectangle firstPtBox = manager.getCollides()[firstPtID].hitbox;
