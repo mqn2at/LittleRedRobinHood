@@ -348,6 +348,13 @@ namespace LittleRedRobinHood
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
                 anisys.Draw(spriteBatch, manager, gameTime);
+                foreach (KeyValuePair<int, Text> pair in manager.getTexts())
+                {
+                    if (true || pair.Value.visible)
+                    {
+                        spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.White);
+                    }
+                }
                 //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
                 DrawShackle();
                 //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);

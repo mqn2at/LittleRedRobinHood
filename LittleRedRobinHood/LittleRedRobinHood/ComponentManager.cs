@@ -29,6 +29,7 @@ namespace LittleRedRobinHood
         public int selectID; // ALSO GET RID OF LATER
         public int numStages; //YET ANOTHER FOR THE CHOPPING BOARD
         public ContentManager conman;
+        public SpriteFont font;
         public ComponentManager(ContentManager cm)
         {
             this.entities = new Dictionary<int, Entity>();
@@ -51,6 +52,7 @@ namespace LittleRedRobinHood
             this.healthSprite = conman.Load<Texture2D>("heart.png");
             this.arrowSprite = conman.Load<Texture2D>("arrow.png");
             this.shackleSprite = conman.Load<Texture2D>("rope.png");
+            this.font = cm.Load<SpriteFont>("Arial");
         }
 
         public void clearDictionaries()
