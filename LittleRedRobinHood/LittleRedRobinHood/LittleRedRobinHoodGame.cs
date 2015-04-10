@@ -29,9 +29,9 @@ namespace LittleRedRobinHood
         ProjectileSystem projsys;
         PathingSystem pathsys;
         AnimatedSpriteSystem anisys;
-        private bool paused, mainMenu, dead, realDead;
-        private int deathTimer = 0;
-        private int DEATH_TIMER_MAX = 120;
+        private bool paused, mainMenu, dead, realDead, loading;
+        private int loadTimer = 0;
+        private int LOAD_TIMER_MAX = 15;
         private int MENU_COUNT = 6;
         private int TITLESTART = 25;
         private int MENUSTART_X = 50;
@@ -124,10 +124,13 @@ namespace LittleRedRobinHood
         }
         protected void LoadStage(int stageNum)
         {
+            loading = true;
+            loadTimer = LOAD_TIMER_MAX;
             manager.clearDictionaries();
             currentStage = stageNum;
             stages[currentStage].LoadContent(this.Content);
             LoadPauseMenu();
+
         }
 
         protected void LoadMainMenu()
@@ -200,6 +203,14 @@ namespace LittleRedRobinHood
                     realDead = false;
                 }
 
+            }
+            else if (loading)
+            {
+                if (loadTimer <= 0)
+                {
+                    loading = false;
+                }
+                loadTimer -= 1;
             }
             else if (mainMenu)
             {
