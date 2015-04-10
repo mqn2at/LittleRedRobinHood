@@ -48,7 +48,7 @@
   </object>
  </objectgroup>
  <objectgroup name="startFinish">
-  <object id="10" name="start" x="35" y="350" width="48" height="64">
+  <object id="10" name="start" x="35" y="356" width="36" height="58">
    <properties>
     <property name="name" value="start"/>
    </properties>
