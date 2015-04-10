@@ -237,7 +237,7 @@ namespace LittleRedRobinHood
                 //cm.addProjectile(tempID, true, Math.PI / 2, 2);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), false);
             }
-
+            
             //Add player at start
             start = map.ObjectGroups["startFinish"].Objects["start"];
             tempID = cm.addEntity();
@@ -245,6 +245,38 @@ namespace LittleRedRobinHood
             cm.addCollide(tempID, new Rectangle(start.X, start.Y, start.Width, start.Height), false, false);
             cm.addSprite(tempID, start.Width, start.Height, content.Load<Texture2D>("BBHood.png"), true);
             
+            //add tutorial text
+            if (tmxFile.Equals("stage1.tmx"))
+            {
+                    int temp = cm.addEntity();
+                    cm.addText(temp, cm.font, new Vector2(100, 10), "Press A or D to move.", false);
+                    cm.addCollide(temp, new Rectangle(start.X, start.Y, start.Width, start.Height), false);
+                    temp = cm.addEntity();
+                    cm.addText(temp, cm.font, new Vector2(100, 35), "Press W to jump.", false);
+                    cm.addCollide(temp, new Rectangle(start.X + 100, start.Y, start.Width, start.Height), false);
+                    temp = cm.addEntity();
+                    cm.addText(temp, cm.font, new Vector2(100, 60), "Press P to pause a level.", false);
+                    cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width, start.Height * 5), false);
+                    temp = cm.addEntity();
+                    cm.addText(temp, cm.font, new Vector2(100, 85), "Press R to reset a level.", false);
+                    cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width, start.Height * 5), false);
+            }
+            if (tmxFile.Equals("stage2.tmx"))
+            {
+                int temp = cm.addEntity();
+                cm.addText(temp, cm.font, new Vector2(100, 10), "Left click to a shoot a shackle. Shackles will create a platform between two objects.", false);
+                cm.addCollide(temp, new Rectangle(start.X, start.Y, start.Width, start.Height), false);
+                temp = cm.addEntity();
+                cm.addText(temp, cm.font, new Vector2(100, 35), "Right click to shoot an arrow. Arrows destroy shackle platforms and some enemies.", false);
+                cm.addCollide(temp, new Rectangle(start.X + 350, start.Y - 300, start.Width, start.Height * 10), false);
+                temp = cm.addEntity();
+                cm.addText(temp, cm.font, new Vector2(100, 60), "Note that you can only use 3 shackles and 3 arrows at a time.", false);
+                cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width * 2, start.Height * 5), false);
+                temp = cm.addEntity();
+                cm.addText(temp, cm.font, new Vector2(100, 85), "You also have only 3 lives for the entire game.", false);
+                cm.addCollide(temp, new Rectangle(start.X + 600, start.Y - 100, start.Width, start.Height * 5), false);
+            }
+
             //Add finish collidable
             finish = map.ObjectGroups["startFinish"].Objects["finish"];
             tempID = cm.addEntity();

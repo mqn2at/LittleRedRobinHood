@@ -350,7 +350,7 @@ namespace LittleRedRobinHood
                 anisys.Draw(spriteBatch, manager, gameTime);
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
                 {
-                    if (true || pair.Value.visible)
+                    if (pair.Value.visible)
                     {
                         spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.White);
                     }
