@@ -78,6 +78,12 @@ namespace LittleRedRobinHood.System
                                 return 1;
                             }
 
+                            //Player - Textbox
+                            else if (manager.getEntities()[objectID].isText)
+                            {
+                                manager.getTexts()[objectID].visible = true;
+                            }
+
                             //Player - Enemy Collision
                             else if (manager.getCollides()[objectID].isEnemy && manager.getCollides()[objectID].numShackled == 0)
                             {
