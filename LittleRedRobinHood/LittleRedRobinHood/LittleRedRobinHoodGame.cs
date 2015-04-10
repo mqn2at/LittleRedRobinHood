@@ -78,8 +78,7 @@ namespace LittleRedRobinHood
             realDead = false;
             //Create stages
             this.stages = new List<Stage>();
-            Stage stage0 = new Stage("stage0.tmx", this.manager);
-            this.stages.Add(stage0);
+            
             Stage stage1 = new Stage("stage1.tmx", this.manager);
             this.stages.Add(stage1);
             Stage stage2 = new Stage("stage2.tmx", this.manager);
@@ -96,6 +95,8 @@ namespace LittleRedRobinHood
             this.stages.Add(stage7);
             Stage stage8 = new Stage("stage8.tmx", this.manager);
             this.stages.Add(stage8);
+            Stage stage9 = new Stage("stage9.tmx", this.manager);
+            this.stages.Add(stage9);
 
             this.manager.numStages = this.stages.ToArray().Length;
             this.screenBox = new Rectangle(0, 0, 800, 480);

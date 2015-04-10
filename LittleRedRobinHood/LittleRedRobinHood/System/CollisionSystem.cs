@@ -186,15 +186,20 @@ namespace LittleRedRobinHood.System
                                         {
                                             playerOnPlatform = true;
                                         }
-                                        else{
+                                        else
+                                        {
                                             Patrol temp = manager.getPatrols()[objectID];
-                                            int dx = collideables[objectID].hitbox.X - (int)temp.prevLoc.X;
-                                            int dy = collideables[objectID].hitbox.Y - (int)temp.prevLoc.Y;
+                                            int dx = collideables[objectID].hitbox.X - (int)temp.prevPlatLoc.X;
+                                            int dy = collideables[objectID].hitbox.Y - (int)temp.prevPlatLoc.Y;
                                             Console.WriteLine("On Moving Object: " + dx + "," + dy);
                                             manager.getCollides()[manager.playerID].hitbox.X = manager.getCollides()[manager.playerID].hitbox.X + dx;
                                             manager.getCollides()[manager.playerID].hitbox.Y = manager.getCollides()[manager.playerID].hitbox.Y + dy;
                                         }
-                                        manager.getPatrols()[objectID].prevLoc = new Vector2(collideables[objectID].hitbox.X, collideables[objectID].hitbox.Y);
+                                        manager.getPatrols()[objectID].prevPlatLoc = new Vector2(collideables[objectID].hitbox.X, collideables[objectID].hitbox.Y);
+                                    }
+                                    else if (playerCollided)
+                                    {
+
                                     }
                                      * */
                                 }
@@ -241,23 +246,53 @@ namespace LittleRedRobinHood.System
                             //Arrow Collision
                             if (manager.getProjectiles()[projectileID].isArrow)
                             {
-                                //Arrow - Damageable Enemy Collision
-                                if (manager.getCollides()[objectEntity.entityID].isDamageable)
+                                if (manager.getCollides()[objectEntity.entityID].numShackled > 0)
                                 {
-                                    /////Console.WriteLine("ARROW HIT ENEMY!"); ////
-                                    //Remove enemy
-                                    toBeRemoved.Add(objectEntity.entityID);
-
                                     //Remove shackles linked to enemy
-                                    foreach (int shackleID in manager.getShackles().Keys){
+                                    foreach (int shackleID in manager.getShackles().Keys)
+                                    {
+                                        
                                         int shackledID1 = manager.getShackles()[shackleID].firstPointID;
                                         int shackledID2 = manager.getShackles()[shackleID].secondPointID;
 
                                         if (objectEntity.entityID == shackledID1 || objectEntity.entityID == shackledID2)
                                         {
+                                            //Remove shackle
                                             toBeRemoved.Add(shackleID);
+                                            
+                                            //Make player fall if player on shackle
+                                            if (manager.getCollides()[shackleID].hitbox.Intersects(manager.getCollides()[manager.playerID].hitbox))
+                                            {
+                                                manager.getPlayers()[manager.playerID].grounded = false;
+                                            }
+
+                                            //Unshackle objects
+                                            int firstUnshackled = manager.getShackles()[shackleID].firstPointID;
+                                            int secondUnshackled = manager.getShackles()[shackleID].secondPointID;
+                                            manager.getCollides()[firstUnshackled].numShackled--;
+                                            manager.getCollides()[secondUnshackled].numShackled--;
+                                            if (manager.getShackles()[shackleID].playerMade)
+                                            {
+                                                manager.getPlayers()[manager.playerID].shackles += 1;
+                                            }
                                         }
                                     }
+
+                                    //Remove arrow
+                                    toBeRemoved.Add(projectileID);
+                                    if (!arrowCollided.Contains(projectileID))
+                                    {
+                                        manager.getPlayers()[manager.playerID].arrows += 1;
+                                        arrowCollided.Add(projectileID);
+                                    }
+                                }
+                                
+                                //Arrow - Damageable Enemy Collision
+                                else if (manager.getCollides()[objectEntity.entityID].isDamageable)
+                                {
+                                    /////Console.WriteLine("ARROW HIT ENEMY!"); ////
+                                    //Remove enemy
+                                    toBeRemoved.Add(objectEntity.entityID);
 
                                     //Remove arrow
                                     toBeRemoved.Add(projectileID);
