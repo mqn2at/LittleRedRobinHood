@@ -186,15 +186,20 @@ namespace LittleRedRobinHood.System
                                         {
                                             playerOnPlatform = true;
                                         }
-                                        else{
+                                        else
+                                        {
                                             Patrol temp = manager.getPatrols()[objectID];
-                                            int dx = collideables[objectID].hitbox.X - (int)temp.prevLoc.X;
-                                            int dy = collideables[objectID].hitbox.Y - (int)temp.prevLoc.Y;
+                                            int dx = collideables[objectID].hitbox.X - (int)temp.prevPlatLoc.X;
+                                            int dy = collideables[objectID].hitbox.Y - (int)temp.prevPlatLoc.Y;
                                             Console.WriteLine("On Moving Object: " + dx + "," + dy);
                                             manager.getCollides()[manager.playerID].hitbox.X = manager.getCollides()[manager.playerID].hitbox.X + dx;
                                             manager.getCollides()[manager.playerID].hitbox.Y = manager.getCollides()[manager.playerID].hitbox.Y + dy;
                                         }
-                                        manager.getPatrols()[objectID].prevLoc = new Vector2(collideables[objectID].hitbox.X, collideables[objectID].hitbox.Y);
+                                        manager.getPatrols()[objectID].prevPlatLoc = new Vector2(collideables[objectID].hitbox.X, collideables[objectID].hitbox.Y);
+                                    }
+                                    else if (playerCollided)
+                                    {
+
                                     }
                                      * */
                                 }
@@ -266,10 +271,9 @@ namespace LittleRedRobinHood.System
                                             int secondUnshackled = manager.getShackles()[shackleID].secondPointID;
                                             manager.getCollides()[firstUnshackled].numShackled--;
                                             manager.getCollides()[secondUnshackled].numShackled--;
-                                            if (!shackleCollided.Contains(projectileID) && manager.getShackles()[shackleID].playerMade)
+                                            if (manager.getShackles()[shackleID].playerMade)
                                             {
                                                 manager.getPlayers()[manager.playerID].shackles += 1;
-                                                shackleCollided.Add(projectileID);
                                             }
                                         }
                                     }
