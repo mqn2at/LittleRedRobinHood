@@ -351,7 +351,7 @@ namespace LittleRedRobinHood.System
                                 }
                                 
                                 //Arrow - other collideable Collision
-                                else
+                                else if (!manager.getEntities()[objectEntity.entityID].isText)
                                 {
                                     /////Console.WriteLine("ARROW HIT SOMETHING ELSE!"); ////
 
@@ -471,7 +471,7 @@ namespace LittleRedRobinHood.System
                                 } 
                                     
                                 //Shackle Projectile - random collideable
-                                else if (!shackleCollided.Contains(projectileID))
+                                else if (!shackleCollided.Contains(projectileID) && !manager.getEntities()[objectEntity.entityID].isText)
                                 {
                                     manager.getPlayers()[manager.playerID].shackles += 1;
                                     shackleCollided.Add(projectileID);
