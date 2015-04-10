@@ -93,30 +93,17 @@
     <Content Include="Content\bow.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Chan_Wai_Fat_-_05_-_Dream_instrumental.wav">
+    <Content Include="Content\Chan_Wai_Fat_-_05_-_Dream_instrumental.wav" />
+    <Content Include="Content\crate.png" />
+    <Content Include="Content\deathscreen.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\crate.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Dexter_Britain_-_05_-_Seeing_The_Future.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Dexter_Britain_-_07_-_The_Time_To_Run.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Dexter_Britain_-_09_-_From_Truth.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Dexter_Britain_-_09_-_Stop_It_Instrumental.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Dexter_Britain_-_12_-_After_The_Week_Ive_Had.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Evgeny_Grinko_-_05_-_Sunset.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\Dexter_Britain_-_05_-_Seeing_The_Future.wav" />
+    <Content Include="Content\Dexter_Britain_-_07_-_The_Time_To_Run.wav" />
+    <Content Include="Content\Dexter_Britain_-_09_-_From_Truth.wav" />
+    <Content Include="Content\Dexter_Britain_-_09_-_Stop_It_Instrumental.wav" />
+    <Content Include="Content\Dexter_Britain_-_12_-_After_The_Week_Ive_Had.wav" />
+    <Content Include="Content\Evgeny_Grinko_-_05_-_Sunset.wav" />
     <Content Include="Content\forest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -132,9 +119,6 @@
     <Content Include="Content\hood.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\pinecone.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Player_Sprites.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -145,6 +129,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\tiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\titlescreen.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\wolf.png">
