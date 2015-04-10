@@ -67,6 +67,8 @@ namespace LittleRedRobinHood
             int platformNum = 0;
             foreach (Squared.Tiled.Object o in platforms.Values)
             {
+                int x = o.X + o.Width / 2;
+                int y = o.Y + o.Height / 2;
                 tempID = cm.addEntity();
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height),true);
                 List<Vector2> waypoints = new List<Vector2>();
@@ -74,37 +76,37 @@ namespace LittleRedRobinHood
                 {
                     if (platformNum % 2 == 0)
                     {
-                        waypoints.Add(new Vector2(o.X + o.Width, o.Y));
-                        waypoints.Add(new Vector2(o.X + o.Width, o.Y - 180));
+                        waypoints.Add(new Vector2(x, y));
+                        waypoints.Add(new Vector2(x, y - 180));
                     }
                     else
                     {
-                        waypoints.Add(new Vector2(o.X + o.Width, o.Y));
-                        waypoints.Add(new Vector2(o.X + o.Width, o.Y + 180));
+                        waypoints.Add(new Vector2(x, y));
+                        waypoints.Add(new Vector2(x, y + 180));
                     }
                 }
                 else if (tmxFile.Equals("stage9.tmx"))
                 {
                     if (platformNum % 2 == 0)
                     {
-                        waypoints.Add(new Vector2(o.X, o.Y + o.Height));
-                        waypoints.Add(new Vector2(o.X + 200, o.Y + o.Height));
+                        waypoints.Add(new Vector2(x, y));
+                        waypoints.Add(new Vector2(x + 200, y));
                     }
                     else
                     {
-                        waypoints.Add(new Vector2(o.X, o.Y + o.Height));
-                        waypoints.Add(new Vector2(o.X - 200, o.Y + o.Height));
+                        waypoints.Add(new Vector2(x, y));
+                        waypoints.Add(new Vector2(x - 200, y));
                     }
                 }
                 else if (tmxFile.Equals("stage7.tmx"))
                 {
-                    waypoints.Add(new Vector2(o.X, o.Y));
-                    waypoints.Add(new Vector2(o.X, o.Y-300));
+                    waypoints.Add(new Vector2(x, y));
+                    waypoints.Add(new Vector2(x, y - 300));
                 }
                 else
                 {
-                    waypoints.Add(new Vector2(o.X, o.Y));
-                    waypoints.Add(new Vector2(o.X, o.Y+200));
+                    waypoints.Add(new Vector2(x, y));
+                    waypoints.Add(new Vector2(x, y + 200));
                 }
                 cm.addPatrol(tempID, waypoints, 3);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("crate.png"), false);
@@ -127,6 +129,8 @@ namespace LittleRedRobinHood
             int enemycount = 0;
             foreach (Squared.Tiled.Object o in enemies.Values)
             {
+                int x = o.X + o.Width / 2;
+                int y = o.Y + o.Height / 2;
                 tempID = cm.addEntity();
                 //HARD CODED ENEMY MOVEMENTS IN, need to change later based on stage
                 List<Vector2> waypoints = new List<Vector2>();
@@ -134,38 +138,39 @@ namespace LittleRedRobinHood
                 if (enemycount == 0)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                    waypoints.Add(new Vector2(o.X, o.Y - 100));
-                    waypoints.Add(new Vector2(o.X, o.Y));
-                    waypoints.Add(new Vector2(o.X +100 , o.Y-100));
+                    waypoints.Add(new Vector2(x, y - 100));
+                    waypoints.Add(new Vector2(x, y));
+                    waypoints.Add(new Vector2(x +100 , y-100));
 
                 }
                 else if (enemycount == 1)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                    waypoints.Add(new Vector2(o.X, o.Y + 250));
-                    waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(x, y + 250));
+                    waypoints.Add(new Vector2(x, y));
                 }
                 else if (enemycount == 2)
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, true);
-                    waypoints.Add(new Vector2(o.X+200, o.Y));
-                    waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(x + 200, y));
+                    waypoints.Add(new Vector2(x, y));
                 }
 
                 cm.addPatrol(tempID, waypoints, 3);
                 }
                 else if (tmxFile.Equals("stage5.tmx")) {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                    waypoints.Add(new Vector2(o.X, o.Y - 100));
-                    waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(x, y - 100));
+                    waypoints.Add(new Vector2(x, y + 20));
+                    waypoints.Add(new Vector2(x, y));
 
                     cm.addPatrol(tempID, waypoints, 2);
                 }
                 else if (tmxFile.Equals("stage6.tmx"))
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, 1, false);
-                    waypoints.Add(new Vector2(o.X, o.Y + 200));
-                    waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(x, y + 200));
+                    waypoints.Add(new Vector2(x, y));
 
                     cm.addPatrol(tempID, waypoints, 2);
 
@@ -229,8 +234,8 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(o.X, o.Y));
                 waypoints.Add(new Vector2(o.X, o.Y + 400));
                 cm.addPatrol(tempID, waypoints, 4, false);
-                cm.addProjectile(tempID, true, Math.PI / 2, 2);
-                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("Sprite-Soda.png"), false);
+                //cm.addProjectile(tempID, true, Math.PI / 2, 2);
+                cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), false);
             }
 
             //Add player at start
