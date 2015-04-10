@@ -147,15 +147,15 @@ namespace LittleRedRobinHood.System
                             row = 3.75f; //because height is not 58 like everything else
                         }
                         //shooting??
-                        /*else if (cm.getPlayers()[sp.Value.entityID].shooting)
+                        else if (cm.getPlayers()[sp.Value.entityID].shooting)
                         {
                             spriteWidth = 73;
                             spriteHeight = 58;
                             column = playerCurrentFrame;
-                            playerTotalFrame = 4;
+                            playerTotalFrame = 5;
                             row = 3;
-                            //spriteSpeed = 5;
-                        }*/
+                            spriteSpeed = 5;
+                        }
                         //running
                         else if (cm.getPlayers()[sp.Value.entityID].running)
                         {
@@ -194,7 +194,11 @@ namespace LittleRedRobinHood.System
                             time = 0f;
                         }
                         if (playerCurrentFrame >= playerTotalFrame)
+                        {
                             playerCurrentFrame = 0;
+                            if (cm.getPlayers()[sp.Value.entityID].shooting)
+                                playerCurrentFrame = 3;
+                        }
                     }
                     //Patrol animation
                     else if (cm.getEntities()[sp.Value.entityID].isPatrol)
