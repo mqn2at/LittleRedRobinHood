@@ -55,32 +55,32 @@
   </object>
  </objectgroup>
  <objectgroup name="enemies">
-  <object id="14" name="enemy1" x="110" y="339" width="34" height="31">
+  <object id="14" name="enemy1" x="125" y="335" width="34" height="31">
    <properties>
     <property name="name" value="enemy1"/>
    </properties>
   </object>
-  <object id="16" name="enemy5" x="529" y="87" width="34" height="31">
+  <object id="16" name="enemy5" x="510" y="90" width="34" height="31">
    <properties>
     <property name="name" value="enemy5"/>
    </properties>
   </object>
-  <object id="17" name="enemy2" x="227" y="333" width="34" height="31">
+  <object id="17" name="enemy2" x="233" y="335" width="34" height="31">
    <properties>
     <property name="name" value="enemy2"/>
    </properties>
   </object>
-  <object id="18" name="enemy3" x="314" y="206" width="34" height="31">
+  <object id="18" name="enemy3" x="303" y="206" width="34" height="31">
    <properties>
     <property name="name" value="enemy3"/>
    </properties>
   </object>
-  <object id="19" name="enemy4" x="433" y="202" width="34" height="31">
+  <object id="19" name="enemy4" x="433" y="206" width="34" height="31">
    <properties>
     <property name="name" value="enemy4"/>
    </properties>
   </object>
-  <object id="21" name="enemy6" x="634" y="88" width="34" height="31">
+  <object id="21" name="enemy6" x="634" y="90" width="34" height="31">
    <properties>
     <property name="name" value="enemy6"/>
    </properties>
