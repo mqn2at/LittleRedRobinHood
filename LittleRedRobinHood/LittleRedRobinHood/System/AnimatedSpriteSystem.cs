@@ -158,7 +158,7 @@ namespace LittleRedRobinHood.System
                             }
                         }
                         //falling
-                        else if (cm.getPlayers()[sp.Value.entityID].dy > 4)
+                        else if (cm.getPlayers()[sp.Value.entityID].dy > 6)
                         {
                             playerTotalFrame = 1;
                             column = 4;
