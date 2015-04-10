@@ -95,6 +95,9 @@
     </Content>
     <Content Include="Content\Chan_Wai_Fat_-_05_-_Dream_instrumental.wav" />
     <Content Include="Content\crate.png" />
+    <Content Include="Content\deathscreen.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Dexter_Britain_-_05_-_Seeing_The_Future.wav" />
     <Content Include="Content\Dexter_Britain_-_07_-_The_Time_To_Run.wav" />
     <Content Include="Content\Dexter_Britain_-_09_-_From_Truth.wav" />
@@ -116,6 +119,9 @@
     <Content Include="Content\hood.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\pausescreen.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Player_Sprites.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -126,6 +132,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\tiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\titlescreen.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\wolf.png">

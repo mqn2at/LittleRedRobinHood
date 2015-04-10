@@ -32,16 +32,18 @@ namespace LittleRedRobinHood
         private bool paused, mainMenu, dead, realDead;
         private int deathTimer = 0;
         private int DEATH_TIMER_MAX = 120;
-        private int MENU_COUNT = 8;
+        private int MENU_COUNT = 6;
         private int TITLESTART = 25;
         private int MENUSTART_X = 50;
-        private int MENUSTART_Y = 125;
-        private int MENUOFFSET_Y = 35;
+        private int MENUSTART_Y = 70;
+        private int MENUOFFSET_Y = 30;
         private int SUBMENUOFFSET_X = 50;
-        private int SUBMENUOFFSET_Y = 35;
+        private int SUBMENUOFFSET_Y = 30;
         private int SUBMENUSTART_Y = 70;
         private int SELECTOFFSET_X = 10;
+        private Rectangle screenBox;
         private Single TITLESIZE = 1.5F;
+        private Texture2D titleScreen, pauseScreen, deathScreen;
         
 
         int currentStage = 0;
@@ -96,7 +98,8 @@ namespace LittleRedRobinHood
             this.stages.Add(stage8);
 
             this.manager.numStages = this.stages.ToArray().Length;
-
+            this.screenBox = new Rectangle(0, 0, 800, 480);
+            
             base.Initialize();
         }
 
@@ -110,6 +113,9 @@ namespace LittleRedRobinHood
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //text
             font = this.Content.Load<SpriteFont>("Arial");
+            titleScreen = this.Content.Load<Texture2D>("titlescreen.jpg");
+            deathScreen = this.Content.Load<Texture2D>("deathscreen.jpg");
+            pauseScreen = this.Content.Load<Texture2D>("pausescreen.jpg");
             this.LoadMainMenu();
             //stages[currentStage].LoadContent(this.Content); now called during updates of main menu
             // TODO: use this.Content to load your game content here
@@ -132,7 +138,7 @@ namespace LittleRedRobinHood
             int temp = manager.addEntity();
             manager.setSelect(temp);
             manager.addCollide(temp, new Rectangle(this.MENUSTART_X - 20 - this.SELECTOFFSET_X, this.MENUSTART_Y, 20, 20), false, false);
-            manager.addSprite(temp, 20, 20, this.Content.Load<Texture2D>("Sprite-soda.png"));
+            manager.addSprite(temp, 20, 20, this.Content.Load<Texture2D>("rope.png"));
             //Add texts to be drawn
             temp = manager.addEntity();
             manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
@@ -154,11 +160,11 @@ namespace LittleRedRobinHood
             //Add texts to be drawn
             int temp = manager.addEntity();
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
+            //manager.addText(temp, font, new Vector2(0, 0), new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
+            //temp = manager.addEntity();
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 150), "PAUSED", true, 1);
             temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 200), "PAUSED", true, 1);
-            temp = manager.addEntity();
-            manager.addText(temp, font, new Vector2(0, 0), new Vector2(300, 250), "Press P to unpause\nPress R to reset\nPress M to quit", true, 1);
+            manager.addText(temp, font, new Vector2(0, 0), new Vector2(350, 175), "Press P to unpause\nPress R to reset\nPress M to quit", true, 1);
 
         }
 
@@ -286,6 +292,7 @@ namespace LittleRedRobinHood
             spriteBatch.Begin();
             if (mainMenu)
             {
+                spriteBatch.Draw(titleScreen, screenBox, Color.White);
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
                 {
                     if (pair.Value.visible)
@@ -300,7 +307,7 @@ namespace LittleRedRobinHood
                 if (consys.subMenu)
                 {
                     selX += this.SUBMENUOFFSET_X; //adjust for indented submenu
-                    selY = this.MENUSTART_Y + this.MENUOFFSET_Y + this.SUBMENUOFFSET_Y; // start of submenu
+                    selY = this.MENUSTART_Y + this.MENUOFFSET_Y + this.SUBMENUOFFSET_Y + 10; // start of submenu
                     for (int x = 0; x <= manager.numStages; x++)
                     {
                         if (x != manager.numStages)
@@ -336,6 +343,7 @@ namespace LittleRedRobinHood
             }
             else if(paused)
             {
+                spriteBatch.Draw(pauseScreen, screenBox, Color.White);
                 //Display paused information
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
                 {
@@ -347,13 +355,13 @@ namespace LittleRedRobinHood
             }
             else if(realDead)
             {
-                GraphicsDevice.Clear(Color.Red);
-                spriteBatch.DrawString(font, "You are pretty terrible actually\nPress M to return to main menu", new Vector2(150, 150), Color.White);
+                spriteBatch.Draw(deathScreen, screenBox, Color.White);
+                spriteBatch.DrawString(font, " You are pretty terrible actually\nPress M to return to main menu", new Vector2(250, 150), Color.White);
             }
             else if (dead)
             {
-                GraphicsDevice.Clear(Color.Red);
-                spriteBatch.DrawString(font, "You are bad\nPress R to reset", new Vector2(150, 150), Color.White);
+                spriteBatch.Draw(deathScreen, screenBox, Color.White);
+                spriteBatch.DrawString(font, "   You are bad\nPress R to reset", new Vector2(310, 150), Color.White);
             }
             spriteBatch.End();
             base.Draw(gameTime);

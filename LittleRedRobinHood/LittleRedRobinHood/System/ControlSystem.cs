@@ -292,19 +292,19 @@ namespace LittleRedRobinHood.System
                     if (isPressed(Keys.Right) || isPressed(Keys.D))
                     {
                         menuTimer = TIMER_MAX;
-                        menuIndex += 8;
+                        menuIndex += 6;
                         if (menuIndex > cm.numStages)
                         {
-                            menuIndex = menuIndex % 8;
+                            menuIndex = menuIndex % 6;
                         }
                     }
                     else if (isPressed(Keys.Left) || isPressed(Keys.A))
                     {
                         menuTimer = TIMER_MAX;
-                        menuIndex -= 8;
+                        menuIndex -= 6;
                         if (menuIndex < 0)
                         {
-                            menuIndex += (8*(1+(cm.numStages/8)));
+                            menuIndex += (6*(1+(cm.numStages/6)));
                             if (menuIndex > cm.numStages)
                             {
                                 menuIndex = cm.numStages;
