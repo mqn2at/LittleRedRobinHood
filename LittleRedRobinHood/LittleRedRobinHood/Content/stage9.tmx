@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="38">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="39">
  <properties>
   <property name="mapmeta" value="mapvalue"/>
  </properties>
@@ -19,20 +19,20 @@
  </layer>
  <layer name="background1" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHKBgFowA/EBhoBwwhAADXgWoP3AUAAA==
+   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvUaGCmHBDL0sBcZKABxOo0tsMIiA1pbMcoGAUgIDDQDhhCAACp0zE53AUAAA==
   </data>
  </layer>
  <layer name="background2" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGLpADohlgViRgaGBVnZoALE6lKYVMAJiQyhNK2ADxNZQmlIACnM5NBoUB9TyB8hMWJij09TyB8gsmFvR6aEWH7jAcPQHMJ3B0xw1AbI/tBkQaY6aAFtaM6SyHcj+AADLmRKO3AUAAA==
+   H4sIAAAAAAAAC2NgGLpADohlgViRgaGBVnZoALE6lKYVMAJiQyhNK2ADxNZQmlIACnM5JBrZ/dTwB8hMWJjDaGT3U8MfIDPR3Uxtf+AD1IwPXGA4+gOY1+Fpj5oA2R/aDIi0R02ALX0ZUtkOZH8AAHTkZbbcBQAA
   </data>
  </layer>
  <layer name="top" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHUAcKdDBLi4p2UNOsUTAKBhsAAHI+YencBQAA
+   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvUaGi2Ag3NhgEtGpqtQAczaeF+WobJKBgFAw0A7L0I5NwFAAA=
   </data>
  </layer>
- <objectgroup name="obstacles">
+ <objectgroup name="obstacles" visible="0">
   <properties>
    <property name="objectmeta" value="objectvalue"/>
   </properties>
@@ -54,6 +54,11 @@
   <object id="36" name="ground4" x="481" y="225" width="53" height="29">
    <properties>
     <property name="name" value="ground4"/>
+   </properties>
+  </object>
+  <object id="38" name="ground5" x="641" y="131" width="71" height="74">
+   <properties>
+    <property name="name" value="ground5"/>
    </properties>
   </object>
  </objectgroup>

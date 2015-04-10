@@ -137,6 +137,7 @@ namespace LittleRedRobinHood.System
                                         /////Console.WriteLine("PLAYER ON TOP OF SHACKLE!");
                                         manager.getCollides()[playerID].hitbox.Y = (gd.Viewport.Height - (int)shackleY) - playerCollide.Height;
                                         manager.getPlayers()[playerID].grounded = true;
+                                        manager.getPlayers()[playerID].jumping = false;
                                     }
                                     /*
                                     //Player on bottom of shackle
@@ -175,6 +176,7 @@ namespace LittleRedRobinHood.System
                                     if (manager.getPlayers()[manager.playerID].dy >= 0)
                                     {
                                         manager.getPlayers()[playerID].grounded = true;
+                                        manager.getPlayers()[playerID].jumping = false;
                                     }
                                     manager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
 
