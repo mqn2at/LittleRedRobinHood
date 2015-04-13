@@ -50,7 +50,8 @@ namespace LittleRedRobinHood
         {
             map = Map.Load(Path.Combine(content.RootDirectory, tmxFile), content);
             
-            background = content.Load<Texture2D>("background" + ((stageNum / 3) + 1) + ".jpg");
+            //background = content.Load<Texture2D>("background" + ((stageNum / 3) + 1) + ".jpg");
+            background = content.Load<Texture2D>("background1.jpg");
             width = map.Width;
             height = map.Height;
             int tempID;
@@ -287,7 +288,7 @@ namespace LittleRedRobinHood
         public void Draw(SpriteBatch sb, GraphicsDevice gd)
         {
             //HARDCODED DRAWING BACKGROUND IMAGE
-            sb.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
+            sb.Draw(background, new Rectangle(0, 0, 800, 540), Color.White);
             //Draw the map
             map.Draw(sb, new Rectangle(0, 0, gd.Viewport.Width, gd.Viewport.Height), new Vector2());
         }

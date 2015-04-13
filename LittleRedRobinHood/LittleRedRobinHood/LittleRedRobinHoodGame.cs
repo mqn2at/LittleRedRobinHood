@@ -283,10 +283,13 @@ namespace LittleRedRobinHood
                         paused = !paused;
                         break;
                     case 0:
-                        manager.clearDictionaries();
-                        LoadMainMenu();
-                        mainMenu = true;
-                        paused = false;
+                        if (paused)
+                        {
+                            manager.clearDictionaries();
+                            LoadMainMenu();
+                            mainMenu = true;
+                            paused = false;
+                        }
                         break;
                     default:
                         break;
