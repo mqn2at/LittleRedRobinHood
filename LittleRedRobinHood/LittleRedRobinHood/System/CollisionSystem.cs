@@ -176,7 +176,7 @@ namespace LittleRedRobinHood.System
                                 //top side of object
                                 else if (playerHitbox.Y + playerHitbox.Height > objectHitbox.Y
                                     && playerHitbox.Y + playerHitbox.Height < objectHitbox.Y + objectHitbox.Height
-                                    && playerHitbox.Y + (int)(0.73 * playerHitbox.Height) < objectHitbox.Y)
+                                    && playerHitbox.Y + (int)(0.6 * playerHitbox.Height) < objectHitbox.Y)
                                 {
                                     //Ground if not jumping
                                     if (manager.getPlayers()[manager.playerID].dy >= 0)
@@ -282,6 +282,7 @@ namespace LittleRedRobinHood.System
                                 }
                                 
                                 //Arrow - Damageable Enemy Collision
+                                /*
                                 else if (manager.getCollides()[objectEntity.entityID].isDamageable)
                                 {
                                     /////Console.WriteLine("ARROW HIT ENEMY!"); ////
@@ -296,7 +297,7 @@ namespace LittleRedRobinHood.System
                                         arrowCollided.Add(projectileID);
                                     }
                                 }
-
+                                */
                                 //Arrow - Shackle Platform Collision
                                 else if (objectEntity.isShackle)
                                 {
