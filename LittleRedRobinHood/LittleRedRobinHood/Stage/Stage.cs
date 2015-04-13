@@ -243,8 +243,8 @@ namespace LittleRedRobinHood
             start = map.ObjectGroups["startFinish"].Objects["start"];
             tempID = cm.addEntity();
             cm.addPlayer(tempID);
-            cm.addCollide(tempID, new Rectangle(start.X, start.Y, start.Width, start.Height), false, false);
-            cm.addSprite(tempID, start.Width, start.Height, content.Load<Texture2D>("BBHood.png"), true);
+            cm.addCollide(tempID, new Rectangle(start.X, start.Y, 60, 62), false, false);
+            cm.addSprite(tempID, 60, 62, content.Load<Texture2D>("BBHood.png"), true);
             
             //add tutorial text
             if (tmxFile.Equals("stage1.tmx"))
