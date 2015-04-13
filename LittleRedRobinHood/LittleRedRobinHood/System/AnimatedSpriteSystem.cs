@@ -224,8 +224,8 @@ namespace LittleRedRobinHood.System
                         //check whether or not they are shackled/frozen
                         if (cm.getCollides()[sp.Value.entityID].numShackled == 0)
                         {
-                            column = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].X);
-                            row = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].Y);
+                            column = (int)(this.flyingCoords[(patrolCurrentFrame / spriteSpeed)].X);
+                            row = (int)(this.flyingCoords[(patrolCurrentFrame / spriteSpeed)].Y);
                             //update current patrol frame
                             if (patrolCurrentFrame == patrolTotalFrame - 1)
                             {
