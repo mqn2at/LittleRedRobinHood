@@ -46,10 +46,11 @@ namespace LittleRedRobinHood
             return this.height;
         }
 
-        public void LoadContent(ContentManager content)
+        public void LoadContent(ContentManager content, int stageNum)
         {
             map = Map.Load(Path.Combine(content.RootDirectory, tmxFile), content);
-            background = content.Load<Texture2D>("Gothic-Forest_Clip_Art.png");
+            
+            background = content.Load<Texture2D>("background" + ((stageNum / 3) + 1) + ".jpg");
             width = map.Width;
             height = map.Height;
             int tempID;

@@ -128,7 +128,7 @@ namespace LittleRedRobinHood
             loadTimer = LOAD_TIMER_MAX;
             manager.clearDictionaries();
             currentStage = stageNum;
-            stages[currentStage].LoadContent(this.Content);
+            stages[currentStage].LoadContent(this.Content, stageNum);
             //LoadPauseMenu();
 
         }
