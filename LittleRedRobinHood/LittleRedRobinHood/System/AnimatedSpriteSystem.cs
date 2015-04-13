@@ -14,7 +14,8 @@ namespace LittleRedRobinHood.System
     class AnimatedSpriteSystem
     {
         //Sprite Animation Stuff
-        float time;
+        float timePlayer;
+        float timePatrol;
         const float frameTime = 0.1f;
 
         public bool running = false;
@@ -191,13 +192,13 @@ namespace LittleRedRobinHood.System
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
                         //update the current frames
-                        time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        while (time > frameTime)
+                        timePlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        while (timePlayer > frameTime)
                         {
                             // Play the next frame in the SpriteSheet
                             playerCurrentFrame++;
                             // reset elapsed time
-                            time = 0f;
+                            timePlayer = 0f;
                         }
                         if (playerCurrentFrame >= playerTotalFrame)
                         {
@@ -226,7 +227,7 @@ namespace LittleRedRobinHood.System
                         {
                             column = patrolCurrentFrame;
                             row = 0;
-                            }
+                        }
                         //grab the current animation frame
                         Rectangle sourceRectangle = new Rectangle(spriteWidth * column, (int)(spriteHeight * row), spriteWidth, spriteHeight);
                         Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
@@ -234,13 +235,13 @@ namespace LittleRedRobinHood.System
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
                         //update the current frames
-                        time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        while (time > frameTime)
+                        timePatrol += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        while (timePatrol > frameTime)
                         {
                             // Play the next frame in the SpriteSheet
-                        patrolCurrentFrame++;
+                            patrolCurrentFrame++;
                             // reset elapsed time
-                            time = 0f;
+                            timePatrol = 0f;
                         }
                         //check out of bounds
                         if (patrolCurrentFrame >= patrolTotalFrame)
