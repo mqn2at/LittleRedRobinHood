@@ -224,14 +224,8 @@ namespace LittleRedRobinHood.System
                         //check whether or not they are shackled/frozen
                         if (cm.getCollides()[sp.Value.entityID].numShackled == 0)
                         {
-                            column = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].X);
-                            row = (int)(this.flyingCoords[patrolCurrentFrame / spriteSpeed].Y);
-                            //update current patrol frame
-                            if (patrolCurrentFrame == patrolTotalFrame - 1)
-                            {
-                                patrolCurrentFrame = 0;
-                                patrolTotalFrame = spriteSpeed * flyingCoords.Count;
-                            }
+                            column = patrolCurrentFrame;
+                            row = 0;
                         }
                         //grab the current animation frame
                         Rectangle sourceRectangle = new Rectangle(spriteWidth * column, (int)(spriteHeight * row), spriteWidth, spriteHeight);
@@ -240,8 +234,16 @@ namespace LittleRedRobinHood.System
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
                         //update the current frames
-                        patrolCurrentFrame++;
-                        if (patrolCurrentFrame == patrolTotalFrame)
+                        time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        while (time > frameTime)
+                        {
+                            // Play the next frame in the SpriteSheet
+                            patrolCurrentFrame++;
+                            // reset elapsed time
+                            time = 0f;
+                        }
+                        //check out of bounds
+                        if (patrolCurrentFrame >= patrolTotalFrame)
                         {
                             patrolCurrentFrame = 0;
                         }
