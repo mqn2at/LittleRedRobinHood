@@ -29,7 +29,7 @@ namespace LittleRedRobinHood
         ProjectileSystem projsys;
         PathingSystem pathsys;
         AnimatedSpriteSystem anisys;
-        private bool paused, mainMenu, dead, realDead, loading;
+        private bool paused, mainMenu, dead, realDead, loading, victory;
         private int loadTimer = 0;
         private int LOAD_TIMER_MAX = 15;
         private int MENU_COUNT = 6;
@@ -43,7 +43,7 @@ namespace LittleRedRobinHood
         private int SELECTOFFSET_X = 10;
         private Rectangle screenBox;
         private Single TITLESIZE = 1.5F;
-        private Texture2D titleScreen, pauseScreen, deathScreen;
+        private Texture2D titleScreen, pauseScreen, deathScreen, victoryScreen;
         
 
         int currentStage = 0;
@@ -76,6 +76,7 @@ namespace LittleRedRobinHood
             mainMenu = true; //start with main menu open
             dead = false;
             realDead = false;
+            victory = false;
             //Create stages
             this.stages = new List<Stage>();
             
@@ -117,6 +118,7 @@ namespace LittleRedRobinHood
             titleScreen = this.Content.Load<Texture2D>("titlescreen.jpg");
             deathScreen = this.Content.Load<Texture2D>("deathscreen.jpg");
             pauseScreen = this.Content.Load<Texture2D>("pausescreen.jpg");
+            victoryScreen = this.Content.Load<Texture2D>("victoryscreen.jpg");
             this.LoadMainMenu();
             //stages[currentStage].LoadContent(this.Content); now called during updates of main menu
             // TODO: use this.Content to load your game content here
@@ -197,7 +199,7 @@ namespace LittleRedRobinHood
             manager.soundsys.Update(mainMenu, currentStage);
             if (realDead)
             {
-                int temp = consys.UpdateDead(manager);
+                int temp = consys.UpdateEndScreen(manager);
                 if (temp > -1)
                 {
                     mainMenu = true;
@@ -223,6 +225,15 @@ namespace LittleRedRobinHood
                     manager.soundsys.playGameSong(currentStage);
                 }
             }
+            else if (victory)
+            {
+                int temp = consys.UpdateEndScreen(manager);
+                if (temp > -1)
+                {
+                    mainMenu = true;
+                    victory = false;
+                }
+            }
             else
             {
                 if (consys.checkReset())
@@ -242,7 +253,7 @@ namespace LittleRedRobinHood
                     switch (colsys.Update(manager, GraphicsDevice))
                     {
                         case 1:
-                            if (currentStage < manager.numStages - 1)
+                            if (currentStage < manager.numStages - 1) // load next stage
                             {
                                 lives = manager.currentLives();
                                 currentStage += 1;
@@ -250,11 +261,11 @@ namespace LittleRedRobinHood
                                 manager.persistLives(lives);
                                 break;
                             }
-                            else
+                            else // load victory screen
                             {
                                 manager.clearDictionaries();
                                 LoadMainMenu();
-                                mainMenu = true;
+                                victory = true;
                                 break;
                             }
                         case -1:
@@ -342,7 +353,7 @@ namespace LittleRedRobinHood
                 //Console.WriteLine("MenuIndex: " + consys.menuIndex);
                 spriteBatch.Draw(selS.sprite, new Rectangle(selX, selY, selC.hitbox.Width, selC.hitbox.Height), Color.White);
             }
-            else if (!paused && !realDead && !dead)
+            else if (!paused && !realDead && !dead && !victory)
             {
                 stages[currentStage].Draw(spriteBatch, GraphicsDevice);
                 /*Dictionary<int, Collide> collides = manager.getCollides();
@@ -382,12 +393,17 @@ namespace LittleRedRobinHood
             else if(realDead)
             {
                 spriteBatch.Draw(deathScreen, screenBox, Color.White);
-                spriteBatch.DrawString(font, " You are pretty terrible actually\nPress M to return to main menu", new Vector2(250, 150), Color.White);
+                spriteBatch.DrawString(font, "               Game Over\nPress M to return to main menu", new Vector2(260, 180), Color.White);
             }
             else if (dead)
             {
                 spriteBatch.Draw(deathScreen, screenBox, Color.White);
-                spriteBatch.DrawString(font, "   You are bad\nPress R to reset", new Vector2(310, 150), Color.White);
+                spriteBatch.DrawString(font, "     You died\nPress R to reset", new Vector2(320, 180), Color.White);
+            }
+            else if (victory)
+            {
+                spriteBatch.Draw(victoryScreen, screenBox, Color.White);
+                spriteBatch.DrawString(font, "    Congratulations you won!\nPress M to return to main menu", new Vector2(315, 200), Color.Black);
             }
             spriteBatch.End();
             base.Draw(gameTime);

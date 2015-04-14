@@ -341,7 +341,7 @@ namespace LittleRedRobinHood.System
         }
 
 
-        internal int UpdateDead(ComponentManager manager)
+        internal int UpdateEndScreen(ComponentManager manager)
         {
             if (isPressed(Keys.M) || isPressed(Keys.Enter) || isPressed(Keys.E))
             {
