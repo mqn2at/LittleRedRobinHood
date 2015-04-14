@@ -194,21 +194,21 @@ namespace LittleRedRobinHood
                     if (enemycount == 0)
                     {
                         cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                        waypoints.Add(new Vector2(o.X, o.Y - 100));
-                        waypoints.Add(new Vector2(o.X, o.Y));
+                        waypoints.Add(new Vector2(x, y - 100));
+                        waypoints.Add(new Vector2(x, y));
 
                     }
                     else if (enemycount == 1)
                     {
                         cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                        waypoints.Add(new Vector2(o.X, o.Y + 100));
-                        waypoints.Add(new Vector2(o.X, o.Y));
+                        waypoints.Add(new Vector2(x, y + 100));
+                        waypoints.Add(new Vector2(x, y));
                     }
                     else if (enemycount == 2)
                     {
                         cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true, true);
-                        waypoints.Add(new Vector2(o.X - 200, o.Y));
-                        waypoints.Add(new Vector2(o.X, o.Y));
+                        waypoints.Add(new Vector2(x - 200, y));
+                        waypoints.Add(new Vector2(x, y));
                     }
 
                     cm.addPatrol(tempID, waypoints, 3);
@@ -216,8 +216,8 @@ namespace LittleRedRobinHood
                 else if (tmxFile.Equals("stage8.tmx"))
                 {
                     cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, true);
-                    waypoints.Add(new Vector2(o.X, o.Y + 200));
-                    waypoints.Add(new Vector2(o.X, o.Y));
+                    waypoints.Add(new Vector2(x, y + 200));
+                    waypoints.Add(new Vector2(x, y));
 
                     cm.addPatrol(tempID, waypoints, 2);
                 }
@@ -229,12 +229,14 @@ namespace LittleRedRobinHood
             pinecones = map.ObjectGroups["pinecones"].Objects;
             foreach (Squared.Tiled.Object o in pinecones.Values)
             {
+                int x = o.X + o.Width / 2;
+                int y = o.Y + o.Height / 2;
                 tempID = cm.addEntity();
                 cm.addCollide(tempID, new Rectangle(o.X, o.Y, o.Width, o.Height), true, false,false,false);
                 List<Vector2> waypoints = new List<Vector2>();
                 
-                waypoints.Add(new Vector2(o.X, o.Y));
-                waypoints.Add(new Vector2(o.X, o.Y + 400));
+                waypoints.Add(new Vector2(x, y));
+                waypoints.Add(new Vector2(x, y + 400));
                 cm.addPatrol(tempID, waypoints, 4, false);
                 //cm.addProjectile(tempID, true, Math.PI / 2, 2);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), false);
