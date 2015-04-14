@@ -187,7 +187,7 @@ namespace LittleRedRobinHood.System
                                     manager.getCollides()[playerID].hitbox.Y = objectHitbox.Y - playerHitbox.Height;
 
                                     //If platform is moving, have player move with
-                                    if (manager.getEntities()[objectID].isPatrol && manager.getPatrols()[objectID].dx != null 
+                                    if (manager.getEntities()[objectID].isPatrol && manager.getCollides()[objectID].numShackled == 0 && manager.getPatrols()[objectID].dx != null 
                                         && manager.getPatrols()[objectID].dy != null)
                                     {
                                         int dx = (int)manager.getPatrols()[objectID].curr_dx;
