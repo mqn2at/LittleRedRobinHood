@@ -151,10 +151,10 @@ namespace LittleRedRobinHood.System
                     player.is_right = true;
                 }
                 //Console.WriteLine("-1 shackle");
-                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
+                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + (pMove.hitbox.Height / 2) ), (ms.X - 8) - (pMove.hitbox.X + (pMove.hitbox.Width / 2) ));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, false, angle, SHACKLE_SPEED);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width/2, pMove.hitbox.Y + pMove.hitbox.Height/2, 16, 16), false, false);
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + (pMove.hitbox.Width / 2) - (4), pMove.hitbox.Y + (pMove.hitbox.Height / 2) - (4), 16, 16), false, false);
                 cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("rope.png"));
                 player.shackles -= 1;
                 //player.shooting = true;
@@ -174,10 +174,10 @@ namespace LittleRedRobinHood.System
                     player.is_right = true;
                 }
                 //Console.WriteLine("-1 arrow");
-                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + pMove.hitbox.Height / 2), (ms.X - 8) - (pMove.hitbox.X + pMove.hitbox.Width / 2));
+                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + (pMove.hitbox.Height / 2) ), (ms.X - 8) - (pMove.hitbox.X + (pMove.hitbox.Width / 2) ));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, true, angle, ARROW_SPEED);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + pMove.hitbox.Width / 2, pMove.hitbox.Y + pMove.hitbox.Height / 2, 16, 16), false, false);
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + (pMove.hitbox.Width / 2) - (4), pMove.hitbox.Y + (pMove.hitbox.Height / 2) - (4), 16, 16), false, false);
                 cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("arrow.png"));
                 player.arrows -= 1;
                 //player.shooting = true;
