@@ -25,9 +25,10 @@ namespace LittleRedRobinHood.System
         private int SHACKLE_SPEED = 9;
         private int ARROW_SPEED = 12;
         private int X_SPEED = 4;
-        private int JUMP = 15;
+        private int JUMP = 10;
         private int MAX_FALL = 17;
         private int TIMER_JUMP_MAX = 20;
+        private double GRAVITY = .5;
         private int jump_timer;
         private int timer;
         private int menuTimer;
@@ -74,7 +75,7 @@ namespace LittleRedRobinHood.System
             {
                 if (player.dy < MAX_FALL)
                 {
-                    player.dy += 1;
+                    player.dy += GRAVITY;
                 }
                 if (isPressed(Keys.S) || isPressed(Keys.Down))
                 {
@@ -83,7 +84,7 @@ namespace LittleRedRobinHood.System
                         player.dy += 1;
                     }
                 }
-                pMove.hitbox.Y += player.dy;
+                pMove.hitbox.Y += (int)player.dy;
             }
 
             if (isPressed(Keys.D) || isPressed(Keys.Right))
@@ -154,7 +155,7 @@ namespace LittleRedRobinHood.System
                 double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + (pMove.hitbox.Height / 2) ), (ms.X - 8) - (pMove.hitbox.X + (pMove.hitbox.Width / 2) ));
                 int temp = cm.addEntity();
                 cm.addProjectile(temp, false, angle, SHACKLE_SPEED);
-                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + (pMove.hitbox.Width / 2) - (4), pMove.hitbox.Y + (pMove.hitbox.Height / 2) - (4), 16, 16), false, false);
+                cm.addCollide(temp, new Rectangle(pMove.hitbox.X + (pMove.hitbox.Width / 2), pMove.hitbox.Y + (pMove.hitbox.Height / 2), 16, 16), false, false);
                 cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("rope.png"));
                 player.shackles -= 1;
                 //player.shooting = true;
