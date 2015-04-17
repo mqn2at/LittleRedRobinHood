@@ -189,6 +189,8 @@ namespace LittleRedRobinHood.System
             {
                 //player.shooting = false;
             }
+
+
             //DON'T RESET
             return false;
 

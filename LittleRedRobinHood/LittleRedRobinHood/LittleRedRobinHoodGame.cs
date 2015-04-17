@@ -361,6 +361,8 @@ namespace LittleRedRobinHood
                     spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
+                Texture2D crosshair = manager.conman.Load<Texture2D>("crosshair");
+                spriteBatch.Draw(crosshair, new Vector2(consys.mouseX(), consys.mouseY()), Color.White);
                 DrawTrajectoryLine(spriteBatch);
                 anisys.Draw(spriteBatch, manager, gameTime);
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
