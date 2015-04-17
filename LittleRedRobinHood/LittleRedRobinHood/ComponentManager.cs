@@ -169,14 +169,14 @@ namespace LittleRedRobinHood
             entities[id].isCollide = true;
         }
 
-        public void addSprite(int id, int width, int height, Texture2D sprite)
+        public void addSprite(int id, int width, int height, Texture2D sprite, Rectangle box)
         {
-            Sprite temp = new Sprite(id, width, height, sprite);
+            Sprite temp = new Sprite(id, width, height, sprite, box);
             sprites.Add(id, temp);
         }
-        public void addSprite(int id, int width, int height, Texture2D sprite, bool animated)
+        public void addSprite(int id, int width, int height, Texture2D sprite, Rectangle box, bool animated)
         {
-            Sprite temp = new Sprite(id, width, height, sprite, animated);
+            Sprite temp = new Sprite(id, width, height, sprite, box, animated);
             sprites.Add(id, temp);
         }
 
