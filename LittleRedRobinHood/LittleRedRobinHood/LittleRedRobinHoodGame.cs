@@ -361,6 +361,7 @@ namespace LittleRedRobinHood
                     spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
+                DrawTrajectoryLine(spriteBatch);
                 anisys.Draw(spriteBatch, manager, gameTime);
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
                 {
@@ -439,6 +440,33 @@ namespace LittleRedRobinHood
                     5), //width of line, change this to make thicker line
                 null,
                 Color.SaddleBrown, //colour of line
+                angle,     //angle of line (calulated above)
+                new Vector2(0, 0), // point in line about which to rotate
+                SpriteEffects.None,
+                0);
+
+        }
+        void DrawTrajectoryLine(SpriteBatch sb)
+        {
+            Rectangle player = manager.getCollides()[manager.playerID].hitbox;
+            Vector2 start = new Vector2(player.X + player.Width/2 - 4, player.Y + player.Height/2 - 4);
+            Vector2 end = new Vector2(consys.mouseX(), consys.mouseY());
+            Vector2 edge = end - start;
+            // calculate angle to rotate line
+            float angle =
+                (float)Math.Atan2(edge.Y, edge.X);
+            Texture2D t = new Texture2D(GraphicsDevice, 1, 1);
+            t.SetData<Color>(
+                new Color[] { Color.Red });
+
+            sb.Draw(t,
+                new Rectangle(// rectangle defines shape of line and position of start of line
+                    (int)start.X,
+                    (int)start.Y,
+                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
+                    1), //width of line, change this to make thicker line
+                null,
+                Color.Red, //colour of line
                 angle,     //angle of line (calulated above)
                 new Vector2(0, 0), // point in line about which to rotate
                 SpriteEffects.None,
