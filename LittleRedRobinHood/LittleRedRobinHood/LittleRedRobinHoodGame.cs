@@ -144,7 +144,7 @@ namespace LittleRedRobinHood
             int temp = manager.addEntity();
             manager.setSelect(temp);
             manager.addCollide(temp, new Rectangle(this.MENUSTART_X - 20 - this.SELECTOFFSET_X, this.MENUSTART_Y, 20, 20), false, false);
-            manager.addSprite(temp, 20, 20, this.Content.Load<Texture2D>("rope.png"));
+            manager.addSprite(temp, 20, 20, this.Content.Load<Texture2D>("rope.png"), new Rectangle(this.MENUSTART_X - 20 - this.SELECTOFFSET_X, this.MENUSTART_Y, 20, 20));
             //Add texts to be drawn
             temp = manager.addEntity();
             manager.addText(temp, font, new Vector2(this.TITLESTART, this.TITLESTART), "Little Red Robin Hood", true, this.TITLESIZE);
