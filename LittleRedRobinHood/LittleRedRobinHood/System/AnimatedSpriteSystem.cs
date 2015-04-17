@@ -27,55 +27,11 @@ namespace LittleRedRobinHood.System
         private int patrolCurrentFrame = 0;
         private int patrolTotalFrame = 3;
         private int spriteSpeed = 10;
-        //private int spriteWidth;
-        //private int spriteHeight;
-        public List<Vector2> idleCoords;
-        public List<Vector2> runningCoords;
-        public List<Vector2> shootingCoords;
         public List<Vector2> flyingCoords;
-        public List<Vector2> jumpCoords;
         //End Sprite Animation
 
         public AnimatedSpriteSystem()
         {
-            //Initialize player spritesheet coordinates
-            /*idleCoords = new List<Vector2>();
-            idleCoords.Add(new Vector2(0, 0));
-            idleCoords.Add(new Vector2(1, 0));
-            idleCoords.Add(new Vector2(2, 0));
-            idleCoords.Add(new Vector2(3, 0));
-            idleCoords.Add(new Vector2(4, 0));
-            idleCoords.Add(new Vector2(5, 0));
-            idleCoords.Add(new Vector2(6, 0));
-            idleCoords.Add(new Vector2(7, 0));
-            idleCoords.Add(new Vector2(8, 0));
-            idleCoords.Add(new Vector2(9, 0));
-
-            runningCoords = new List<Vector2>();
-            runningCoords.Add(new Vector2(0, 1));
-            runningCoords.Add(new Vector2(1, 1));
-            runningCoords.Add(new Vector2(2, 1));
-            runningCoords.Add(new Vector2(3, 1));
-            runningCoords.Add(new Vector2(4, 1));
-            runningCoords.Add(new Vector2(5, 1));
-            runningCoords.Add(new Vector2(6, 1));
-            runningCoords.Add(new Vector2(7, 1));
-            runningCoords.Add(new Vector2(8, 1));
-            runningCoords.Add(new Vector2(9, 1));
-
-            shootingCoords = new List<Vector2>();
-            shootingCoords.Add(new Vector2(0, 2));
-            shootingCoords.Add(new Vector2(1, 2));
-            shootingCoords.Add(new Vector2(2, 2));
-            shootingCoords.Add(new Vector2(3, 2));
-            shootingCoords.Add(new Vector2(4, 2));
-            shootingCoords.Add(new Vector2(5, 2));
-            shootingCoords.Add(new Vector2(6, 2));
-
-            jumpCoords = new List<Vector2>();
-            jumpCoords.Add(new Vector2(0, 4));
-            jumpCoords.Add(new Vector2(1, 4));
-            jumpCoords.Add(new Vector2(2, 4));*/
 
             //Patrol enemy spritesheed coordinates
             flyingCoords = new List<Vector2>();
@@ -182,12 +138,12 @@ namespace LittleRedRobinHood.System
                         //Reset the collide hitbox size in case it changes (which it does with the Player)
                         spriteWidth = 36; //NOT SURE ABOUT THIS OK but it works fine so that's good
                         spriteHeight = 58;
-                        cm.getCollides()[sp.Value.entityID].hitbox = destinationRectangle;
+                        /*cm.getCollides()[sp.Value.entityID].hitbox = destinationRectangle;
                         //Make it so that shooting sprite isn't really off
                         if (cm.getPlayers()[sp.Value.entityID].shooting && !cm.getPlayers()[sp.Value.entityID].is_right)
                         {
                             destinationRectangle.X = destinationRectangle.X - (73-36);
-                        }
+                        }*/
                         //draw the current animation frame
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
