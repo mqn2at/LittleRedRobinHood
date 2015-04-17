@@ -340,8 +340,18 @@ namespace LittleRedRobinHood.System
             return kb.IsKeyDown(key) && kbo.IsKeyDown(key);
         }
 
+        public int mouseX()
+        {
+            return Mouse.GetState().X;
+        }
 
-        internal int UpdateEndScreen(ComponentManager manager)
+        public int mouseY()
+        {
+            return Mouse.GetState().Y;
+        }
+
+
+        public int UpdateEndScreen(ComponentManager manager)
         {
             if (isPressed(Keys.M) || isPressed(Keys.Enter) || isPressed(Keys.E))
             {
