@@ -114,6 +114,9 @@
     <Content Include="Content\crate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\crosshair.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\deathscreen.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
