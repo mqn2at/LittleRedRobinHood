@@ -49,7 +49,7 @@ namespace LittleRedRobinHood.System
                 {
                     if (player.MAX_ARROWS > player.arrows)
                     {
-                        Console.WriteLine("+1 arrow");
+                        //Console.WriteLine("+1 arrow");
                         player.arrows += 1;
                     }
                 }
@@ -57,7 +57,7 @@ namespace LittleRedRobinHood.System
                 {
                     if (player.MAX_SHACKLES > player.shackles)
                     {
-                        Console.WriteLine("+1 shackle");
+                        //Console.WriteLine("+1 shackle");
                         player.shackles += 1;
                     }
                 }
