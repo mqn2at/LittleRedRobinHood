@@ -342,12 +342,12 @@ namespace LittleRedRobinHood.System
 
         public int mouseX()
         {
-            return Mouse.GetState().X;
+            return ms.X;
         }
 
         public int mouseY()
         {
-            return Mouse.GetState().Y;
+            return ms.Y;
         }
 
 
