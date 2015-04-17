@@ -18,7 +18,7 @@ namespace LittleRedRobinHood.Component
         public bool jumping;
         public bool shooting;
         public bool is_right;
-        public int dy;
+        public double dy;
         public Player(int id)
         {
             this.entityID = id;
