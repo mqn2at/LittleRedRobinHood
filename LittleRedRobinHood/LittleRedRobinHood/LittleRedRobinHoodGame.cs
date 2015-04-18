@@ -362,7 +362,7 @@ namespace LittleRedRobinHood
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
                 Texture2D crosshair = manager.conman.Load<Texture2D>("crosshair");
-                spriteBatch.Draw(crosshair, new Vector2(consys.mouseX(), consys.mouseY()), Color.White);
+                spriteBatch.Draw(crosshair, new Rectangle(consys.mouseX()-15, consys.mouseY()-15, 30, 30), null, Color.White);
                 DrawTrajectoryLine(spriteBatch);
                 anisys.Draw(spriteBatch, manager, gameTime);
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
