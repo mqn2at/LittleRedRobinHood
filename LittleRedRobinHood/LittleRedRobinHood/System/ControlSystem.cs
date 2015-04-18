@@ -25,9 +25,10 @@ namespace LittleRedRobinHood.System
         private int SHACKLE_SPEED = 9;
         private int ARROW_SPEED = 12;
         private int X_SPEED = 4;
-        private int JUMP = 15;
+        private int JUMP = 10;
         private int MAX_FALL = 17;
         private int TIMER_JUMP_MAX = 20;
+        private double GRAVITY = .5;
         private int jump_timer;
         private int timer;
         private int menuTimer;
@@ -74,7 +75,7 @@ namespace LittleRedRobinHood.System
             {
                 if (player.dy < MAX_FALL)
                 {
-                    player.dy += 1;
+                    player.dy += GRAVITY;
                 }
                 if (isPressed(Keys.S) || isPressed(Keys.Down))
                 {
@@ -83,7 +84,7 @@ namespace LittleRedRobinHood.System
                         player.dy += 1;
                     }
                 }
-                pMove.hitbox.Y += player.dy;
+                pMove.hitbox.Y += (int)player.dy;
             }
 
             if (isPressed(Keys.D) || isPressed(Keys.Right))
