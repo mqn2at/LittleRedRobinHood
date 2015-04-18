@@ -315,6 +315,7 @@ namespace LittleRedRobinHood
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            IsMouseVisible = false;
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             if (mainMenu)
