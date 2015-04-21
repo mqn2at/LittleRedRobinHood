@@ -72,7 +72,7 @@
   </object>
  </objectgroup>
  <objectgroup name="shackleables">
-  <object id="36" name="shackleable1" x="287" y="72" width="32" height="32">
+  <object id="36" name="shackleable1" x="287" y="66" width="32" height="32">
    <properties>
     <property name="name" value="shackleable1"/>
    </properties>

@@ -32,7 +32,7 @@
    H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvUaGi2Ag3NhgEtGpqtQAczaeF+WobJKBgFAw0A7L0I5NwFAAA=
   </data>
  </layer>
- <objectgroup name="obstacles" visible="0">
+ <objectgroup name="obstacles">
   <properties>
    <property name="objectmeta" value="objectvalue"/>
   </properties>

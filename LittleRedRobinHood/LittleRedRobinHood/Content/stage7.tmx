@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="28">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="33">
  <properties>
   <property name="mapmeta" value="mapvalue"/>
  </properties>
@@ -19,70 +19,85 @@
  </layer>
  <layer name="background1" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHKBgFowA/EBhoBwwhAADXgWoP3AUAAA==
+   H4sIAAAAAAAACzNkYGAwAmJDBtoBayC2gdKCQCxEAztA7of5QxqIZWhgBzJQBWI1GtsxCkbBKEAFAhSoISROjNlDCQAAo1z0HNwFAAA=
   </data>
  </layer>
  <layer name="background2" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGLpADohloTStgAYQq0NpWgEjIDaE0rQCNkBsDaVpBUb9QTwY9QfxANkfigyIfI8PyDKglg+Eyglkf2gzIPI9PqDOgFo+EConkP2BTOMD2NTji09kfwAA6QQ41NwFAAA=
+   H4sIAAAAAAAAC2NgGB5AFojlsNDUBOpArIGFpiYwBGIjLDQ1gTUQ22ChR8EoGOxAkQF7PqcWDTS/QZsBez6nJo0rn1OTBgB6jSyp3AUAAA==
+  </data>
+ </layer>
+ <layer name="top" width="25" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGD5AYKAdMISBJAODA63t4KeiHUCzFKhl1igYBcMRAACeP1F53AUAAA==
   </data>
  </layer>
  <objectgroup name="obstacles">
   <properties>
    <property name="objectmeta" value="objectvalue"/>
   </properties>
-  <object id="6" name="ground3" x="706" y="65" width="100" height="418">
+  <object id="6" name="ground3" x="-8" y="98" width="200" height="94">
    <properties>
     <property name="name" value="ground3"/>
    </properties>
   </object>
-  <object id="13" name="ground1" x="-3" y="416" width="100" height="69">
+  <object id="13" name="ground1" x="-4" y="418" width="807" height="71">
    <properties>
     <property name="name" value="ground2"/>
    </properties>
   </object>
-  <object id="24" name="ground2" x="318" y="416" width="192" height="69">
+  <object id="24" name="ground2" x="-8" y="-6" width="105" height="110">
    <properties>
     <property name="name" value="ground2"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="startFinish">
-  <object id="10" name="start" x="35" y="350" width="48" height="64">
+  <object id="10" name="start" x="35" y="353" width="48" height="64">
    <properties>
     <property name="name" value="start"/>
    </properties>
   </object>
-  <object id="12" name="finish" x="768" y="0" width="32" height="64">
+  <object id="12" name="finish" x="128" y="32" width="32" height="64">
    <properties>
     <property name="name" value="finish"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="enemies">
-  <object id="14" name="enemy1" x="140" y="395" width="34" height="31">
+  <object id="14" name="enemy1" x="272" y="192" width="34" height="31">
    <properties>
     <property name="name" value="enemy1"/>
    </properties>
   </object>
-  <object id="17" name="enemy2" x="233" y="295" width="34" height="31">
+  <object id="17" name="enemy2" x="396" y="192" width="34" height="31">
    <properties>
     <property name="name" value="enemy2"/>
    </properties>
   </object>
-  <object id="18" name="enemy3" x="474" y="378" width="34" height="31">
+  <object id="18" name="enemy3" x="520" y="192" width="34" height="31">
    <properties>
     <property name="name" value="enemy3"/>
    </properties>
   </object>
- </objectgroup>
- <objectgroup name="shackleables"/>
- <objectgroup name="platforms">
-  <object id="25" name="platform1" x="570" y="374" width="96" height="48">
+  <object id="28" name="enemy4" x="647" y="192" width="34" height="31">
    <properties>
-    <property name="name" value="platform1"/>
+    <property name="name" value="enemy4"/>
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="shackleables">
+  <object id="29" name="shackleable1" x="160" y="192" width="32" height="32">
+   <properties>
+    <property name="name" value="shackleable1"/>
+   </properties>
+  </object>
+  <object id="31" name="shackleable2" x="769" y="191" width="32" height="32">
+   <properties>
+    <property name="name" value="shackleable2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="platforms"/>
  <objectgroup name="pinecones"/>
 </map>
