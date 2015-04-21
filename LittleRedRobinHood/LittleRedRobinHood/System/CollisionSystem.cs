@@ -235,10 +235,13 @@ namespace LittleRedRobinHood.System
                                 objectEntity = manager.getEntities()[entityList[i]];
                                 objectIndex = entityList[i];
                             }
-                            /////Console.WriteLine("Other Object is Shackleable?: " + componentManager.getCollides()[objectEntity.entityID].isShackleable);////
+                            if (manager.getEntities()[objectEntity.entityID].isProjectile)
+                            {
 
+                            }
+                            
                             //Arrow Collision
-                            if (manager.getProjectiles()[projectileID].isArrow)
+                            else if (manager.getProjectiles()[projectileID].isArrow)
                             {
                                 if (manager.getCollides()[objectEntity.entityID].numShackled > 0)
                                 {
@@ -533,8 +536,9 @@ namespace LittleRedRobinHood.System
                             //Detect Collision
                             int spd = manager.getProjectiles()[tempArrow.entityID].speed;
                             double ang = manager.getProjectiles()[tempArrow.entityID].angle;
-                            Vector2 currArrLoc = new Vector2(manager.getCollides()[tempArrow.entityID].hitbox.X,
-                                manager.getCollides()[tempArrow.entityID].hitbox.Y);
+                            Rectangle tempArrowHB = manager.getCollides()[tempArrow.entityID].hitbox;
+                            Vector2 currArrLoc = new Vector2(tempArrowHB.X + tempArrowHB.Width/2,
+                                tempArrowHB.Y + tempArrowHB.Height/2);
                             Vector2 prevArrLoc = new Vector2(currArrLoc.X - (int)(3 * spd * Math.Cos(ang)),
                                 currArrLoc.Y - (int)(3 * spd * Math.Sin(ang)));
                             int firstPtID = manager.getShackles()[tempShacklePlat.entityID].firstPointID;
