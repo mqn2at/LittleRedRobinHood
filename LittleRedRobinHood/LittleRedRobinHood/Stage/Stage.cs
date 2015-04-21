@@ -77,16 +77,8 @@ namespace LittleRedRobinHood
                 List<Vector2> waypoints = new List<Vector2>();
                 if (tmxFile.Equals("stage4.tmx"))
                 {
-                    if (platformNum % 2 == 0)
-                    {
-                        waypoints.Add(new Vector2(x, y));
-                        waypoints.Add(new Vector2(x, y - 180));
-                    }
-                    else
-                    {
-                        waypoints.Add(new Vector2(x, y));
-                        waypoints.Add(new Vector2(x, y + 180));
-                    }
+                    waypoints.Add(new Vector2(x, y));
+                    waypoints.Add(new Vector2(x, y - 300));
                 }
                 else if (tmxFile.Equals("stage6.tmx"))
                 {
@@ -132,7 +124,7 @@ namespace LittleRedRobinHood
             }
           
 
-            //Add all enemies
+            //ADD ENEMIES
             enemies = map.ObjectGroups["enemies"].Objects;
             int enemycount = 0;
             foreach (Squared.Tiled.Object o in enemies.Values)
@@ -156,7 +148,7 @@ namespace LittleRedRobinHood
                     else if (enemycount == 1)
                     {
                         cm.addCollide(tempID, enemyHitBox, true, true);
-                        waypoints.Add(new Vector2(x, y + 250));
+                        waypoints.Add(new Vector2(x, y + 230));
                         waypoints.Add(new Vector2(x, y));
                     }
                     else if (enemycount == 2)
@@ -168,7 +160,18 @@ namespace LittleRedRobinHood
 
                     cm.addPatrol(tempID, waypoints, 3);
                 }
-                else if (tmxFile.Equals("stage5.tmx")) {
+                else if (tmxFile.Equals("stage4.tmx"))
+                {
+                    cm.addCollide(tempID, enemyHitBox, true, true);
+                    waypoints.Add(new Vector2(x, y + 250));
+                    waypoints.Add(new Vector2(x + 100, y + 250));
+                    waypoints.Add(new Vector2(x + 100, y));
+                    waypoints.Add(new Vector2(x, y));
+
+                    cm.addPatrol(tempID, waypoints, 2);
+                }
+                else if (tmxFile.Equals("stage5.tmx"))
+                {
                     cm.addCollide(tempID, enemyHitBox, true, true);
                     waypoints.Add(new Vector2(x, y - 100));
                     waypoints.Add(new Vector2(x, y + 20));
@@ -180,7 +183,7 @@ namespace LittleRedRobinHood
                 {
                     if (enemycount == 0)
                     {
-                        cm.addCollide(tempID, enemyHitBox, true, true, 1,false);
+                        cm.addCollide(tempID, enemyHitBox, true, true, 1, false);
                         waypoints.Add(new Vector2(x, y + 300));
                         waypoints.Add(new Vector2(x, y));
 
