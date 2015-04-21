@@ -25,10 +25,11 @@ namespace LittleRedRobinHood.System
 
                 int entityID = ent.Value.entityID;
 
-                //Remove if out of bounds
+                //Remove if out of bounds IF NOT PINECONE
                 Rectangle rectangle = componentManager.getCollides()[entityID].hitbox;
-                if (rectangle.X > gd.Viewport.Width || rectangle.Y > gd.Viewport.Height ||
+                if ((rectangle.X > gd.Viewport.Width || rectangle.Y > gd.Viewport.Height ||
                     rectangle.X + rectangle.Width < 0 || rectangle.Y + rectangle.Height < 0)
+                    && !componentManager.getEntities()[entityID].isPatrol)
                 {
                     toBeRemoved.Add(entityID);
                     //did not remove from shacklesPlatforms, players, and patrols

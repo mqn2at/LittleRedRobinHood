@@ -535,8 +535,8 @@ namespace LittleRedRobinHood.System
                             double ang = manager.getProjectiles()[tempArrow.entityID].angle;
                             Vector2 currArrLoc = new Vector2(manager.getCollides()[tempArrow.entityID].hitbox.X,
                                 manager.getCollides()[tempArrow.entityID].hitbox.Y);
-                            Vector2 prevArrLoc = new Vector2(currArrLoc.X - (int)(2 * spd * Math.Cos(ang)),
-                                currArrLoc.Y - (int)(2 * spd * Math.Sin(ang)));
+                            Vector2 prevArrLoc = new Vector2(currArrLoc.X - (int)(3 * spd * Math.Cos(ang)),
+                                currArrLoc.Y - (int)(3 * spd * Math.Sin(ang)));
                             int firstPtID = manager.getShackles()[tempShacklePlat.entityID].firstPointID;
                             int secondPtID = manager.getShackles()[tempShacklePlat.entityID].secondPointID;
                             Rectangle firstPtBox = manager.getCollides()[firstPtID].hitbox;
@@ -567,12 +567,15 @@ namespace LittleRedRobinHood.System
                                     shackleCollided.Add(tempArrow.entityID);
                                 }
 
-                                //Remove arrow
-                                toBeRemoved.Add(tempArrow.entityID);
-                                if (!arrowCollided.Contains(tempArrow.entityID))
+                                //Remove arrow IF NOT PINECONE
+                                if (!manager.getEntities()[tempArrow.entityID].isPatrol)
                                 {
-                                    manager.getPlayers()[manager.playerID].arrows += 1;
-                                    arrowCollided.Add(tempArrow.entityID);
+                                    toBeRemoved.Add(tempArrow.entityID);
+                                    if (!arrowCollided.Contains(tempArrow.entityID))
+                                    {
+                                        manager.getPlayers()[manager.playerID].arrows += 1;
+                                        arrowCollided.Add(tempArrow.entityID);
+                                    }
                                 }
                                 /////Console.WriteLine("ARROW HIT SHACKLE!"); ////
                             }

@@ -208,7 +208,8 @@ namespace LittleRedRobinHood.System
                 }
                 else //no animation, so just draw
                 {
-                    if (cm.getEntities()[sp.Value.entityID].isProjectile)
+                    //Rotate if projectile BUT NOT PINECONE
+                    if (cm.getEntities()[sp.Value.entityID].isProjectile && !cm.getEntities()[sp.Value.entityID].isPatrol)
                     {
                         sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), null, Color.White, (float)cm.getProjectiles()[sp.Value.entityID].angle+(float)Math.PI, new Vector2(0, 0), SpriteEffects.None, 1);
                     }
