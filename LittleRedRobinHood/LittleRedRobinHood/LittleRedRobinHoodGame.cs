@@ -120,6 +120,7 @@ namespace LittleRedRobinHood
             pauseScreen = this.Content.Load<Texture2D>("pausescreen.jpg");
             victoryScreen = this.Content.Load<Texture2D>("victoryscreen.jpg");
             this.LoadMainMenu();
+            this.anisys.LoadContent(this.Content);
             //stages[currentStage].LoadContent(this.Content); now called during updates of main menu
             // TODO: use this.Content to load your game content here
           
@@ -362,6 +363,8 @@ namespace LittleRedRobinHood
                     spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
+                //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
+                DrawShackle();
                 anisys.Draw(spriteBatch, manager, gameTime);
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
                 {
@@ -370,8 +373,6 @@ namespace LittleRedRobinHood
                         spriteBatch.DrawString(pair.Value.font, pair.Value.text, pair.Value.textPosition, Color.White);
                     }
                 }
-                //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
-                DrawShackle();
                 Texture2D crosshair = manager.conman.Load<Texture2D>("crosshair");
                 spriteBatch.Draw(crosshair, new Rectangle(consys.mouseX() - 15, consys.mouseY() - 15, 30, 30), null, Color.White);
                 DrawTrajectoryLine(spriteBatch);
