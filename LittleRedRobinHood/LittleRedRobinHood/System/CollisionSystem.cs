@@ -192,7 +192,7 @@ namespace LittleRedRobinHood.System
                                     {
                                         int dx = (int)manager.getPatrols()[objectID].curr_dx;
                                         int dy = (int)manager.getPatrols()[objectID].curr_dy;
-                                        manager.getCollides()[playerID].hitbox.X += (int)(dx * 2);
+                                        manager.getCollides()[playerID].hitbox.X += (int)(dx * 3);
 
                                         //manager.getCollides()[playerID].hitbox.Y += dy*2;
                                     }
@@ -524,15 +524,14 @@ namespace LittleRedRobinHood.System
             for (int i = 0; i < entityList.Count(); i++)
             {
                 Entity tempArrow = manager.getEntities()[entityList[i]];
-                if (tempArrow.isProjectile && manager.getProjectiles()[tempArrow.entityID].isArrow)
+                if (tempArrow.isProjectile && manager.getProjectiles()[tempArrow.entityID].isArrow
+                    && !toBeRemoved.Contains(tempArrow.entityID))
                 {
                     for (int j = 0; j < entityList.Count(); j++)
                     {
                         Entity tempShacklePlat = manager.getEntities()[entityList[j]];
-                        if (tempShacklePlat.isShackle)
+                        if (tempShacklePlat.isShackle && !toBeRemoved.Contains(tempShacklePlat.entityID))
                         {
-                            /////Console.WriteLine("ARROW HIT SHACKLE HITBOX!"); ////
-
                             //Detect Collision
                             int spd = manager.getProjectiles()[tempArrow.entityID].speed;
                             double ang = manager.getProjectiles()[tempArrow.entityID].angle;
