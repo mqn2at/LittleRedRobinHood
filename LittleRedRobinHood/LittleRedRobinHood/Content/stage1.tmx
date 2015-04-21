@@ -24,7 +24,7 @@
  </layer>
  <layer name="background2" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMgqEBFIFYCYhlgViOCBqotgGop4FYc0DqtYG0DhCrA7EGEbQORA+GHbjMAak3BNJGQEwqjQ7wqQcA9Lm7N9wFAAA=
+   H4sIAAAAAAAAC2NgGAWjYBSMgqEBFIFYCYhlgViOCBqotgGopwHdDFzqQWq1gbQOEKsDsQYRtA5ED4odhNQbAmkjICaVRgaE1AMADa1VJ9wFAAA=
   </data>
  </layer>
  <objectgroup name="obstacles">
@@ -36,7 +36,7 @@
     <property name="name" value="box1"/>
    </properties>
   </object>
-  <object id="6" name="ground2" x="575" y="416" width="232" height="67">
+  <object id="6" name="ground2" x="545" y="416" width="260" height="69">
    <properties>
     <property name="name" value="ground2"/>
    </properties>
