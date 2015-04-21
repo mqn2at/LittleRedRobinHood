@@ -298,9 +298,11 @@ namespace LittleRedRobinHood.System
                                     }
                                 }
                                 */
+
                                 //Arrow - Shackle Platform Collision
                                 else if (objectEntity.isShackle)
                                 {
+                                    /*
                                     /////Console.WriteLine("ARROW HIT SHACKLE HITBOX!"); ////
 
                                     //Detect Collision
@@ -349,6 +351,7 @@ namespace LittleRedRobinHood.System
                                         }
                                         /////Console.WriteLine("ARROW HIT SHACKLE!"); ////
                                     }
+                                    */
                                 }
                                 
                                 //Arrow - other collideable Collision
@@ -486,16 +489,6 @@ namespace LittleRedRobinHood.System
                     }    
                 }
             }
-            //Remove entities
-            foreach (int id in toBeRemoved)
-            {
-                manager.getProjectiles().Remove(id);
-                manager.getSprites().Remove(id);
-                manager.getCollides().Remove(id);
-                manager.getPatrols().Remove(id);
-                manager.getShackles().Remove(id);
-                manager.getEntities().Remove(id);
-            }
 
             //Check to see if player is out of bounds
             //X-axis - Prevent player from leaving screen X-wise
@@ -519,6 +512,88 @@ namespace LittleRedRobinHood.System
             if (!playerCollided && manager.getPlayers()[manager.playerID].dy >= 0)
             {
                 manager.getPlayers()[manager.playerID].grounded = false;
+            }
+
+            ///////////////
+            //Arrow-shackle checking (for horizontal/verticle case)
+            ///////////////
+            
+            for (int i = 0; i < entityList.Count(); i++)
+            {
+                Entity tempArrow = manager.getEntities()[entityList[i]];
+                if (tempArrow.isProjectile && manager.getProjectiles()[tempArrow.entityID].isArrow)
+                {
+                    for (int j = 0; j < entityList.Count(); j++)
+                    {
+                        Entity tempShacklePlat = manager.getEntities()[entityList[j]];
+                        if (tempShacklePlat.isShackle)
+                        {
+                            /////Console.WriteLine("ARROW HIT SHACKLE HITBOX!"); ////
+
+                            //Detect Collision
+                            int spd = manager.getProjectiles()[tempArrow.entityID].speed;
+                            double ang = manager.getProjectiles()[tempArrow.entityID].angle;
+                            Vector2 currArrLoc = new Vector2(manager.getCollides()[tempArrow.entityID].hitbox.X,
+                                manager.getCollides()[tempArrow.entityID].hitbox.Y);
+                            Vector2 prevArrLoc = new Vector2(currArrLoc.X - (int)(3 * spd * Math.Cos(ang)),
+                                currArrLoc.Y - (int)(3 * spd * Math.Sin(ang)));
+                            int firstPtID = manager.getShackles()[tempShacklePlat.entityID].firstPointID;
+                            int secondPtID = manager.getShackles()[tempShacklePlat.entityID].secondPointID;
+                            Rectangle firstPtBox = manager.getCollides()[firstPtID].hitbox;
+                            Rectangle secondPtBox = manager.getCollides()[secondPtID].hitbox;
+                            Vector2 firstPt = new Vector2(firstPtBox.X + firstPtBox.Width / 2, firstPtBox.Y + firstPtBox.Height / 2);
+                            Vector2 secondPt = new Vector2(secondPtBox.X + secondPtBox.Width / 2, secondPtBox.Y + secondPtBox.Height / 2);
+
+                            //If the sweep collision happens
+                            if (sweepCollision(prevArrLoc, currArrLoc, firstPt, secondPt))
+                            {
+                                //Remove shackle
+                                toBeRemoved.Add(tempShacklePlat.entityID);
+
+                                //Make player fall if player on shackle
+                                if (manager.getCollides()[tempShacklePlat.entityID].hitbox.Intersects(manager.getCollides()[manager.playerID].hitbox))
+                                {
+                                    manager.getPlayers()[manager.playerID].grounded = false;
+                                }
+
+                                //Unshackle objects
+                                int firstUnshackled = manager.getShackles()[tempShacklePlat.entityID].firstPointID;
+                                int secondUnshackled = manager.getShackles()[tempShacklePlat.entityID].secondPointID;
+                                manager.getCollides()[firstUnshackled].numShackled--;
+                                manager.getCollides()[secondUnshackled].numShackled--;
+                                if (!shackleCollided.Contains(tempArrow.entityID) && manager.getShackles()[tempShacklePlat.entityID].playerMade)
+                                {
+                                    manager.getPlayers()[manager.playerID].shackles += 1;
+                                    shackleCollided.Add(tempArrow.entityID);
+                                }
+
+                                //Remove arrow IF NOT PINECONE
+                                if (!manager.getEntities()[tempArrow.entityID].isPatrol)
+                                {
+                                    toBeRemoved.Add(tempArrow.entityID);
+                                    if (!arrowCollided.Contains(tempArrow.entityID))
+                                    {
+                                        manager.getPlayers()[manager.playerID].arrows += 1;
+                                        arrowCollided.Add(tempArrow.entityID);
+                                    }
+                                }
+                                /////Console.WriteLine("ARROW HIT SHACKLE!"); ////
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            //Remove entities
+            foreach (int id in toBeRemoved)
+            {
+                manager.getProjectiles().Remove(id);
+                manager.getSprites().Remove(id);
+                manager.getCollides().Remove(id);
+                manager.getPatrols().Remove(id);
+                manager.getShackles().Remove(id);
+                manager.getEntities().Remove(id);
             }
 
             return -1;
