@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-//using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using LittleRedRobinHood.Component;
 //using Microsoft.Xna.Framework.Input;
@@ -26,6 +26,10 @@ namespace LittleRedRobinHood.System
         private int playerTotalFrame = 10;
         private int patrolCurrentFrame = 0;
         private int patrolTotalFrame = 3;
+        private int sparkleCurrentFrame = 0;
+        private int sparkleTotalFrame = 32;
+
+        private Texture2D sparkleImage;
         private int spriteSpeed = 10;
         public List<Vector2> flyingCoords;
         //End Sprite Animation
@@ -40,12 +44,22 @@ namespace LittleRedRobinHood.System
             flyingCoords.Add(new Vector2(2, 0));
         }
 
+        public void LoadContent(ContentManager cm)
+        {
+            //load shacklable sparkles as they are not part of any other sprite
+            sparkleImage = cm.Load<Texture2D>("sparkles.png");
+        }
+
         public void Draw(SpriteBatch sb, ComponentManager cm, GameTime gameTime)
         {
             //draw UI
             this.drawUI(sb, cm);
             //draw everything else
             Dictionary<int, LittleRedRobinHood.Component.Collide> collides = cm.getCollides();
+            SpriteEffects effect = SpriteEffects.None;
+
+            //draw sparkles
+            
             foreach (KeyValuePair<int, LittleRedRobinHood.Component.Sprite> sp in cm.getSprites())
             {
                 int spriteX = cm.getCollides()[sp.Value.entityID].hitbox.X;
@@ -54,7 +68,6 @@ namespace LittleRedRobinHood.System
                 Texture2D image = cm.getSprites()[sp.Value.entityID].sprite;
                 int spriteWidth = cm.getSprites()[sp.Value.entityID].width;
                 int spriteHeight = cm.getSprites()[sp.Value.entityID].height;
-                SpriteEffects effect = SpriteEffects.None;
                 //check if sprite is an animated sprite
                 if (sp.Value.animated)
                 {
@@ -216,6 +229,32 @@ namespace LittleRedRobinHood.System
                     else
                     {
                         sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), Color.White);
+                    }
+                }
+            }
+            foreach (KeyValuePair<int, Collide> col in collides)
+            {
+                if (col.Value.isShackleable)
+                {
+                    //Console.WriteLine("Col: " + (sparkleCurrentFrame % 8) + "\tRow: " + (sparkleCurrentFrame / 8));
+
+                    //grab the current animation frame
+                    Rectangle sourceRectangle = new Rectangle(32 * ((sparkleCurrentFrame % 8)), (int)(32 * (sparkleCurrentFrame / 8)), 32, 32);
+                    //draw the current animation frame
+                    sb.Draw(sparkleImage, col.Value.hitbox, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
+
+                    //update the current frames
+                    timePlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    while (timePlayer > frameTime)
+                    {
+                        // Play the next frame in the SpriteSheet
+                        sparkleCurrentFrame++;
+                        // reset elapsed time
+                        timePlayer = 0f;
+                    }
+                    if (sparkleCurrentFrame >= sparkleTotalFrame)
+                    {
+                        sparkleCurrentFrame = 0;
                     }
                 }
             }
