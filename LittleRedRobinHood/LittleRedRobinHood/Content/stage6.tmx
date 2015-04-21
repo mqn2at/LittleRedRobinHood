@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="28">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="31">
  <properties>
   <property name="mapmeta" value="mapvalue"/>
  </properties>
@@ -19,31 +19,36 @@
  </layer>
  <layer name="background1" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHKBgFowA/EBhoBwwhAADXgWoP3AUAAA==
+   H4sIAAAAAAAACzNkYGAwAmJDBtoBayC2gdK0AiD309ofo2AUjIKBBQID7YAhBAB4mdLP3AUAAA==
   </data>
  </layer>
  <layer name="background2" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGLpADohloTQ1gSwSWwOI1aE0NYE6EtsIiA2hNK2ADRBbQ2lagZHsD1nCSlAAOf5QJ6wEBQzH+FBkQOR7agJkf2gzIPI9NQGyP5BpagJkfwAALgB6xNwFAAA=
+   H4sIAAAAAAAAC2NgGB5AEYjlgFgWjaYmUAdiDSw0NYEhEBthoYc7oHZcYQPUjqtRQH9Aj3yuzTA88jkAl8kFLdwFAAA=
   </data>
  </layer>
  <layer name="top" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC0QorH5ICBDZfP4sYipUdkOSSqbNwoGFmBLM9QGo2lmFJACAEd3Vb/cBQAA
+   H4sIAAAAAAAAC2NgoD8QooMdMnSwQ40OdowUwE8HOyTpYMcoGAWDBQAAjBCnONwFAAA=
   </data>
  </layer>
  <objectgroup name="obstacles">
   <properties>
    <property name="objectmeta" value="objectvalue"/>
   </properties>
-  <object id="6" name="ground2" x="704" y="66" width="101" height="421">
+  <object id="6" name="ground2" x="-7" y="98" width="199" height="62">
    <properties>
     <property name="name" value="ground2"/>
    </properties>
   </object>
-  <object id="13" name="ground1" x="-3" y="416" width="100" height="82">
+  <object id="13" name="ground1" x="-3" y="416" width="195" height="89">
    <properties>
     <property name="name" value="ground2"/>
+   </properties>
+  </object>
+  <object id="30" name="ground3" x="-7" y="-6" width="104" height="107">
+   <properties>
+    <property name="name" value="ground3"/>
    </properties>
   </object>
  </objectgroup>
@@ -53,36 +58,37 @@
     <property name="name" value="start"/>
    </properties>
   </object>
-  <object id="12" name="finish" x="767" y="1" width="32" height="64">
+  <object id="12" name="finish" x="127" y="33" width="32" height="64">
    <properties>
     <property name="name" value="finish"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="enemies">
-  <object id="14" name="enemy1" x="180" y="216" width="34" height="31">
+  <object id="14" name="enemy1" x="261" y="99" width="34" height="31">
    <properties>
     <property name="name" value="enemy1"/>
    </properties>
   </object>
-  <object id="27" name="enemy2" x="451" y="13" width="34" height="31">
+  <object id="27" name="enemy2" x="577" y="354" width="34" height="31">
    <properties>
     <property name="name" value="enemy2"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="shackleables">
-  <object id="23" name="shackleable1" x="320" y="267" width="32" height="32">
+  <object id="23" name="shackleable1" x="384" y="202" width="32" height="32">
    <properties>
     <property name="name" value="shackleable1"/>
    </properties>
   </object>
-  <object id="26" name="shackleable2" x="608" y="74" width="32" height="32">
+ </objectgroup>
+ <objectgroup name="platforms">
+  <object id="28" name="platform1" x="680" y="54" width="64" height="32">
    <properties>
-    <property name="name" value="shackleable2"/>
+    <property name="name" value="platform1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="platforms"/>
  <objectgroup name="pinecones"/>
 </map>

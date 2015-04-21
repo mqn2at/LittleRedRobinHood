@@ -88,6 +88,11 @@ namespace LittleRedRobinHood
                         waypoints.Add(new Vector2(x, y + 180));
                     }
                 }
+                else if (tmxFile.Equals("stage6.tmx"))
+                {
+                    waypoints.Add(new Vector2(x, y));
+                    waypoints.Add(new Vector2(x, y + 350));
+                }
                 else if (tmxFile.Equals("stage9.tmx"))
                 {
                     if (platformNum % 2 == 0)
@@ -173,24 +178,33 @@ namespace LittleRedRobinHood
                 }
                 else if (tmxFile.Equals("stage6.tmx"))
                 {
-                    cm.addCollide(tempID, enemyHitBox, true, true,1,false);
-                    waypoints.Add(new Vector2(x, y + 200));
-                    waypoints.Add(new Vector2(x, y));
+                    if (enemycount == 0)
+                    {
+                        cm.addCollide(tempID, enemyHitBox, true, true, 1,false);
+                        waypoints.Add(new Vector2(x, y + 300));
+                        waypoints.Add(new Vector2(x, y));
+
+                        //Connect pre-existing shackle
+                        int shackleTemp = cm.addEntity();
+                        cm.addShackle(shackleTemp, tempID, preExistingShackleIDs[enemycount], false);
+                        //Calculate hitbox for shackle
+                        Rectangle tempRect1 = cm.getCollides()[tempID].hitbox;
+                        Rectangle tempRect2 = cm.getCollides()[preExistingShackleIDs[enemycount]].hitbox;
+                        int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
+                        int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
+                        int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
+                        int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
+                        //Add collide for shackle
+                        cm.addCollide(shackleTemp, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, true);
+                    }
+                    else if (enemycount == 1)
+                    {
+                        cm.addCollide(tempID, enemyHitBox, true, true);
+                        waypoints.Add(new Vector2(x, y - 300));
+                        waypoints.Add(new Vector2(x, y));
+                    }
 
                     cm.addPatrol(tempID, waypoints, 2);
-
-                    //Connect pre-existing shackles
-                    int shackleTemp = cm.addEntity();
-                    cm.addShackle(shackleTemp, tempID, preExistingShackleIDs[enemycount],false);
-                    //Calculate hitbox for shackle
-                    Rectangle tempRect1 = cm.getCollides()[tempID].hitbox;
-                    Rectangle tempRect2 = cm.getCollides()[preExistingShackleIDs[enemycount]].hitbox;
-                    int rectX = Math.Min(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0));
-                    int rectY = Math.Min(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0));
-                    int rectWidth = Math.Max(tempRect1.X + (int)(tempRect1.Width / 2.0), tempRect2.X + (int)(tempRect2.Width / 2.0)) - rectX;
-                    int rectHeight = Math.Max(tempRect1.Y + (int)(tempRect1.Height / 2.0), tempRect2.Y + (int)(tempRect2.Height / 2.0)) - rectY;
-                    //Add collide for shackle
-                    cm.addCollide(shackleTemp, new Rectangle(rectX, rectY, rectWidth, rectHeight), false, true);
                 }
                 else if (tmxFile.Equals("stage7.tmx"))
                 {
