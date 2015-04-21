@@ -362,9 +362,6 @@ namespace LittleRedRobinHood
                     spriteBatch.Draw(sp.Value.sprite, collides[sp.Value.entityID].hitbox, Color.White);
                 }*/
                 //Moved above foreach to AnimatedSpriteSystem
-                Texture2D crosshair = manager.conman.Load<Texture2D>("crosshair");
-                spriteBatch.Draw(crosshair, new Rectangle(consys.mouseX()-15, consys.mouseY()-15, 30, 30), null, Color.White);
-                DrawTrajectoryLine(spriteBatch);
                 anisys.Draw(spriteBatch, manager, gameTime);
                 foreach (KeyValuePair<int, Text> pair in manager.getTexts())
                 {
@@ -375,9 +372,10 @@ namespace LittleRedRobinHood
                 }
                 //DrawLine(spriteBatch, new Vector2(200, 200), new Vector2(100, 100));
                 DrawShackle();
+                Texture2D crosshair = manager.conman.Load<Texture2D>("crosshair");
+                spriteBatch.Draw(crosshair, new Rectangle(consys.mouseX() - 15, consys.mouseY() - 15, 30, 30), null, Color.White);
+                DrawTrajectoryLine(spriteBatch);
                 //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
-                // TODO: Add your drawing code here
-                //spriteBatch.DrawString(font, "HELLO", new Vector2(120, 10), Color.White);
             }
             else if(paused)
             {
