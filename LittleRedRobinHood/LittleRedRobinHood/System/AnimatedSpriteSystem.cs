@@ -236,7 +236,7 @@ namespace LittleRedRobinHood.System
             {
                 if (col.Value.isShackleable)
                 {
-                    Console.WriteLine("Col: " + (sparkleCurrentFrame % 8) + "\tRow: " + (sparkleCurrentFrame / 8));
+                    //Console.WriteLine("Col: " + (sparkleCurrentFrame % 8) + "\tRow: " + (sparkleCurrentFrame / 8));
 
                     //grab the current animation frame
                     Rectangle sourceRectangle = new Rectangle(32 * ((sparkleCurrentFrame % 8)), (int)(32 * (sparkleCurrentFrame / 8)), 32, 32);
