@@ -138,12 +138,12 @@ namespace LittleRedRobinHood.System
                         //Reset the collide hitbox size in case it changes (which it does with the Player)
                         spriteWidth = 36; //NOT SURE ABOUT THIS OK but it works fine so that's good
                         spriteHeight = 58;
-                        /*cm.getCollides()[sp.Value.entityID].hitbox = destinationRectangle;
+                        //cm.getCollides()[sp.Value.entityID].hitbox = destinationRectangle;
                         //Make it so that shooting sprite isn't really off
                         if (cm.getPlayers()[sp.Value.entityID].shooting && !cm.getPlayers()[sp.Value.entityID].is_right)
                         {
                             destinationRectangle.X = destinationRectangle.X - (73-36);
-                        }*/
+                        }
                         //draw the current animation frame
                         sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
