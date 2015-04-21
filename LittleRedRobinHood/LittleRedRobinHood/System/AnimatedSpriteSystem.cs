@@ -27,7 +27,7 @@ namespace LittleRedRobinHood.System
         private int patrolCurrentFrame = 0;
         private int patrolTotalFrame = 3;
         private int sparkleCurrentFrame = 0;
-        private int sparkleTotalFrame = 32;
+        private int sparkleTotalFrame = 8;
 
         private Texture2D sparkleImage;
         private int spriteSpeed = 10;
@@ -47,7 +47,7 @@ namespace LittleRedRobinHood.System
         public void LoadContent(ContentManager cm)
         {
             //load shacklable sparkles as they are not part of any other sprite
-            sparkleImage = cm.Load<Texture2D>("sparkles.png");
+            sparkleImage = cm.Load<Texture2D>("sparkle.png");
         }
 
         public void Draw(SpriteBatch sb, ComponentManager cm, GameTime gameTime)
@@ -59,7 +59,33 @@ namespace LittleRedRobinHood.System
             SpriteEffects effect = SpriteEffects.None;
 
             //draw sparkles
-            
+            foreach (KeyValuePair<int, Collide> col in collides)
+            {
+                if (col.Value.isShackleable)
+                {
+                    //Console.WriteLine("Col: " + (sparkleCurrentFrame % 8) + "\tRow: " + (sparkleCurrentFrame / 8));
+
+                    //grab the current animation frame
+                    //Rectangle sourceRectangle = new Rectangle(32 * ((sparkleCurrentFrame % 8)), (int)(32 * (sparkleCurrentFrame / 8)), 32, 32);
+                    Rectangle sourceRectangle = new Rectangle(58 * ((sparkleCurrentFrame % 8)), 58, 58, 58);
+                    //draw the current animation frame
+                    sb.Draw(sparkleImage, col.Value.hitbox, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
+
+                    //update the current frames
+                    timePlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    while (timePlayer > frameTime)
+                    {
+                        // Play the next frame in the SpriteSheet
+                        sparkleCurrentFrame++;
+                        // reset elapsed time
+                        timePlayer = 0f;
+                    }
+                    if (sparkleCurrentFrame >= sparkleTotalFrame)
+                    {
+                        sparkleCurrentFrame = 0;
+                    }
+                }
+            }
             foreach (KeyValuePair<int, LittleRedRobinHood.Component.Sprite> sp in cm.getSprites())
             {
                 int spriteX = cm.getCollides()[sp.Value.entityID].hitbox.X;
@@ -232,32 +258,7 @@ namespace LittleRedRobinHood.System
                     }
                 }
             }
-            foreach (KeyValuePair<int, Collide> col in collides)
-            {
-                if (col.Value.isShackleable)
-                {
-                    //Console.WriteLine("Col: " + (sparkleCurrentFrame % 8) + "\tRow: " + (sparkleCurrentFrame / 8));
-
-                    //grab the current animation frame
-                    Rectangle sourceRectangle = new Rectangle(32 * ((sparkleCurrentFrame % 8)), (int)(32 * (sparkleCurrentFrame / 8)), 32, 32);
-                    //draw the current animation frame
-                    sb.Draw(sparkleImage, col.Value.hitbox, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
-
-                    //update the current frames
-                    timePlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    while (timePlayer > frameTime)
-                    {
-                        // Play the next frame in the SpriteSheet
-                        sparkleCurrentFrame++;
-                        // reset elapsed time
-                        timePlayer = 0f;
-                    }
-                    if (sparkleCurrentFrame >= sparkleTotalFrame)
-                    {
-                        sparkleCurrentFrame = 0;
-                    }
-                }
-            }
+            
         }
 
         public void drawUI(SpriteBatch sb, ComponentManager cm)
