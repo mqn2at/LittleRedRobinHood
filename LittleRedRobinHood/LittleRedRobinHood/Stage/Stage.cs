@@ -134,7 +134,7 @@ namespace LittleRedRobinHood
                 //HARD CODED ENEMY MOVEMENTS IN, need to change later based on stage
                 List<Vector2> waypoints = new List<Vector2>();
                 Rectangle enemySpriteBox = new Rectangle(o.X, o.Y, o.Width, o.Height);
-                Rectangle enemyHitBox = new Rectangle(o.X + 5, o.Y + 5, o.Width - 10, o.Height - 10);
+                Rectangle enemyHitBox = new Rectangle(o.X, o.Y, o.Width, o.Height);
                 if (tmxFile.Equals("stage3.tmx")) {
                     if (enemycount == 0)
                     {
@@ -396,11 +396,15 @@ namespace LittleRedRobinHood
 
         public void Draw(SpriteBatch sb, GraphicsDevice gd)
         {
-            //HARDCODED DRAWING BACKGROUND IMAGE
-            sb.Draw(background, new Rectangle(0, 0, 800, 540), Color.White);
+            
             //Draw the map
             map.Draw(sb, new Rectangle(0, 0, gd.Viewport.Width, gd.Viewport.Height), new Vector2());
         }
-        
+
+        public void DrawBackground(SpriteBatch sb, GraphicsDevice gd)
+        {
+            //HARDCODED DRAWING BACKGROUND IMAGE
+            sb.Draw(background, new Rectangle(0, 0, 800, 540), Color.White);
+        }
     }
 }

@@ -357,6 +357,8 @@ namespace LittleRedRobinHood
             }
             else if (!paused && !realDead && !dead && !victory)
             {
+                stages[currentStage].DrawBackground(spriteBatch, GraphicsDevice);
+                anisys.DrawSparkles(spriteBatch, manager, gameTime);
                 stages[currentStage].Draw(spriteBatch, GraphicsDevice);
                 /*Dictionary<int, Collide> collides = manager.getCollides();
                 foreach(KeyValuePair<int, Sprite> sp in manager.getSprites()) {
