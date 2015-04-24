@@ -102,6 +102,8 @@ namespace LittleRedRobinHood
             this.stages.Add(stage10);
             Stage stage11 = new Stage("stage11.tmx", this.manager);
             this.stages.Add(stage11);
+            Stage stage12 = new Stage("stage12.tmx", this.manager);
+            this.stages.Add(stage12);
 
             this.manager.numStages = this.stages.ToArray().Length;
             this.screenBox = new Rectangle(0, 0, 800, 480);
@@ -159,8 +161,7 @@ namespace LittleRedRobinHood
             manager.addText(temp, font, new Vector2(this.MENUSTART_X, this.MENUSTART_Y + this.MENUOFFSET_Y), "Level Select", true, 1);
 
             //Song
-            manager.soundsys.stopSong();
-            manager.soundsys.playMenuSong();
+            
         }
 
         protected void LoadPauseMenu()
@@ -207,6 +208,8 @@ namespace LittleRedRobinHood
                 int temp = consys.UpdateEndScreen(manager);
                 if (temp > -1)
                 {
+                    manager.soundsys.stopSong();
+                    manager.soundsys.playMenuSong();
                     mainMenu = true;
                     realDead = false;
                 }
@@ -235,6 +238,8 @@ namespace LittleRedRobinHood
                 int temp = consys.UpdateEndScreen(manager);
                 if (temp > -1)
                 {
+                    manager.soundsys.stopSong();
+                    manager.soundsys.playMenuSong();
                     mainMenu = true;
                     victory = false;
                 }
@@ -247,6 +252,7 @@ namespace LittleRedRobinHood
                     paused = false;
                     int temp = manager.currentLives();
                     LoadStage(currentStage);
+                    manager.soundsys.playGameSong(currentStage);
                     manager.persistLives(temp);
                 }
                 if (!paused && !dead)
@@ -262,6 +268,10 @@ namespace LittleRedRobinHood
                             {
                                 lives = manager.currentLives();
                                 currentStage += 1;
+                                if (((currentStage - 1) / 3) < ((currentStage) / 3))
+                                {
+                                    manager.soundsys.playGameSong(currentStage + 1);
+                                }
                                 LoadStage(currentStage);
                                 manager.persistLives(lives);
                                 break;
@@ -271,6 +281,7 @@ namespace LittleRedRobinHood
                                 manager.clearDictionaries();
                                 LoadMainMenu();
                                 victory = true;
+                                manager.soundsys.playVictorySong();
                                 break;
                             }
                         case -1:
@@ -282,11 +293,14 @@ namespace LittleRedRobinHood
                                 realDead = true;
                                 manager.clearDictionaries();
                                 LoadMainMenu();
+                                manager.soundsys.playDeathSong();
+                                
                                 break;
                             }
                             else
                             {
                                 dead = true;
+                                manager.soundsys.playDeathSong();
                                 LoadStage(currentStage);
                                 manager.persistLives(lives);
                                 break;
@@ -301,6 +315,8 @@ namespace LittleRedRobinHood
                     case 0:
                         if (paused)
                         {
+                            manager.soundsys.stopSong();
+                            manager.soundsys.playMenuSong();
                             manager.clearDictionaries();
                             LoadMainMenu();
                             mainMenu = true;

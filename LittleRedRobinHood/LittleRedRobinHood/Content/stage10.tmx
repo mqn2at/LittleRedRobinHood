@@ -46,7 +46,7 @@
     <property name="name" value="ground2"/>
    </properties>
   </object>
-  <object id="35" name="ground3" x="-8" y="225" width="712" height="32">
+  <object id="35" name="ground3" x="-8" y="225" width="710" height="32">
    <properties>
     <property name="name" value="ground3"/>
    </properties>

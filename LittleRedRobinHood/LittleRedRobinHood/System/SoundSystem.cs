@@ -15,8 +15,8 @@ namespace LittleRedRobinHood.System
 {
     class SoundSystem
     {
-        SoundEffect bow_sound_1, menu_song;
-        SoundEffectInstance bow_sound_1_inst, menu_song_inst, prev_inst;
+        SoundEffect bow_sound_1, menu_song, death_song, victory_song;
+        SoundEffectInstance bow_sound_1_inst, menu_song_inst, prev_inst, death_song_inst, victory_song_inst;
         List<SoundEffect> game_songs;
         List<SoundEffectInstance> game_songs_inst;
         private static int STAGES_PER_SONG = 3;
@@ -41,6 +41,10 @@ namespace LittleRedRobinHood.System
             }
             menu_song = content.Load<SoundEffect>("Chan_Wai_Fat_-_05_-_Dream_instrumental.wav");
             menu_song_inst = menu_song.CreateInstance();
+            death_song = content.Load<SoundEffect>("Kai_Engel_-_07_-_Extinguished.wav");
+            death_song_inst = death_song.CreateInstance();
+            victory_song = content.Load<SoundEffect>("Dexter_Britain_-_12_-_The_Lost_Ones.wav");
+            victory_song_inst = victory_song.CreateInstance();
             prev_inst = menu_song_inst;
             
             //gs = new MediaPlayer();
@@ -93,6 +97,20 @@ namespace LittleRedRobinHood.System
         {
             prev_inst.Stop();
             prev_inst = menu_song_inst;
+            prev_inst.Play();
+        }
+
+        public void playDeathSong()
+        {
+            prev_inst.Stop();
+            prev_inst = death_song_inst;
+            prev_inst.Play();
+        }
+
+        public void playVictorySong()
+        {
+            prev_inst.Stop();
+            prev_inst = victory_song_inst;
             prev_inst.Play();
         }
     }
