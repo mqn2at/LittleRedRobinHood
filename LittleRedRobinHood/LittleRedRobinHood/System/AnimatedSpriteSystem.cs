@@ -17,7 +17,7 @@ namespace LittleRedRobinHood.System
         float timePlayer;
         float timePatrol;
         float timeSparkle;
-        const float sparkleFrameTime = 0.2f;
+        const float sparkleFrameTime = 0.3f;
         const float patrolFrameTime = 0.3f;
         const float frameTime = 0.1f;
 
