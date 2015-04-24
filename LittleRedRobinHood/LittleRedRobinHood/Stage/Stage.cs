@@ -116,7 +116,7 @@ namespace LittleRedRobinHood
                     waypoints.Add(new Vector2(x, y));
                     waypoints.Add(new Vector2(x, y + 200));
                 }
-                cm.addPatrol(tempID, waypoints, 2);
+                cm.addPatrol(tempID, waypoints, 3);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("crate.png"), crateHitBox, false);
                 platformNum++;
             }
@@ -352,6 +352,7 @@ namespace LittleRedRobinHood
 
             //Add all PINECONES
             pinecones = map.ObjectGroups["pinecones"].Objects;
+            int pineconeCount = 0;
             foreach (Squared.Tiled.Object o in pinecones.Values)
             {
                 int x = o.X + o.Width / 2;
@@ -361,12 +362,21 @@ namespace LittleRedRobinHood
                 Rectangle pineconeSpriteBox = new Rectangle(o.X, o.Y, o.Width, o.Height);
                 cm.addCollide(tempID, pineconeHitBox, true, false,false,false);
                 List<Vector2> waypoints = new List<Vector2>();
-                
-                waypoints.Add(new Vector2(x, y));
-                waypoints.Add(new Vector2(x, y + 500));
+
+                if (pineconeCount % 2 == 0)
+                {
+                    waypoints.Add(new Vector2(x, y));
+                    waypoints.Add(new Vector2(x, y + 500));
+                }
+                else
+                {
+                    waypoints.Add(new Vector2(x, y));
+                    waypoints.Add(new Vector2(x, y + 600));
+                }
                 cm.addPatrol(tempID, waypoints, 4, false);
                 cm.addProjectile(tempID, true, Math.PI / 2, 1, o.X, o.Y);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), pineconeSpriteBox, false);
+                pineconeCount++;
             }
             
             //Add player at start
