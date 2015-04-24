@@ -365,7 +365,7 @@ namespace LittleRedRobinHood
                 waypoints.Add(new Vector2(x, y));
                 waypoints.Add(new Vector2(x, y + 500));
                 cm.addPatrol(tempID, waypoints, 4, false);
-                cm.addProjectile(tempID, true, Math.PI / 2, 1);
+                cm.addProjectile(tempID, true, Math.PI / 2, 1, o.X, o.Y);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), pineconeSpriteBox, false);
             }
             
