@@ -381,6 +381,7 @@ namespace LittleRedRobinHood
                 spriteBatch.Draw(crosshair, new Rectangle(consys.mouseX() - 15, consys.mouseY() - 15, 30, 30), null, Color.White);
                 DrawTrajectoryLine(spriteBatch);
                 //spriteBatch.Draw(manager.getSprites()[manager.playerID].sprite, manager.getCollides()[manager.playerID].hitbox, Color.White);
+                anisys.DrawPlayer(spriteBatch, manager, gameTime);
             }
             else if(paused)
             {
@@ -455,7 +456,7 @@ namespace LittleRedRobinHood
         void DrawTrajectoryLine(SpriteBatch sb)
         {
             Rectangle player = manager.getCollides()[manager.playerID].hitbox;
-            Vector2 start = new Vector2(player.X + player.Width/2 - 4, player.Y + player.Height/2 - 4);
+            Vector2 start = new Vector2(player.X + player.Width/2, player.Y + player.Height/2 - 10);
             Vector2 end = new Vector2(consys.mouseX(), consys.mouseY());
             Vector2 edge = end - start;
             // calculate angle to rotate line

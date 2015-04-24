@@ -187,6 +187,13 @@ namespace LittleRedRobinHood
             entities[id].isProjectile = true;
         }
 
+        public void addProjectile(int id, bool isArrow, double angle, int speed, double x, double y)
+        {
+            Projectile temp = new Projectile(isArrow, angle, speed, x, y);
+            projectiles.Add(id, temp);
+            entities[id].isProjectile = true;
+        }
+
         public void addShackle(int id, int fpID, int spID){
             Shackle temp = new Shackle(id, fpID, spID);
             shacklePlatforms.Add(id, temp);

@@ -10,12 +10,22 @@ namespace LittleRedRobinHood.Component
         public readonly bool isArrow;
         public readonly double angle;
         public readonly int speed;
+        public double x, y;
 
         public Projectile(bool arrow, double ang, int spd)
         {
             this.isArrow = arrow;
             this.angle = ang;
             this.speed = spd;
+        }
+
+        public Projectile(bool arrow, double ang, int spd, double x, double y)
+        {
+            this.isArrow = arrow;
+            this.angle = ang;
+            this.speed = spd;
+            this.x = x;
+            this.y = y;
         }
         
         //public readonly int vx;
