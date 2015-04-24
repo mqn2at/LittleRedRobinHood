@@ -19,12 +19,12 @@
  </layer>
  <layer name="background2" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGLpADohloTStgAYQq0NpWgEjIDaE0rQCNkBsDaVpBUb9QTwYCv4gJm9R6g9i8hayPxQZEPkeF5BlQC0biAkDZH9oMyDyPSF3w2gtBsJhgOwPZBoXwKaWFH8AAKHdRb7cBQAA
+   H4sIAAAAAAAAC2NgGLpADohloTStgAYQq0NpWgEjIDaE0rQCNkBsDaVpBUb9QTwYKv4glL+o4Q9C+QvZH4oMiHyPD8gyoJYPhMIB2R/aDIh8T4y7YbQWA/5wQPYHMo0PYFNPrD8AiAqAE9wFAAA=
   </data>
  </layer>
  <layer name="background1" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHKBgFowA/EIDS/HjU4JMjBUiSKTdYAAD9OO9W3AUAAA==
+   H4sIAAAAAAAAC2NgoC0QorH5ICBDBzvU6GDHKBgFowA/EIDS/ATUEZInBkhSKD/QAAAF6ZkX3AUAAA==
   </data>
  </layer>
  <objectgroup name="obstacles">
@@ -41,12 +41,12 @@
     <property name="name" value="ground2"/>
    </properties>
   </object>
-  <object id="24" name="ground2" x="288" y="416" width="192" height="69">
+  <object id="24" name="ground2" x="320" y="416" width="192" height="69">
    <properties>
     <property name="name" value="ground2"/>
    </properties>
   </object>
-  <object id="28" name="box1" x="416" y="353" width="63" height="65">
+  <object id="28" name="box1" x="448" y="353" width="64" height="65">
    <properties>
     <property name="name" value="box1"/>
    </properties>
@@ -65,12 +65,12 @@
   </object>
  </objectgroup>
  <objectgroup name="enemies">
-  <object id="14" name="enemy1" x="497" y="275" width="34" height="31">
+  <object id="14" name="enemy1" x="533" y="268" width="34" height="31">
    <properties>
     <property name="name" value="enemy1"/>
    </properties>
   </object>
-  <object id="17" name="enemy2" x="629" y="96" width="34" height="31">
+  <object id="17" name="enemy2" x="643" y="92" width="34" height="31">
    <properties>
     <property name="name" value="enemy2"/>
    </properties>
@@ -82,7 +82,7 @@
     <property name="name" value="shackleable1"/>
    </properties>
   </object>
-  <object id="31" name="shackleable2" x="288" y="384" width="32" height="32">
+  <object id="31" name="shackleable2" x="320" y="384" width="32" height="32">
    <properties>
     <property name="name" value="shackleable2"/>
    </properties>
