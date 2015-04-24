@@ -71,9 +71,9 @@
     <property name="name" value="ground7"/>
    </properties>
   </object>
-  <object id="70" name="ground7" x="257" y="418.5" width="127" height="75">
+  <object id="70" name="ground8" x="257" y="418" width="127" height="75">
    <properties>
-    <property name="name" value="ground7"/>
+    <property name="name" value="ground8"/>
    </properties>
   </object>
  </objectgroup>
