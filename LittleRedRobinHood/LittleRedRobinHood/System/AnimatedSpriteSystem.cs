@@ -17,8 +17,7 @@ namespace LittleRedRobinHood.System
         float timePlayer;
         float timePatrol;
         float timeSparkle;
-        const float sparkleFrameTime = 0.3f;
-        const float patrolFrameTime = 0.3f;
+        const float sparkleFrameTime = 0.2f;
         const float frameTime = 0.1f;
 
         public bool running = false;
@@ -93,7 +92,7 @@ namespace LittleRedRobinHood.System
                         //check whether or not they are shackled/frozen
                         if (cm.getCollides()[sp.Value.entityID].numShackled == 0)
                         {
-                            column = cm.getPatrols()[sp.Value.entityID].currentFrame;
+                            column = patrolCurrentFrame;
                             row = 0;
                         }
                         //grab the current animation frame
@@ -104,18 +103,17 @@ namespace LittleRedRobinHood.System
 
                         //update the current frames
                         timePatrol += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        while (timePatrol > patrolFrameTime)
+                        while (timePatrol > frameTime)
                         {
                             // Play the next frame in the SpriteSheet
-                            //patrolCurrentFrame++;
-                            cm.getPatrols()[sp.Value.entityID].currentFrame = cm.getPatrols()[sp.Value.entityID].currentFrame+1;
+                            patrolCurrentFrame++;
                             // reset elapsed time
                             timePatrol = 0f;
                         }
                         //check out of bounds
-                        if (cm.getPatrols()[sp.Value.entityID].currentFrame >= patrolTotalFrame)
+                        if (patrolCurrentFrame >= patrolTotalFrame)
                         {
-                            cm.getPatrols()[sp.Value.entityID].currentFrame = 0;
+                            patrolCurrentFrame = 0;
                         }
                     }
                 }
