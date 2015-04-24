@@ -98,12 +98,25 @@ namespace LittleRedRobinHood
                         waypoints.Add(new Vector2(x - 200, y));
                     }
                 }
+                else if (tmxFile.Equals("stage10.tmx"))
+                {
+                    if (platformNum % 2 == 0)
+                    {
+                        waypoints.Add(new Vector2(x, y));
+                        waypoints.Add(new Vector2(x + 200, y));
+                    }
+                    else
+                    {
+                        waypoints.Add(new Vector2(x, y));
+                        waypoints.Add(new Vector2(x - 200, y));
+                    }
+                }
                 else
                 {
                     waypoints.Add(new Vector2(x, y));
                     waypoints.Add(new Vector2(x, y + 200));
                 }
-                cm.addPatrol(tempID, waypoints, 3);
+                cm.addPatrol(tempID, waypoints, 2);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("crate.png"), crateHitBox, false);
                 platformNum++;
             }
@@ -276,9 +289,18 @@ namespace LittleRedRobinHood
                 }
                 else if (tmxFile.Equals("stage8.tmx"))
                 {
-                    cm.addCollide(tempID, enemyHitBox, true, true);
-                    waypoints.Add(new Vector2(x, y + 200));
-                    waypoints.Add(new Vector2(x, y));
+                    if (enemycount == 0)
+                    {
+                        cm.addCollide(tempID, enemyHitBox, true, true);
+                        waypoints.Add(new Vector2(x, y - 100));
+                        waypoints.Add(new Vector2(x, y));
+                    }
+                    else
+                    {
+                        cm.addCollide(tempID, enemyHitBox, true, true);
+                        waypoints.Add(new Vector2(x, y + 100));
+                        waypoints.Add(new Vector2(x, y));
+                    }
 
                     cm.addPatrol(tempID, waypoints, 2);
                 }
@@ -341,7 +363,7 @@ namespace LittleRedRobinHood
                 List<Vector2> waypoints = new List<Vector2>();
                 
                 waypoints.Add(new Vector2(x, y));
-                waypoints.Add(new Vector2(x, y + 400));
+                waypoints.Add(new Vector2(x, y + 500));
                 cm.addPatrol(tempID, waypoints, 4, false);
                 cm.addProjectile(tempID, true, Math.PI / 2, 1);
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("pinecone.png"), pineconeSpriteBox, false);
