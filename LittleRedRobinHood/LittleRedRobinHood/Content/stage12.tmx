@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="70">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="32" tileheight="32" nextobjectid="71">
  <properties>
   <property name="mapmeta" value="mapvalue"/>
  </properties>
@@ -24,7 +24,7 @@
  </layer>
  <layer name="background2" width="25" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGHpAFojliBCjBKgDsQYRYpQAQyA2wiGmSCU7rIHYBoeYNgN1wgyfP0A0NcIMmz8GGsDSHKU0PgBLc5TS9ABAexYA/bOATtZRDSDHBzDfNdDCDnrEB3KeA9EAh17mINwFAAA=
+   H4sIAAAAAAAAC2NgGHpAFojliBCjBKgDsQYRYpQAQyA2wiGmSCU7rIHYBoeYNgN1wgyfP0A0NcIMmz8GGsDSHKU0PgBLc5TS9ABAexYA/bOATtZhBaSELTY9wHzXQEg9OWFLqh7k/IOet4jVAwD4hMap3AUAAA==
   </data>
  </layer>
  <layer name="top" width="25" height="15">
@@ -67,6 +67,11 @@
    </properties>
   </object>
   <object id="67" name="ground7" x="224" y="291" width="590" height="31">
+   <properties>
+    <property name="name" value="ground7"/>
+   </properties>
+  </object>
+  <object id="70" name="ground7" x="257" y="418.5" width="127" height="75">
    <properties>
     <property name="name" value="ground7"/>
    </properties>
@@ -169,7 +174,7 @@
   </object>
  </objectgroup>
  <objectgroup name="platforms">
-  <object id="28" name="platform1" x="242" y="426" width="64" height="32">
+  <object id="28" name="platform1" x="434" y="402" width="64" height="32">
    <properties>
     <property name="name" value="platform1"/>
    </properties>
