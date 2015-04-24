@@ -238,6 +238,8 @@ namespace LittleRedRobinHood
                 int temp = consys.UpdateEndScreen(manager);
                 if (temp > -1)
                 {
+                    manager.soundsys.stopSong();
+                    manager.soundsys.playMenuSong();
                     mainMenu = true;
                     victory = false;
                 }
@@ -266,6 +268,10 @@ namespace LittleRedRobinHood
                             {
                                 lives = manager.currentLives();
                                 currentStage += 1;
+                                if (((currentStage - 1) / 3) < ((currentStage) / 3))
+                                {
+                                    manager.soundsys.playGameSong(currentStage + 1);
+                                }
                                 LoadStage(currentStage);
                                 manager.persistLives(lives);
                                 break;
@@ -275,6 +281,7 @@ namespace LittleRedRobinHood
                                 manager.clearDictionaries();
                                 LoadMainMenu();
                                 victory = true;
+                                manager.soundsys.playVictorySong();
                                 break;
                             }
                         case -1:
@@ -308,6 +315,8 @@ namespace LittleRedRobinHood
                     case 0:
                         if (paused)
                         {
+                            manager.soundsys.stopSong();
+                            manager.soundsys.playMenuSong();
                             manager.clearDictionaries();
                             LoadMainMenu();
                             mainMenu = true;
