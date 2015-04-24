@@ -16,6 +16,8 @@ namespace LittleRedRobinHood.System
         //Sprite Animation Stuff
         float timePlayer;
         float timePatrol;
+        float timeSparkle;
+        const float sparkleFrameTime = 0.2f;
         const float frameTime = 0.1f;
 
         public bool running = false;
@@ -27,7 +29,7 @@ namespace LittleRedRobinHood.System
         private int patrolCurrentFrame = 0;
         private int patrolTotalFrame = 3;
         private int sparkleCurrentFrame = 0;
-        private int sparkleTotalFrame = 8;
+        private int sparkleTotalFrame = 12;
 
         private Texture2D sparkleImage;
         private int spriteSpeed = 10;
@@ -144,18 +146,19 @@ namespace LittleRedRobinHood.System
 
                     //grab the current animation frame
                     //Rectangle sourceRectangle = new Rectangle(32 * ((sparkleCurrentFrame % 8)), (int)(32 * (sparkleCurrentFrame / 8)), 32, 32);
-                    Rectangle sourceRectangle = new Rectangle(58 * ((sparkleCurrentFrame % 8)), 0, 58, 55);
+                    Rectangle sourceRectangle = new Rectangle(76 * sparkleCurrentFrame, 0, 76, 76);
+                    Rectangle destRectangle = new Rectangle(col.Value.hitbox.X-5, col.Value.hitbox.Y-5, col.Value.hitbox.Width+10, col.Value.hitbox.Height+10);
                     //draw the current animation frame
-                    sb.Draw(sparkleImage, col.Value.hitbox, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
+                    sb.Draw(sparkleImage, destRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
 
                     //update the current frames
-                    timePlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    while (timePlayer > frameTime)
+                    timeSparkle += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    while (timeSparkle > sparkleFrameTime)
                     {
                         // Play the next frame in the SpriteSheet
                         sparkleCurrentFrame++;
                         // reset elapsed time
-                        timePlayer = 0f;
+                        timeSparkle = 0f;
                     }
                     if (sparkleCurrentFrame >= sparkleTotalFrame)
                     {
