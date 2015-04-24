@@ -72,111 +72,8 @@ namespace LittleRedRobinHood.System
                 {
                     int column = 0;
                     float row = 0;
-                    
-                    //Player animation
-                    if (cm.getEntities()[sp.Value.entityID].isPlayer)
-                    {
-                       
-                        //Check which way player is facing
-                        if (cm.getPlayers()[sp.Value.entityID].is_right)
-                        {
-                            effect = SpriteEffects.None;
-                        }
-                        else
-                        {
-                            effect = SpriteEffects.FlipHorizontally;
-                        }
-
-                        //shooting??
-                        if (cm.getPlayers()[sp.Value.entityID].shooting)
-                        {
-                            spriteWidth = 73;
-                            spriteHeight = 58;
-                            column = playerCurrentFrame;
-                            playerTotalFrame = 5;
-                            row = 3;
-                            spriteSpeed = 5;
-                        }
-                        //jumping
-                        else if (cm.getPlayers()[sp.Value.entityID].jumping)
-                        {
-                            spriteWidth = 36;
-                            spriteHeight = 62; //wonky
-                            if (cm.getPlayers()[sp.Value.entityID].dy < 0)
-                            {
-                                playerTotalFrame = 2;
-                                column = playerCurrentFrame;
-                                row = 3.75f;
-                            }
-                            //falling
-                            else if (cm.getPlayers()[sp.Value.entityID].dy >= 0)
-                            {
-                                playerTotalFrame = 1;
-                                column = 2;
-                                row = 3.75f;
-                            }
-                        }
-                        //falling
-                        else if (cm.getPlayers()[sp.Value.entityID].dy > 6)
-                        {
-                            spriteWidth = 36;
-                            spriteHeight = 62;
-                            playerTotalFrame = 1;
-                            column = 2;
-                            row = 3.75f; //because height is not 58 like everything else
-                        }
-                        
-                        //running
-                        else if (cm.getPlayers()[sp.Value.entityID].running)
-                        {
-                            spriteWidth = 46;
-                            spriteHeight = 58;
-                            column = playerCurrentFrame;
-                            playerTotalFrame = 10;
-                            row = 1;
-                        }
-                        //idle
-                        else
-                        {
-                            spriteWidth = 36;
-                            spriteHeight = 58;
-                            column = playerCurrentFrame;
-                            playerTotalFrame = 10;
-                            row = 0;
-                        }
-                        //grab the current animation frame
-                        Rectangle sourceRectangle = new Rectangle(spriteWidth * column, (int)(spriteHeight * row), spriteWidth, spriteHeight);
-                        Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
-                        //Reset the collide hitbox size in case it changes (which it does with the Player)
-                        spriteWidth = 36; //NOT SURE ABOUT THIS OK but it works fine so that's good
-                        spriteHeight = 58;
-                        //cm.getCollides()[sp.Value.entityID].hitbox = destinationRectangle;
-                        //Make it so that shooting sprite isn't really off
-                        if (cm.getPlayers()[sp.Value.entityID].shooting && !cm.getPlayers()[sp.Value.entityID].is_right)
-                        {
-                            destinationRectangle.X = destinationRectangle.X - (73-36);
-                        }
-                        //draw the current animation frame
-                        sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
-
-                        //update the current frames
-                        timePlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        while (timePlayer > frameTime)
-                        {
-                            // Play the next frame in the SpriteSheet
-                            playerCurrentFrame++;
-                            // reset elapsed time
-                            timePlayer = 0f;
-                        }
-                        if (playerCurrentFrame >= playerTotalFrame)
-                        {
-                            playerCurrentFrame = 0;
-                            if (cm.getPlayers()[sp.Value.entityID].shooting)
-                                playerCurrentFrame = 3;
-                        }
-                    }
                     //Patrol animation
-                    else if (cm.getEntities()[sp.Value.entityID].isPatrol)
+                    if (cm.getEntities()[sp.Value.entityID].isPatrol)
                     {
                         row = 0;
                         column = 0;
@@ -221,9 +118,9 @@ namespace LittleRedRobinHood.System
                 else //no animation, so just draw
                 {
                     //Rotate if projectile BUT NOT PINECONE
-                    if (cm.getEntities()[sp.Value.entityID].isProjectile && !cm.getEntities()[sp.Value.entityID].isPatrol)
+                    if (cm.getEntities()[sp.Value.entityID].isProjectile && cm.getProjectiles()[sp.Value.entityID].isArrow && !cm.getEntities()[sp.Value.entityID].isPatrol)
                     {
-                        sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), null, Color.White, (float)cm.getProjectiles()[sp.Value.entityID].angle+(float)Math.PI, new Vector2(0, 0), SpriteEffects.None, 1);
+                        sb.Draw(image, new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight), null, Color.White, (float)cm.getProjectiles()[sp.Value.entityID].angle+(float)Math.PI, new Vector2(spriteWidth / 2, spriteHeight / 2), SpriteEffects.None, 1);
                     }
                     else
                     {
@@ -288,6 +185,114 @@ namespace LittleRedRobinHood.System
             for (int x = 0; x < pl.shackles; x++)
             {
                 sb.Draw(shS, new Rectangle(shB.X + (x * 30), shB.Y, shB.Width, shB.Height), Color.White);
+            }
+        }
+
+        public void DrawPlayer(SpriteBatch sb, ComponentManager cm, GameTime gameTime)
+        {
+            SpriteEffects effect = SpriteEffects.None;
+            int column = 0;
+            float row = 0;
+            int spriteX = cm.getCollides()[cm.playerID].hitbox.X;
+            int spriteY = cm.getCollides()[cm.playerID].hitbox.Y;
+            Texture2D image = cm.getSprites()[cm.playerID].sprite;
+            int spriteWidth = cm.getSprites()[cm.playerID].width;
+            int spriteHeight = cm.getSprites()[cm.playerID].height;
+            if (cm.getPlayers()[cm.playerID].is_right)
+            {
+                effect = SpriteEffects.None;
+            }
+            else
+            {
+                effect = SpriteEffects.FlipHorizontally;
+            }
+
+            //shooting??
+            if (cm.getPlayers()[cm.playerID].shooting)
+            {
+                spriteWidth = 73;
+                spriteHeight = 58;
+                column = playerCurrentFrame;
+                playerTotalFrame = 5;
+                row = 3;
+                spriteSpeed = 5;
+            }
+            //jumping
+            else if (cm.getPlayers()[cm.playerID].jumping)
+            {
+                spriteWidth = 36;
+                spriteHeight = 62; //wonky
+                if (cm.getPlayers()[cm.playerID].dy < 0)
+                {
+                    playerTotalFrame = 2;
+                    column = playerCurrentFrame;
+                    row = 3.75f;
+                }
+                //falling
+                else if (cm.getPlayers()[cm.playerID].dy >= 0)
+                {
+                    playerTotalFrame = 1;
+                    column = 2;
+                    row = 3.75f;
+                }
+            }
+            //falling
+            else if (cm.getPlayers()[cm.playerID].dy > 6)
+            {
+                spriteWidth = 36;
+                spriteHeight = 62;
+                playerTotalFrame = 1;
+                column = 2;
+                row = 3.75f; //because height is not 58 like everything else
+            }
+
+            //running
+            else if (cm.getPlayers()[cm.playerID].running)
+            {
+                spriteWidth = 46;
+                spriteHeight = 58;
+                column = playerCurrentFrame;
+                playerTotalFrame = 10;
+                row = 1;
+            }
+            //idle
+            else
+            {
+                spriteWidth = 36;
+                spriteHeight = 58;
+                column = playerCurrentFrame;
+                playerTotalFrame = 10;
+                row = 0;
+            }
+            //grab the current animation frame
+            Rectangle sourceRectangle = new Rectangle(spriteWidth * column, (int)(spriteHeight * row), spriteWidth, spriteHeight);
+            Rectangle destinationRectangle = new Rectangle(spriteX, spriteY, spriteWidth, spriteHeight);
+            //Reset the collide hitbox size in case it changes (which it does with the Player)
+            spriteWidth = 36; //NOT SURE ABOUT THIS OK but it works fine so that's good
+            spriteHeight = 58;
+            //cm.getCollides()[sp.Value.entityID].hitbox = destinationRectangle;
+            //Make it so that shooting sprite isn't really off
+            if (cm.getPlayers()[cm.playerID].shooting && !cm.getPlayers()[cm.playerID].is_right)
+            {
+                destinationRectangle.X = destinationRectangle.X - (73 - 36);
+            }
+            //draw the current animation frame
+            sb.Draw(image, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), effect, 1);
+
+            //update the current frames
+            timePlayer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            while (timePlayer > frameTime)
+            {
+                // Play the next frame in the SpriteSheet
+                playerCurrentFrame++;
+                // reset elapsed time
+                timePlayer = 0f;
+            }
+            if (playerCurrentFrame >= playerTotalFrame)
+            {
+                playerCurrentFrame = 0;
+                if (cm.getPlayers()[cm.playerID].shooting)
+                    playerCurrentFrame = 3;
             }
         }
     }

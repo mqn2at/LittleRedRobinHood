@@ -14,6 +14,7 @@ namespace LittleRedRobinHood.System
         public void Update(ComponentManager componentManager, GraphicsDevice gd)
         {
             List<int> toBeRemoved = new List<int>();
+            Dictionary<int, Projectile> projs = componentManager.getProjectiles();
             foreach (KeyValuePair<int, Entity> ent in componentManager.getEntities())
             {
                 
@@ -39,8 +40,10 @@ namespace LittleRedRobinHood.System
                 {
                     double dx = Math.Cos(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
                     double dy = Math.Sin(componentManager.getProjectiles()[entityID].angle) * componentManager.getProjectiles()[entityID].speed;
-                    componentManager.getCollides()[entityID].hitbox.X += (int)dx;
-                    componentManager.getCollides()[entityID].hitbox.Y += (int)dy;
+                    projs[entityID].x += dx;
+                    projs[entityID].y += dy;
+                    componentManager.getCollides()[entityID].hitbox.X = (int)projs[entityID].x;
+                    componentManager.getCollides()[entityID].hitbox.Y = (int)projs[entityID].y;
                 }
             }
             foreach (int id in toBeRemoved)

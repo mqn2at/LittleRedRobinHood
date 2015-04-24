@@ -22,8 +22,8 @@ namespace LittleRedRobinHood.System
         public int menuIndex = 0;
         public bool subMenu = false;
         private int TIMER_MAX = 8;
-        private int SHACKLE_SPEED = 9;
-        private int ARROW_SPEED = 12;
+        private int SHACKLE_SPEED = 12;
+        private int ARROW_SPEED = 15;
         private int X_SPEED = 4;
         private int JUMP = 10;
         private int MAX_FALL = 17;
@@ -152,10 +152,18 @@ namespace LittleRedRobinHood.System
                     player.is_right = true;
                 }
                 //Console.WriteLine("-1 shackle");
-                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + (pMove.hitbox.Height / 2) ), (ms.X - 8) - (pMove.hitbox.X + (pMove.hitbox.Width / 2) ));
+                double angle = Math.Atan2((ms.Y) - (pMove.hitbox.Center.Y), (ms.X) - (pMove.hitbox.Center.X));
+                //Console.WriteLine(angle);
                 int temp = cm.addEntity();
-                cm.addProjectile(temp, false, angle, SHACKLE_SPEED);
-                Rectangle tempBox = new Rectangle(pMove.hitbox.X + (pMove.hitbox.Width / 2) - (4), pMove.hitbox.Y + (pMove.hitbox.Height / 2) - (4), 16, 16);
+                if (Math.Abs(angle) <= Math.PI / 2)
+                {
+                    cm.addProjectile(temp, false, angle, SHACKLE_SPEED, pMove.hitbox.Center.X, pMove.hitbox.Center.Y - 8);
+                }
+                else
+                {
+                    cm.addProjectile(temp, false, angle, SHACKLE_SPEED, pMove.hitbox.Center.X, pMove.hitbox.Center.Y - 8);
+                }
+                Rectangle tempBox = new Rectangle(pMove.hitbox.Center.X, pMove.hitbox.Center.Y, 16, 16);
                 cm.addCollide(temp, tempBox, false, false);
                 cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("rope.png"), tempBox);
                 player.shackles -= 1;
@@ -176,12 +184,20 @@ namespace LittleRedRobinHood.System
                     player.is_right = true;
                 }
                 //Console.WriteLine("-1 arrow");
-                double angle = Math.Atan2((ms.Y - 8) - (pMove.hitbox.Y + (pMove.hitbox.Height / 2) ), (ms.X - 8) - (pMove.hitbox.X + (pMove.hitbox.Width / 2) ));
+                double angle = Math.Atan2((ms.Y) - (pMove.hitbox.Center.Y), (ms.X) - (pMove.hitbox.Center.X));
+                //Console.WriteLine(Math.Abs(angle));
                 int temp = cm.addEntity();
-                cm.addProjectile(temp, true, angle, ARROW_SPEED);
-                Rectangle arrowBox = new Rectangle(pMove.hitbox.X + (pMove.hitbox.Width / 2) - (4), pMove.hitbox.Y + (pMove.hitbox.Height / 2) - (4), 16, 16);
+                if (Math.Abs(angle) <= Math.PI / 2)
+                {
+                    cm.addProjectile(temp, true, angle, ARROW_SPEED, pMove.hitbox.Center.X, pMove.hitbox.Center.Y + 8);
+                }
+                else
+                {
+                    cm.addProjectile(temp, true, angle, ARROW_SPEED, pMove.hitbox.Center.X, pMove.hitbox.Center.Y - 8);
+                }
+                Rectangle arrowBox = new Rectangle(pMove.hitbox.Center.X, pMove.hitbox.Center.Y, 16, 16);
                 cm.addCollide(temp, arrowBox, false, false);
-                cm.addSprite(temp, 16, 16, cm.conman.Load<Texture2D>("arrow.png"), arrowBox);
+                cm.addSprite(temp, 32, 16, cm.conman.Load<Texture2D>("arrow.png"), arrowBox);
                 player.arrows -= 1;
                 //player.shooting = true;
                 //Force timer before next click
