@@ -159,8 +159,7 @@ namespace LittleRedRobinHood
             manager.addText(temp, font, new Vector2(this.MENUSTART_X, this.MENUSTART_Y + this.MENUOFFSET_Y), "Level Select", true, 1);
 
             //Song
-            manager.soundsys.stopSong();
-            manager.soundsys.playMenuSong();
+            
         }
 
         protected void LoadPauseMenu()
@@ -207,6 +206,8 @@ namespace LittleRedRobinHood
                 int temp = consys.UpdateEndScreen(manager);
                 if (temp > -1)
                 {
+                    manager.soundsys.stopSong();
+                    manager.soundsys.playMenuSong();
                     mainMenu = true;
                     realDead = false;
                 }
@@ -247,6 +248,7 @@ namespace LittleRedRobinHood
                     paused = false;
                     int temp = manager.currentLives();
                     LoadStage(currentStage);
+                    manager.soundsys.playGameSong(currentStage);
                     manager.persistLives(temp);
                 }
                 if (!paused && !dead)
@@ -282,11 +284,14 @@ namespace LittleRedRobinHood
                                 realDead = true;
                                 manager.clearDictionaries();
                                 LoadMainMenu();
+                                manager.soundsys.playDeathSong();
+                                
                                 break;
                             }
                             else
                             {
                                 dead = true;
+                                manager.soundsys.playDeathSong();
                                 LoadStage(currentStage);
                                 manager.persistLives(lives);
                                 break;
