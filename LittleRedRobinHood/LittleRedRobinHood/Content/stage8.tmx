@@ -65,7 +65,7 @@
   </object>
  </objectgroup>
  <objectgroup name="enemies">
-  <object id="14" name="enemy1" x="533" y="268" width="34" height="31">
+  <object id="14" name="enemy1" x="521" y="267" width="34" height="31">
    <properties>
     <property name="name" value="enemy1"/>
    </properties>
@@ -90,12 +90,12 @@
  </objectgroup>
  <objectgroup name="platforms"/>
  <objectgroup name="pinecones">
-  <object id="32" name="pinecone2" x="543" y="2" width="23" height="27">
+  <object id="32" name="pinecone2" x="567" y="2" width="23" height="27">
    <properties>
     <property name="name" value="pinecone2"/>
    </properties>
   </object>
-  <object id="35" name="pinecone1" x="166" y="3" width="23" height="27">
+  <object id="35" name="pinecone1" x="186" y="3" width="23" height="27">
    <properties>
     <property name="name" value="pinecone1"/>
    </properties>
