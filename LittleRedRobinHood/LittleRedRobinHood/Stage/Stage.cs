@@ -79,13 +79,13 @@ namespace LittleRedRobinHood
                 {
                     waypoints.Add(new Vector2(x, y));
                     waypoints.Add(new Vector2(x, y - 300));
-                    cm.addPatrol(tempID, waypoints, 4);
+                    cm.addPatrol(tempID, waypoints, 3);
                 }
                 else if (tmxFile.Equals("stage6.tmx"))
                 {
                     waypoints.Add(new Vector2(x, y));
                     waypoints.Add(new Vector2(x, y + 350));
-                    cm.addPatrol(tempID, waypoints, 4);
+                    cm.addPatrol(tempID, waypoints, 3);
                 }
                 else if (tmxFile.Equals("stage9.tmx"))
                 {
