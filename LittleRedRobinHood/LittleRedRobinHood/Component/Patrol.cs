@@ -16,6 +16,7 @@ namespace LittleRedRobinHood.Component
         public bool isCyclical;
         public int? dx = null;
         public int? dy = null;
+        public int currentFrame = 0;
 
         public int curr_dx = 0;
         public int curr_dy = 0;

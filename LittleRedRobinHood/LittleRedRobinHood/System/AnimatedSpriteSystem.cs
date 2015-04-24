@@ -18,6 +18,7 @@ namespace LittleRedRobinHood.System
         float timePatrol;
         float timeSparkle;
         const float sparkleFrameTime = 0.2f;
+        const float patrolFrameTime = 0.3f;
         const float frameTime = 0.1f;
 
         public bool running = false;
@@ -92,7 +93,7 @@ namespace LittleRedRobinHood.System
                         //check whether or not they are shackled/frozen
                         if (cm.getCollides()[sp.Value.entityID].numShackled == 0)
                         {
-                            column = patrolCurrentFrame;
+                            column = cm.getPatrols()[sp.Value.entityID].currentFrame;
                             row = 0;
                         }
                         //grab the current animation frame
@@ -103,17 +104,18 @@ namespace LittleRedRobinHood.System
 
                         //update the current frames
                         timePatrol += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        while (timePatrol > frameTime)
+                        while (timePatrol > patrolFrameTime)
                         {
                             // Play the next frame in the SpriteSheet
-                            patrolCurrentFrame++;
+                            //patrolCurrentFrame++;
+                            cm.getPatrols()[sp.Value.entityID].currentFrame = cm.getPatrols()[sp.Value.entityID].currentFrame+1;
                             // reset elapsed time
                             timePatrol = 0f;
                         }
                         //check out of bounds
-                        if (patrolCurrentFrame >= patrolTotalFrame)
+                        if (cm.getPatrols()[sp.Value.entityID].currentFrame >= patrolTotalFrame)
                         {
-                            patrolCurrentFrame = 0;
+                            cm.getPatrols()[sp.Value.entityID].currentFrame = 0;
                         }
                     }
                 }
