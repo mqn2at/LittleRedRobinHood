@@ -19,7 +19,7 @@ namespace LittleRedRobinHood.System
             {
                 
                 //Ignore if not projectile
-                if (!ent.Value.isProjectile) 
+                if (!ent.Value.isProjectile || ent.Value.isPatrol) 
                 {
                     continue;
                 }

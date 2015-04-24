@@ -83,14 +83,17 @@ namespace LittleRedRobinHood.System
                                         ///componentManager.getPatrols()[entityID].prevLoc = new Vector2(componentManager.getCollides()[entityID].hitbox.X, componentManager.getCollides()[entityID].hitbox.Y);
                                         componentManager.getCollides()[entityID].hitbox.X = x;
                                         componentManager.getCollides()[entityID].hitbox.Y = y;
-                                        
                                     }
                                     else
                                     {
                                         //Console.WriteLine("asdfsadf");
-                                            Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest - 1];
+                                        Vector2 destCyclical = path[componentManager.getPatrols()[entityID].currentDest - 1];
                                         componentManager.getCollides()[entityID].hitbox.X = (int)destCyclical.X;
                                         componentManager.getCollides()[entityID].hitbox.Y = (int)destCyclical.Y;
+                                        if(componentManager.getEntities()[entityID].isPatrol){
+                                            componentManager.getProjectiles()[entityID].x = (double)destCyclical.X;
+                                            componentManager.getProjectiles()[entityID].y = (double)destCyclical.Y;
+                                        }
                                             //Console.WriteLine("currentdest" + componentManager.getPatrols()[entityID].currentDest);
                                             //Console.WriteLine("dx:" + (destPos.X - x) + "," + dX + "dy:" + (destPos.Y - dY) + "," + dY);
                                     }
