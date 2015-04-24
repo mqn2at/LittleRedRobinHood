@@ -176,7 +176,7 @@ namespace LittleRedRobinHood.System
                                 //top side of object
                                 else if (playerHitbox.Y + playerHitbox.Height > objectHitbox.Y
                                     && playerHitbox.Y + playerHitbox.Height < objectHitbox.Y + objectHitbox.Height
-                                    && playerHitbox.Y + (int)(0.6 * playerHitbox.Height) < objectHitbox.Y)
+                                    && playerHitbox.Y + (int)(0.7 * playerHitbox.Height) < objectHitbox.Y)
                                 {
                                     //Ground if not jumping
                                     if (manager.getPlayers()[manager.playerID].dy >= 0)
