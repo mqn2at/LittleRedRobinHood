@@ -268,6 +268,10 @@ namespace LittleRedRobinHood
                             {
                                 lives = manager.currentLives();
                                 currentStage += 1;
+                                if (((currentStage - 1) / 3) < ((currentStage) / 3))
+                                {
+                                    manager.soundsys.playGameSong(currentStage + 1);
+                                }
                                 LoadStage(currentStage);
                                 manager.persistLives(lives);
                                 break;
