@@ -132,13 +132,13 @@ namespace LittleRedRobinHood
                 else if (tmxFile.Equals("stage12.tmx")) {
                     waypoints.Add(new Vector2(x, y));
                     waypoints.Add(new Vector2(x + 100, y));
-                    cm.addPatrol(tempID, waypoints, 3);
+                    cm.addPatrol(tempID, waypoints, 2);
                 }
                 else
                 {
                     waypoints.Add(new Vector2(x, y));
                     waypoints.Add(new Vector2(x, y + 300));
-                    cm.addPatrol(tempID, waypoints, 3);
+                    cm.addPatrol(tempID, waypoints, 2);
                 }
                 
                 cm.addSprite(tempID, o.Width, o.Height, content.Load<Texture2D>("crate.png"), crateHitBox, false);
