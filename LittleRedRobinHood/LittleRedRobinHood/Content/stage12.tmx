@@ -174,7 +174,7 @@
   </object>
  </objectgroup>
  <objectgroup name="platforms">
-  <object id="28" name="platform1" x="434" y="402" width="64" height="32">
+  <object id="28" name="platform1" x="409" y="401" width="64" height="32">
    <properties>
     <property name="name" value="platform1"/>
    </properties>

@@ -131,7 +131,7 @@ namespace LittleRedRobinHood
                 }
                 else if (tmxFile.Equals("stage12.tmx")) {
                     waypoints.Add(new Vector2(x, y));
-                    waypoints.Add(new Vector2(x + 100, y));
+                    waypoints.Add(new Vector2(x + 200, y));
                     cm.addPatrol(tempID, waypoints, 2);
                 }
                 else
