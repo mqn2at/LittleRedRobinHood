@@ -169,19 +169,19 @@
   </object>
  </objectgroup>
  <objectgroup name="platforms">
-  <object id="28" name="platform1" x="303" y="402" width="64" height="32">
+  <object id="28" name="platform1" x="242" y="426" width="64" height="32">
    <properties>
     <property name="name" value="platform1"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="pinecones">
-  <object id="59" name="pinecone1" x="248" y="2" width="23" height="27">
+  <object id="59" name="pinecone1" x="107" y="231" width="23" height="27">
    <properties>
     <property name="name" value="pinecone1"/>
    </properties>
   </object>
-  <object id="60" name="pinecone2" x="737" y="4" width="23" height="27">
+  <object id="60" name="pinecone2" x="760" y="4" width="23" height="27">
    <properties>
     <property name="name" value="pinecone2"/>
    </properties>
